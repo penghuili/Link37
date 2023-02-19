@@ -110,6 +110,11 @@ function PageDetails({
                   <Menu
                     icon={<MoreVertical />}
                     items={[
+                      {
+                        label: 'Add link',
+                        onClick: () => onNav(`/p/${pageId}/links/add?groupId=${group.sortKey}`),
+                        margin: '0.25rem 0',
+                      },
                       ...(group.sortKey !== noGroupLinksId
                         ? [
                             {

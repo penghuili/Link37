@@ -6,6 +6,7 @@ import ContentWrapper from '../../components/ContentWrapper';
 import DragDrop from '../../components/DragDrop';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 import { calculateItemPosition } from '../../lib/position';
+import { noGroupLinksId } from '../../store/links/linksNetwork';
 
 function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {
   useEffectOnce(() => {
@@ -22,7 +23,7 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
               {page.title}
             </Heading>
             <DragDrop
-              items={page.groups}
+              items={page.groups.filter(g => g.sortKey !== noGroupLinksId)}
               onDragEnd={(sourceId, targetId) => {
                 const newPosition = calculateItemPosition(page.groups, sourceId, targetId);
                 onUpdate({ pageId, linkId: sourceId, position: newPosition });

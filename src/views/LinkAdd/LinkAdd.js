@@ -15,7 +15,6 @@ function LinkAdd({ params: { pageId }, isLoading, onCreate }) {
   const [url, setUrl] = useState('');
   const [note, setNote] = useState('');
   const [groupId, setGroupId] = useState(groupIdInQuery || '');
-  console.log(groupIdInQuery)
 
   return (
     <>
