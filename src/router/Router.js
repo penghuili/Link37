@@ -3,6 +3,8 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
 
 import HorizontalCenter from '../components/HorizontalCenter';
+import Account from '../views/Account';
+import ChangePassword from '../views/ChangePassword';
 import Contact from '../views/Contact';
 import GroupAdd from '../views/GroupAdd';
 import GroupsOrder from '../views/GroupsOrder';
@@ -14,6 +16,7 @@ import PageAdd from '../views/PageAdd';
 import PageDetails from '../views/PageDetails';
 import Pages from '../views/Pages';
 import PageUpdate from '../views/PageUpdate';
+import Security from '../views/Security';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
 import Welcome from '../views/Welcome';
@@ -30,6 +33,10 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
   if (isLoggedIn) {
     return (
       <Switch>
+        <Route path="/account" component={Account} />
+        <Route path="/security" component={Security} />
+        <Route path="/security/password" component={ChangePassword} />
+
         <Route path="/p/:pageId/links/add" component={LinkAdd} />
         <Route path="/p/:pageId/links/:linkId" component={LinkUpdate} />
 
