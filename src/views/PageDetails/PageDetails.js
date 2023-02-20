@@ -115,6 +115,15 @@ function PageDetails({
                         onClick: () => onNav(`/p/${pageId}/links/add?groupId=${group.sortKey}`),
                         margin: '0.25rem 0',
                       },
+                      {
+                        label: 'Open all links',
+                        onClick: () => {
+                          for (let i = 0; i < group.links.length; i += 1) {
+                            window.open(group.links[i].url, '_blank');
+                          }
+                        },
+                        margin: '0.25rem 0',
+                      },
                       ...(group.sortKey !== noGroupLinksId
                         ? [
                             {

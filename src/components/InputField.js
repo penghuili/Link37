@@ -1,7 +1,7 @@
 import { Text, TextInput } from 'grommet';
 import React from 'react';
 
-function InputField({ label, placeholder, value, onChange }) {
+function InputField({ label, placeholder, value, disabled, onChange }) {
   return (
     <>
       <Text weight="bold">{label}</Text>
@@ -9,6 +9,7 @@ function InputField({ label, placeholder, value, onChange }) {
         placeholder={placeholder}
         value={value}
         onChange={event => onChange(event.target.value)}
+        disabled={disabled}
       />
     </>
   );
