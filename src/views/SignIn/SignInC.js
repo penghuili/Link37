@@ -10,6 +10,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  onClearError: () => authActionCreators.setError(null),
   onSignIn: authActionCreators.signInPressed,
 };
 

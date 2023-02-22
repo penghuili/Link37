@@ -6,6 +6,7 @@ import HorizontalCenter from '../components/HorizontalCenter';
 import Account from '../views/Account';
 import ChangePassword from '../views/ChangePassword';
 import Contact from '../views/Contact';
+import Encryption from '../views/Encryption';
 import GroupAdd from '../views/GroupAdd';
 import GroupsOrder from '../views/GroupsOrder';
 import GroupUpdate from '../views/GroupUpdate';
@@ -16,9 +17,12 @@ import PageAdd from '../views/PageAdd';
 import PageDetails from '../views/PageDetails';
 import Pages from '../views/Pages';
 import PageUpdate from '../views/PageUpdate';
+import Pricing from '../views/Pricing';
+import Privacy from '../views/Privacy';
 import Security from '../views/Security';
 import SignIn from '../views/SignIn';
 import SignUp from '../views/SignUp';
+import Terms from '../views/Terms';
 import Welcome from '../views/Welcome';
 
 function Router({ isCheckingRefreshToken, isLoggedIn }) {
@@ -48,6 +52,11 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
         <Route path="/p/:pageId" component={PageDetails} />
         <Route path="/p/:pageId/update" component={PageUpdate} />
 
+        <Route path="/encryption" component={Encryption} />
+        <Route path="/pricing" component={Pricing} />
+        <Route path="/privacy" component={Privacy} />
+        <Route path="/terms" component={Terms} />
+
         <Route path="/" component={Pages} />
         <Route>{() => <Redirect to="/" />}</Route>
       </Switch>
@@ -58,6 +67,11 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
     <Switch>
       <Route path="/sign-up" component={SignUp} />
       <Route path="/sign-in" component={SignIn} />
+
+      <Route path="/encryption" component={Encryption} />
+      <Route path="/pricing" component={Pricing} />
+      <Route path="/privacy" component={Privacy} />
+      <Route path="/terms" component={Terms} />
       <Route path="/contact" component={Contact} />
 
       <Route path="/" component={Welcome} />

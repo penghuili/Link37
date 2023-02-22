@@ -6,10 +6,15 @@ import ContentWrapper from '../../components/ContentWrapper';
 import PasswordInput from '../../components/PasswordInput';
 import RouteLink from '../../components/RouteLink';
 import Spacer from '../../components/Spacer';
+import { useEffectOnce } from '../../hooks/useEffectOnce';
 
-function SignIn({ errorMessage, isLoading, onSignIn }) {
+function SignIn({ errorMessage, isLoading, onClearError, onSignIn }) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+
+  useEffectOnce(() => {
+    return onClearError;
+  });
 
   const isDisabled = !username || !password || isLoading;
 
@@ -20,9 +25,10 @@ function SignIn({ errorMessage, isLoading, onSignIn }) {
 
     onSignIn(username, password);
   }
+
   return (
     <>
-      <AppBar title="Watcher37 sign in" hasBack />
+      <AppBar title="Link37 sign in" hasBack />
       <ContentWrapper>
         <PageHeader title="Sign in" />
         <TextInput
@@ -45,7 +51,7 @@ function SignIn({ errorMessage, isLoading, onSignIn }) {
         <RouteLink to="/sign-up" label="No account? Sign up" />
         <Spacer />
         <Text>
-          Be careful, Watcher37 uses end-to-end encryption for your personal data, so you can't
+          Be careful, Link37 uses end-to-end encryption for your personal data, so you can't
           reset your password. (You can change password after sign in)
         </Text>
         <Text>

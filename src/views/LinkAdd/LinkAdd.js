@@ -7,14 +7,19 @@ import ContentWrapper from '../../components/ContentWrapper';
 import GroupSelector from '../../components/GroupSelector';
 import InputField from '../../components/InputField';
 import Spacer from '../../components/Spacer';
+import { useEffectOnce } from '../../hooks/useEffectOnce';
 import { getQueryParams } from '../../lib/routeHelpers';
 
-function LinkAdd({ params: { pageId }, isLoading, onCreate }) {
+function LinkAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
   const { groupId: groupIdInQuery } = getQueryParams();
   const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
   const [note, setNote] = useState('');
   const [groupId, setGroupId] = useState(groupIdInQuery || '');
+
+  useEffectOnce(() => {
+    onFetch(pageId);
+  });
 
   return (
     <>

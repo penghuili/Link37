@@ -28,15 +28,7 @@ function Welcome() {
         <Spacer />
         <Divider />
         <Spacer />
-        <RouteLink label="Motivation" to="/motivation" />
-        <Spacer />
-        <RouteLink label="How it works?" to="/how" />
-        <Spacer />
-        <RouteLink label="Limitations" to="/limitations" />
-        <Spacer />
         <RouteLink label="How encryption works?" to="/encryption" />
-        <Spacer />
-        <RouteLink label="How to find selector?" to="/selector" />
         <Spacer />
         <RouteLink label="Pricing" to="/pricing" />
         <Spacer />

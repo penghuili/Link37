@@ -9,6 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
+  onFetch: linksActionCreators.fetchPageRequested,
   onCreate: linksActionCreators.createGroupPressed,
 };
 

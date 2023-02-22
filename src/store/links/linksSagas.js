@@ -65,7 +65,7 @@ function* handleUpdatePagePressed({
   yield put(linksActionCreators.isLoading(true));
 
   const page = yield select(linksSelectors.getDetails);
-  const { data } = yield call(updatePage, pageId, {
+  const { data } = yield call(updatePage, page.decryptedPassword, pageId, {
     encrypted: page.encrypted,
     title,
     note,
@@ -97,7 +97,13 @@ function* handleDeletePagePressed({ payload: { pageId } }) {
 function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId } }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const { data } = yield call(createLink, pageId, { title, url, note, groupId });
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(createLink, page.decryptedPassword, pageId, {
+    title,
+    url,
+    note,
+    groupId,
+  });
 
   if (data) {
     yield call(routeHelpers.goBack);
@@ -115,7 +121,14 @@ function* handleUpdateLinkPressed({
 
   yield put(linksActionCreators.isLoading(true));
 
-  const { data } = yield call(updateLink, pageId, linkId, { title, url, note, groupId, position });
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(updateLink, page.decryptedPassword, pageId, linkId, {
+    title,
+    url,
+    note,
+    groupId,
+    position,
+  });
 
   if (data) {
     if (goBack) {
@@ -147,7 +160,8 @@ function* handleDeleteLinkPressed({ payload: { pageId, linkId } }) {
 function* handleCreateGroupPressed({ payload: { pageId, title } }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const { data } = yield call(createGroup, pageId, { title });
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(createGroup, page.decryptedPassword, pageId, { title });
 
   if (data) {
     yield call(routeHelpers.goBack);
@@ -159,7 +173,11 @@ function* handleCreateGroupPressed({ payload: { pageId, title } }) {
 function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position, goBack } }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const { data } = yield call(updateGroup, pageId, groupId, { title, position });
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(updateGroup, page.decryptedPassword, pageId, groupId, {
+    title,
+    position,
+  });
 
   if (data) {
     if (goBack) {

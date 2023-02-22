@@ -5,9 +5,14 @@ import AppBar from '../../components/AppBar';
 import ContentWrapper from '../../components/ContentWrapper';
 import InputField from '../../components/InputField';
 import Spacer from '../../components/Spacer';
+import { useEffectOnce } from '../../hooks/useEffectOnce';
 
-function GroupAdd({ params: { pageId }, isLoading, onCreate }) {
+function GroupAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
   const [title, setTitle] = useState('');
+
+  useEffectOnce(() => {
+    onFetch(pageId);
+  });
 
   return (
     <>
