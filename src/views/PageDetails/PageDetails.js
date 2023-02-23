@@ -6,6 +6,7 @@ import AppBar from '../../components/AppBar';
 import ContentWrapper from '../../components/ContentWrapper';
 import Divider from '../../components/Divider';
 import HorizontalCenter from '../../components/HorizontalCenter';
+import PageAccess from '../../components/PageAccess';
 import RouteLink from '../../components/RouteLink';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
@@ -85,6 +86,7 @@ function PageDetails({
         {!!page && (
           <>
             <HorizontalCenter margin="1rem 0">
+             
               <Heading margin="0">{page.title}</Heading>
               {isOwner && (
                 <Menu
@@ -120,6 +122,7 @@ function PageDetails({
                   ]}
                 />
               )}
+               <PageAccess page={page} />
             </HorizontalCenter>
 
             {page.groups.map(group => (
