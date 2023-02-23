@@ -88,7 +88,7 @@ function Encryption() {
           plain text password to server, which will be saved in database;
         </Text>
         <Text margin="1rem 0 0">
-          2. When someone views this public page, he / she decrypt this page and its links with the
+          2. When someone views this public page, he / she decrypts this page and its links with the
           plain text password, then he / she can view the page content;
         </Text>
       </ContentWrapper>

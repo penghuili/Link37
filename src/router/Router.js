@@ -68,6 +68,8 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
       <Route path="/sign-up" component={SignUp} />
       <Route path="/sign-in" component={SignIn} />
 
+      <Route path="/p/:pageId" component={PageDetails} />
+
       <Route path="/encryption" component={Encryption} />
       <Route path="/pricing" component={Pricing} />
       <Route path="/privacy" component={Privacy} />

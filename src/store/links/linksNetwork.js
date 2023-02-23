@@ -27,7 +27,12 @@ export async function fetchPages() {
 
 export async function fetchPage(pageId) {
   try {
-    const page = await HTTP.get(servers.link37, `/v1/pages/${pageId}`);
+    const hasToken =
+      LocalStorage.get(LocalStorageKeys.refreshToken) &&
+      LocalStorage.get(LocalStorageKeys.accessToken);
+    const page = hasToken
+      ? await HTTP.get(servers.link37, `/v1/pages/${pageId}`)
+      : await HTTP.publicGet(servers.link37, `/v1/pages/${pageId}`);
 
     const decryptedPage = await decryptPageContent(page);
 
@@ -106,6 +111,32 @@ export async function updatePage(
       showNote,
       position,
     });
+
+    const decrypted = await decryptPageContent(page);
+
+    return { data: decrypted, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
+}
+
+export async function publicPage(pageId, { password }) {
+  try {
+    const page = await HTTP.put(servers.link37, `/v1/pages/${pageId}/public`, {
+      password,
+    });
+
+    const decrypted = await decryptPageContent(page);
+
+    return { data: decrypted, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
+}
+
+export async function privatePage(pageId) {
+  try {
+    const page = await HTTP.put(servers.link37, `/v1/pages/${pageId}/private`);
 
     const decrypted = await decryptPageContent(page);
 
@@ -244,10 +275,10 @@ async function encryptPageContent(page, decryptedPassword) {
 }
 
 async function decryptPageContent(page) {
-  const { title, note, password } = page;
+  const { title, note, isPublic, password } = page;
 
   const privateKey = LocalStorage.get(LocalStorageKeys.privateKey);
-  const decryptedPassword = await decryptMessage(privateKey, password);
+  const decryptedPassword = isPublic ? password : await decryptMessage(privateKey, password);
   const decryptedTitle = await decryptMessageSymmetric(decryptedPassword, title);
   const decryptedNote = note ? await decryptMessageSymmetric(decryptedPassword, note) : null;
 

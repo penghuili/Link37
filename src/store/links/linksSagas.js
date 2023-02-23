@@ -12,6 +12,8 @@ import {
   fetchPage,
   fetchPages,
   groupLinks,
+  privatePage,
+  publicPage,
   updateGroup,
   updateLink,
   updatePage,
@@ -77,6 +79,32 @@ function* handleUpdatePagePressed({
 
   if (data) {
     yield call(routeHelpers.goBack);
+  }
+
+  yield put(linksActionCreators.isLoading(false));
+}
+
+function* handlePublicPagePressed({ payload: { pageId } }) {
+  yield put(linksActionCreators.isLoading(true));
+
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(publicPage, pageId, {
+    password: page.decryptedPassword,
+  });
+  if (data) {
+    yield put(linksActionCreators.setPage({ ...page, ...data }));
+  }
+
+  yield put(linksActionCreators.isLoading(false));
+}
+
+function* handlePrivatePagePressed({ payload: { pageId } }) {
+  yield put(linksActionCreators.isLoading(true));
+
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(privatePage, pageId);
+  if (data) {
+    yield put(linksActionCreators.setPage({ ...page, ...data }));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -208,6 +236,8 @@ export function* linksSagas() {
     takeLatest(linksActionTypes.FETCH_PAGE_REQUESTED, handleFetchPageRequested),
     takeLatest(linksActionTypes.CREATE_PAGE_PRESSED, handleCreatePagePressed),
     takeLatest(linksActionTypes.UPDATE_PAGE_PRESSED, handleUpdatePagePressed),
+    takeLatest(linksActionTypes.PUBLIC_PAGE_PRESSED, handlePublicPagePressed),
+    takeLatest(linksActionTypes.PRIVATE_PAGE_PRESSED, handlePrivatePagePressed),
     takeLatest(linksActionTypes.DELETE_PAGE_PRESSED, handleDeletePagePressed),
     takeLatest(linksActionTypes.CREATE_LINK_PRESSED, handleCreateLinkPressed),
     takeLatest(linksActionTypes.UPDATE_LINK_PRESSED, handleUpdateLinkPressed),

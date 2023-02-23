@@ -6,6 +6,8 @@ export const linksActionTypes = {
   FETCH_PAGE_REQUESTED: 'links/FETCH_PAGE_REQUESTED',
   CREATE_PAGE_PRESSED: 'links/CREATE_PAGE_PRESSED',
   UPDATE_PAGE_PRESSED: 'links/UPDATE_PAGE_PRESSED',
+  PUBLIC_PAGE_PRESSED: 'links/PUBLIC_PAGE_PRESSED',
+  PRIVATE_PAGE_PRESSED: 'links/PRIVATE_PAGE_PRESSED',
   DELETE_PAGE_PRESSED: 'links/DELETE_PAGE_PRESSED',
   CREATE_LINK_PRESSED: 'links/CREATE_LINK_PRESSED',
   UPDATE_LINK_PRESSED: 'links/UPDATE_LINK_PRESSED',
@@ -50,6 +52,18 @@ export const linksActionCreators = {
     return {
       type: linksActionTypes.UPDATE_PAGE_PRESSED,
       payload: { pageId, title, note, showIndex, layout, showNote, position },
+    };
+  },
+  publicPagePressed(pageId) {
+    return {
+      type: linksActionTypes.PUBLIC_PAGE_PRESSED,
+      payload: { pageId },
+    };
+  },
+  privatePagePressed(pageId) {
+    return {
+      type: linksActionTypes.PRIVATE_PAGE_PRESSED,
+      payload: { pageId },
     };
   },
   deletePagePressed(pageId) {
