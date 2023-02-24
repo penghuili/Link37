@@ -86,7 +86,6 @@ function PageDetails({
         {!!page && (
           <>
             <HorizontalCenter margin="1rem 0">
-             
               <Heading margin="0">{page.title}</Heading>
               {isOwner && (
                 <Menu
@@ -122,7 +121,7 @@ function PageDetails({
                   ]}
                 />
               )}
-               <PageAccess page={page} />
+              <PageAccess page={page} />
             </HorizontalCenter>
 
             {page.groups.map(group => (
