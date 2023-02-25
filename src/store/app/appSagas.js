@@ -1,16 +1,16 @@
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
-import { LocalStorage, LocalStorageKeys } from '../../lib/LocalStorage';
 
-import { routeHelpers } from '../../lib/routeHelpers';
+import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
+import { routeHelpers } from '../../shared/react/routeHelpers';
 import { appActionCreators, appActionTypes } from './appActions';
 
 function* init() {
-  const openTime = yield call(LocalStorage.get, LocalStorageKeys.openTime);
+  const openTime = yield call(LocalStorage.get, sharedLocalStorageKeys.openTime);
   if (openTime) {
-    yield call(LocalStorage.set, LocalStorageKeys.lastOpenTime, openTime);
+    yield call(LocalStorage.set, sharedLocalStorageKeys.lastOpenTime, openTime);
   }
   
-  yield call(LocalStorage.set, LocalStorageKeys.openTime, Date.now());
+  yield call(LocalStorage.set, sharedLocalStorageKeys.openTime, Date.now());
 }
 
 function* handleGoBack() {
@@ -22,7 +22,7 @@ function* handleNavigate({ payload: { path } }) {
 }
 
 function* handleChangeThemeModePressed({ payload: { themeMode } }) {
-  yield call(LocalStorage.set, LocalStorageKeys.themeMode, themeMode);
+  yield call(LocalStorage.set, sharedLocalStorageKeys.themeMode, themeMode);
   yield put(appActionCreators.setThemeMode(themeMode));
 }
 

@@ -2,7 +2,7 @@ import { Spinner } from 'grommet';
 import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
 
-import HorizontalCenter from '../components/HorizontalCenter';
+import HorizontalCenter from '../shared/react/HorizontalCenter';
 import Account from '../views/Account';
 import ChangePassword from '../views/ChangePassword';
 import Contact from '../views/Contact';

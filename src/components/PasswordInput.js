@@ -2,7 +2,7 @@ import { Box, TextInput } from 'grommet';
 import { FormView, FormViewHide } from 'grommet-icons';
 import React, { useState } from 'react';
 
-import HorizontalCenter from './HorizontalCenter';
+import HorizontalCenter from '../shared/react/HorizontalCenter';
 
 function PasswordInput({ placeholder, value, onChange }) {
   const [show, setShow] = useState(false);

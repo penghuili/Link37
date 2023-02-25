@@ -3,11 +3,11 @@ import React from 'react';
 
 import AppBar from '../../components/AppBar';
 import ChangeTheme from '../../components/ChangeTheme';
-import ContentWrapper from '../../components/ContentWrapper';
 import Divider from '../../components/Divider';
 import RouteLink from '../../components/RouteLink';
 import Spacer from '../../components/Spacer';
-import { formatDateTime } from '../../lib/date';
+import { formatDateTime } from '../../shared/js/date';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Home({ account, isLoadingAccount }) {
   return (

@@ -2,10 +2,10 @@ import { Button } from 'grommet';
 import React, { useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
 import InputField from '../../components/InputField';
 import Spacer from '../../components/Spacer';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function GroupAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
   const [title, setTitle] = useState('');

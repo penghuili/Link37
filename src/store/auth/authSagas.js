@@ -1,8 +1,8 @@
 import { all, call, fork, put, takeLatest } from 'redux-saga/effects';
 
-import { errorCodes } from '../../lib/errorCodes';
-import { LocalStorage } from '../../lib/LocalStorage';
-import { routeHelpers } from '../../lib/routeHelpers';
+import httpErrorCodes from '../../shared/js/httpErrorCodes';
+import { LocalStorage } from '../../shared/js/LocalStorage';
+import { routeHelpers } from '../../shared/react/routeHelpers';
 import { appActionCreators } from '../app/appActions';
 import { authActionCreators, authActionTypes } from './authActions';
 import { checkRefreshToken, logoutFromAllDevices, signIn, signUp } from './authNetwork';
@@ -20,7 +20,7 @@ function* hanldeSignUpPressed({ payload: { username, password } }) {
   const { error } = yield call(signUp, username, password);
 
   if (error) {
-    if (error.errorCode === errorCodes.ALREADY_EXISTS) {
+    if (error.errorCode === httpErrorCodes.ALREADY_EXISTS) {
       yield put(authActionCreators.setError('This username is used.'));
     } else {
       yield put(authActionCreators.setError('Sign up failed.'));
@@ -37,7 +37,7 @@ function* hanldeSignInPressed({ payload: { username, password } }) {
 
   const { data, error } = yield call(signIn, username, password);
   if (error) {
-    if (error.errorCode === errorCodes.NOT_FOUND) {
+    if (error.errorCode === httpErrorCodes.NOT_FOUND) {
       yield put(authActionCreators.setError('This username does not exist.'));
     } else {
       yield put(authActionCreators.setError('Sign in failed.'));

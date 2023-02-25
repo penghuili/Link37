@@ -3,12 +3,12 @@ import { MoreVertical } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
 import Divider from '../../components/Divider';
-import HorizontalCenter from '../../components/HorizontalCenter';
 import PageAccess from '../../components/PageAccess';
 import RouteLink from '../../components/RouteLink';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
+import ContentWrapper from '../../shared/react/ContentWrapper';
+import HorizontalCenter from '../../shared/react/HorizontalCenter';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
 
 function Link({ pageId, link, isOwner, onDelete }) {

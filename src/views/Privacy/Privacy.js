@@ -2,7 +2,7 @@ import { Anchor, Text } from 'grommet';
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Privacy() {
   return (

@@ -1,6 +1,6 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
-import { routeHelpers } from '../../lib/routeHelpers';
+import { routeHelpers } from '../../shared/react/routeHelpers';
 import { appActionCreators } from '../app/appActions';
 import { toastTypes } from '../app/appReducer';
 import { linksActionCreators, linksActionTypes } from './linksActions';

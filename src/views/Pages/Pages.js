@@ -2,10 +2,10 @@ import { Box, Text } from 'grommet';
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
 import Divider from '../../components/Divider';
 import RouteLink from '../../components/RouteLink';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Pages({ pages, isLoading, onFetch }) {
   useEffectOnce(() => {

@@ -3,7 +3,7 @@ import React from 'react';
 
 import AppBar from '../../components/AppBar';
 import RouteLink from '../../components/RouteLink';
-import ContentWrapper from '../../components/ContentWrapper';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Pricing({ isLoggedIn }) {
   return (

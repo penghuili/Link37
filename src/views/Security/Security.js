@@ -2,10 +2,10 @@ import { Anchor } from 'grommet';
 import React, { useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import Confirm from '../../components/Confirm';
-import ContentWrapper from '../../components/ContentWrapper';
 import RouteLink from '../../components/RouteLink';
 import Spacer from '../../components/Spacer';
+import Confirm from '../../shared/react/Confirm';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Security({ onLogOut, onLogOutFromAllDevices, onDelete }) {
   const [showConfirm, setShowConfirm] = useState(false);

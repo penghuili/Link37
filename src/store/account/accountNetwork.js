@@ -1,14 +1,15 @@
+import apps from '../../shared/js/apps';
 import {
   decryptMessage,
   decryptMessageSymmetric,
   encryptMessageSymmetric,
-} from '../../lib/encryption';
-import HTTP, { servers } from '../../lib/HTTP';
+} from '../../shared/js/encryption';
+import HTTP from '../../shared/react/HTTP';
 
 export async function fetchAccount() {
   try {
     const { id, username, createdAt, updatedAt, backendPublicKey } = await HTTP.get(
-      servers.auth,
+      apps.auth,
       `/v1/me`
     );
 
@@ -29,7 +30,7 @@ export async function fetchAccount() {
 
 export async function deleteAccount() {
   try {
-    await HTTP.delete(servers.auth, `/v1/me`);
+    await HTTP.delete(apps.auth, `/v1/me`);
 
     return { data: { success: true }, error: null };
   } catch (error) {
@@ -41,13 +42,13 @@ export async function deleteAccount() {
 export async function changePassword(username, currentPassword, newPassword) {
   try {
     const { encryptedPrivateKey, encryptedChallenge } = await HTTP.publicGet(
-      servers.auth,
+      apps.auth,
       `/v1/me-public/${username}`
     );
     const privateKey = await decryptMessageSymmetric(currentPassword, encryptedPrivateKey);
     const challenge = await decryptMessage(privateKey, encryptedChallenge);
     const updatedEncryptedPrivateKey = await encryptMessageSymmetric(newPassword, privateKey);
-    const updatedUser = await HTTP.post(servers.auth, `/v1/me/password`, {
+    const updatedUser = await HTTP.post(apps.auth, `/v1/me/password`, {
       encryptedPrivateKey: updatedEncryptedPrivateKey,
       signinChallenge: challenge,
     });

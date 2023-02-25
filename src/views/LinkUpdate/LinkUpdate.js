@@ -2,13 +2,13 @@ import { Button } from 'grommet';
 import React, { useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import AreaField from '../../components/AreaField';
-import ContentWrapper from '../../components/ContentWrapper';
 import GroupSelector from '../../components/GroupSelector';
 import InputField from '../../components/InputField';
 import Spacer from '../../components/Spacer';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 import { useListener } from '../../hooks/useListener';
+import AreaField from '../../shared/react/AreaField';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function LinkUpdate({ params: { pageId, linkId }, link, isLoading, onFetch, onUpdate }) {
   const [title, setTitle] = useState('');

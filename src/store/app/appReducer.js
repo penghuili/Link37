@@ -1,4 +1,4 @@
-import { LocalStorage, LocalStorageKeys } from '../../lib/LocalStorage';
+import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
 import { appActionTypes } from './appActions';
 
 export const toastTypes = {
@@ -8,7 +8,7 @@ export const toastTypes = {
 };
 
 const initialState = {
-  themeMode: LocalStorage.get(LocalStorageKeys.themeMode) || 'dark',
+  themeMode: LocalStorage.get(sharedLocalStorageKeys.themeMode) || 'dark',
   toast: null,
 };
 

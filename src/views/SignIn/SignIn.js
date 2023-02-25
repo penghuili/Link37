@@ -2,14 +2,14 @@ import { Button, PageHeader, Text, TextInput } from 'grommet';
 import React, { useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import CannotResetPassword from '../../components/CannotResetPassword';
-import ContentWrapper from '../../components/ContentWrapper';
 import OneAccountFor from '../../components/OneAccountFor';
 import PasswordInput from '../../components/PasswordInput';
 import RouteLink from '../../components/RouteLink';
 import Spacer from '../../components/Spacer';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
-import apps from '../../lib/apps';
+import apps from '../../shared/js/apps';
+import CannotResetPassword from '../../shared/react/CannotResetPassword';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function SignIn({ errorMessage, isLoading, onClearError, onSignIn }) {
   const [username, setUsername] = useState('');

@@ -2,11 +2,11 @@ import { Button } from 'grommet';
 import React, { useState } from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
 import InputField from '../../components/InputField';
 import Spacer from '../../components/Spacer';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
 import { useListener } from '../../hooks/useListener';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function GroupUpdate({ params: { pageId, groupId }, isLoading, group, onFetch, onUpdate }) {
   const [title, setTitle] = useState('');

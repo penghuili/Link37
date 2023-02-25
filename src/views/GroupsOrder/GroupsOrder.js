@@ -2,10 +2,10 @@ import { Heading } from 'grommet';
 import React from 'react';
 
 import AppBar from '../../components/AppBar';
-import ContentWrapper from '../../components/ContentWrapper';
 import DragDrop from '../../components/DragDrop';
 import { useEffectOnce } from '../../hooks/useEffectOnce';
-import { calculateItemPosition } from '../../lib/position';
+import { calculateItemPosition } from '../../shared/js/position';
+import ContentWrapper from '../../shared/react/ContentWrapper';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
 
 function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {

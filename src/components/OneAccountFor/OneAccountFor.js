@@ -1,7 +1,7 @@
 import { Anchor, Avatar, Box, Heading, Text } from 'grommet';
 import React from 'react';
 
-import apps from '../../lib/apps';
+import apps from '../../shared/js/apps';
 import Divider from '../Divider';
 import Spacer from '../Spacer';
 import link37logo from './link37.png';

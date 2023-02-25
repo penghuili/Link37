@@ -1,7 +1,7 @@
 import { Box, RadioButton } from 'grommet';
 import React from 'react';
 
-import HorizontalCenter from '../HorizontalCenter';
+import HorizontalCenter from '../../shared/react/HorizontalCenter';
 
 function ChangeTheme({ themeMode, onChangeTheme }) {
   return (

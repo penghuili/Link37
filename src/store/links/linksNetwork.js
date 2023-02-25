@@ -1,17 +1,18 @@
-import { asyncForEach } from '../../lib/asyncForEach';
+import apps from '../../shared/js/apps';
+import asyncForEach from '../../shared/js/asyncForEach';
 import {
   decryptMessage,
   decryptMessageSymmetric,
   encryptMessage,
   encryptMessageSymmetric,
-} from '../../lib/encryption';
-import HTTP, { servers } from '../../lib/HTTP';
-import { LocalStorage, LocalStorageKeys } from '../../lib/LocalStorage';
-import { generatePassword } from '../../lib/password';
+} from '../../shared/js/encryption';
+import generatePassword from '../../shared/js/generatePassword';
+import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
+import HTTP from '../../shared/react/HTTP';
 
 export async function fetchPages() {
   try {
-    const pages = await HTTP.get(servers.link37, `/v1/pages`);
+    const pages = await HTTP.get(apps.link37.name, `/v1/pages`);
 
     const decryptedPages = [];
     await asyncForEach(pages, async page => {
@@ -28,11 +29,11 @@ export async function fetchPages() {
 export async function fetchPage(pageId) {
   try {
     const hasToken =
-      LocalStorage.get(LocalStorageKeys.refreshToken) &&
-      LocalStorage.get(LocalStorageKeys.accessToken);
+      LocalStorage.get(sharedLocalStorageKeys.refreshToken) &&
+      LocalStorage.get(sharedLocalStorageKeys.accessToken);
     const page = hasToken
-      ? await HTTP.get(servers.link37, `/v1/pages/${pageId}`)
-      : await HTTP.publicGet(servers.link37, `/v1/pages/${pageId}`);
+      ? await HTTP.get(apps.link37.name, `/v1/pages/${pageId}`)
+      : await HTTP.publicGet(apps.link37.name, `/v1/pages/${pageId}`);
 
     const decryptedPage = await decryptPageContent(page);
 
@@ -71,11 +72,11 @@ export async function createPage({ title, note, showIndex, layout, showNote }) {
       password
     );
     const encryptedPassword = await encryptMessage(
-      LocalStorage.get(LocalStorageKeys.publicKey),
+      LocalStorage.get(sharedLocalStorageKeys.publicKey),
       password
     );
 
-    const page = await HTTP.post(servers.link37, `/v1/pages`, {
+    const page = await HTTP.post(apps.link37.name, `/v1/pages`, {
       password: encryptedPassword,
       title: encryptedTitle,
       note: encryptedNote,
@@ -103,7 +104,7 @@ export async function updatePage(
       decryptedPassword
     );
 
-    const page = await HTTP.put(servers.link37, `/v1/pages/${pageId}`, {
+    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}`, {
       title: encryptedTitle,
       note: encryptedNote,
       showIndex,
@@ -122,7 +123,7 @@ export async function updatePage(
 
 export async function publicPage(pageId, { password }) {
   try {
-    const page = await HTTP.put(servers.link37, `/v1/pages/${pageId}/public`, {
+    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/public`, {
       password,
     });
 
@@ -136,7 +137,7 @@ export async function publicPage(pageId, { password }) {
 
 export async function privatePage(pageId) {
   try {
-    const page = await HTTP.put(servers.link37, `/v1/pages/${pageId}/private`);
+    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/private`);
 
     const decrypted = await decryptPageContent(page);
 
@@ -148,7 +149,7 @@ export async function privatePage(pageId) {
 
 export async function deletePage(pageId) {
   try {
-    const result = await HTTP.delete(servers.link37, `/v1/pages/${pageId}`);
+    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}`);
 
     return { data: result, error: null };
   } catch (error) {
@@ -164,7 +165,7 @@ export async function createLink(decryptedPassword, pageId, { title, url, note, 
       note: encryptedNote,
     } = await encryptLinkContent({ title, url, note }, decryptedPassword);
 
-    const link = await HTTP.post(servers.link37, `/v1/pages/${pageId}/links`, {
+    const link = await HTTP.post(apps.link37.name, `/v1/pages/${pageId}/links`, {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
@@ -192,7 +193,7 @@ export async function updateLink(
       note: encryptedNote,
     } = await encryptLinkContent({ title, url, note }, decryptedPassword);
 
-    const link = await HTTP.put(servers.link37, `/v1/pages/${pageId}/links/${linkId}`, {
+    const link = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}`, {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
@@ -210,7 +211,7 @@ export async function updateLink(
 
 export async function deleteLink(pageId, linkId) {
   try {
-    const result = await HTTP.delete(servers.link37, `/v1/pages/${pageId}/links/${linkId}`);
+    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}`);
 
     return { data: result, error: null };
   } catch (error) {
@@ -222,7 +223,7 @@ export async function createGroup(decryptedPassword, pageId, { title }) {
   try {
     const { title: encryptedTitle } = await encryptGroupContent({ title }, decryptedPassword);
 
-    const group = await HTTP.post(servers.link37, `/v1/pages/${pageId}/groups`, {
+    const group = await HTTP.post(apps.link37.name, `/v1/pages/${pageId}/groups`, {
       title: encryptedTitle,
     });
 
@@ -238,7 +239,7 @@ export async function updateGroup(decryptedPassword, pageId, groupId, { title, p
   try {
     const { title: encryptedTitle } = await encryptGroupContent({ title }, decryptedPassword);
 
-    const group = await HTTP.put(servers.link37, `/v1/pages/${pageId}/groups/${groupId}`, {
+    const group = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/groups/${groupId}`, {
       title: encryptedTitle,
       position,
     });
@@ -253,7 +254,7 @@ export async function updateGroup(decryptedPassword, pageId, groupId, { title, p
 
 export async function deleteGroup(pageId, groupId) {
   try {
-    const result = await HTTP.delete(servers.link37, `/v1/pages/${pageId}/groups/${groupId}`);
+    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}/groups/${groupId}`);
 
     return { data: result, error: null };
   } catch (error) {
@@ -277,7 +278,7 @@ async function encryptPageContent(page, decryptedPassword) {
 async function decryptPageContent(page) {
   const { title, note, isPublic, password } = page;
 
-  const privateKey = LocalStorage.get(LocalStorageKeys.privateKey);
+  const privateKey = LocalStorage.get(sharedLocalStorageKeys.privateKey);
   const decryptedPassword = isPublic ? password : await decryptMessage(privateKey, password);
   const decryptedTitle = await decryptMessageSymmetric(decryptedPassword, title);
   const decryptedNote = note ? await decryptMessageSymmetric(decryptedPassword, note) : null;
