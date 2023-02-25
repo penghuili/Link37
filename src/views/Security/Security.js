@@ -1,7 +1,7 @@
 import { Anchor } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../shared/react/AppBar';
+import AppBar from '../../components/AppBar';
 import Confirm from '../../shared/react/Confirm';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import RouteLink from '../../shared/react/RouteLink';

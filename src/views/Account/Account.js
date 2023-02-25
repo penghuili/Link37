@@ -1,8 +1,8 @@
 import { Spinner, Text } from 'grommet';
 import React from 'react';
 
+import AppBar from '../../components/AppBar';
 import { formatDateTime } from '../../shared/js/date';
-import AppBar from '../../shared/react/AppBar';
 import ChangeTheme from '../../shared/react/ChangeTheme';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';

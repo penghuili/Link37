@@ -1,8 +1,8 @@
 import { Anchor, Button, PageHeader, Text, TextInput } from 'grommet';
 import React, { useState } from 'react';
 
+import AppBar from '../../components/AppBar';
 import apps from '../../shared/js/apps';
-import AppBar from '../../shared/react/AppBar';
 import CannotResetPassword from '../../shared/react/CannotResetPassword';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';

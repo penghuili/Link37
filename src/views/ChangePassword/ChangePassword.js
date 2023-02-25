@@ -1,7 +1,7 @@
 import { Button, Spinner } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../shared/react/AppBar';
+import AppBar from '../../components/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import PasswordInput from '../../shared/react/PasswordInput';
 import Spacer from '../../shared/react/Spacer';

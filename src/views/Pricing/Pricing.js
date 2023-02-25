@@ -1,7 +1,7 @@
 import { Text } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../shared/react/AppBar';
+import AppBar from '../../components/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import RouteLink from '../../shared/react/RouteLink';
 

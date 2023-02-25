@@ -1,8 +1,8 @@
 import { Anchor, Heading, Text } from 'grommet';
 import React from 'react';
 
+import AppBar from '../../components/AppBar';
 import Pitch from '../../components/Pitch';
-import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Encryption() {
