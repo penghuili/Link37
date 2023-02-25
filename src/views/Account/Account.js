@@ -1,13 +1,13 @@
 import { Spinner, Text } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../components/AppBar';
-import ChangeTheme from '../../components/ChangeTheme';
-import Divider from '../../components/Divider';
-import RouteLink from '../../components/RouteLink';
-import Spacer from '../../components/Spacer';
 import { formatDateTime } from '../../shared/js/date';
+import AppBar from '../../shared/react/AppBar';
+import ChangeTheme from '../../shared/react/ChangeTheme';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import Divider from '../../shared/react/Divider';
+import RouteLink from '../../shared/react/RouteLink';
+import Spacer from '../../shared/react/Spacer';
 
 function Home({ account, isLoadingAccount }) {
   return (

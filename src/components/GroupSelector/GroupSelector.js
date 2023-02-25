@@ -1,7 +1,7 @@
 import { Select, Text } from 'grommet';
 import React, { useEffect, useState } from 'react';
 
-import { useEffectOnce } from '../../hooks/useEffectOnce';
+import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
 function GroupSelector({ pageId, groupId, page, disabled, onChange, onFetchPage }) {
   const [value, setValue] = useState(null);

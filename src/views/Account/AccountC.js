@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import { accountSelectors } from '../../store/account/accountSelectors';
+import sharedSelectors from '../../shared/react/store/sharedSelectors';
 import Account from './Account';
 
 const mapStateToProps = state => ({
-  account: accountSelectors.getAccount(state),
-  isLoadingAccount: accountSelectors.isLoading(state),
+  account: sharedSelectors.getAccount(state),
+  isLoadingAccount: sharedSelectors.isLoadingAccount(state),
 });
 
 const mapDispatchToProps = {};

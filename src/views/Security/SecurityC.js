@@ -1,15 +1,14 @@
 import { connect } from 'react-redux';
 
-import { accountActionCreators } from '../../store/account/accountActions';
-import { authActionCreators } from '../../store/auth/authActions';
+import { sharedActionCreators } from '../../shared/react/store/sharedActions';
 import Security from './Security';
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = {
-  onLogOut: authActionCreators.logOutPressed,
-  onLogOutFromAllDevices: authActionCreators.logOutFromAllDevicesPressed,
-  onDelete: accountActionCreators.deletePressed,
+  onLogOut: sharedActionCreators.logOutPressed,
+  onLogOutFromAllDevices: sharedActionCreators.logOutFromAllDevicesPressed,
+  onDelete: sharedActionCreators.deleteAccountPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Security);

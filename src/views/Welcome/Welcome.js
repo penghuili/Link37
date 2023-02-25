@@ -2,12 +2,12 @@ import { Avatar, Heading } from 'grommet';
 import React from 'react';
 
 import logo from '../../assets/logo.png';
-import Divider from '../../components/Divider';
 import Pitch from '../../components/Pitch';
-import RouteLink from '../../components/RouteLink';
-import Spacer from '../../components/Spacer';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import Divider from '../../shared/react/Divider';
 import HorizontalCenter from '../../shared/react/HorizontalCenter';
+import RouteLink from '../../shared/react/RouteLink';
+import Spacer from '../../shared/react/Spacer';
 
 function Welcome() {
   return (

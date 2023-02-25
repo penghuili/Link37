@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import { appActionCreators } from '../../store/app/appActions';
 
+import { sharedActionCreators } from '../../shared/react/store/sharedActions';
 import { linksActionCreators } from '../../store/links/linksActions';
 import { linksSelectors } from '../../store/links/linksSelectors';
 import PageDetails from './PageDetails';
@@ -18,7 +18,7 @@ const mapDispatchToProps = {
   onDeleteLink: linksActionCreators.deleteLinkPressed,
   onDeleteGroup: linksActionCreators.deleteGroupPressed,
   onDeletePage: linksActionCreators.deletePagePressed,
-  onNav: appActionCreators.navigate,
+  onNav: sharedActionCreators.navigate,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageDetails);

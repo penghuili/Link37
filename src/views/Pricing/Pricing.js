@@ -1,9 +1,9 @@
 import { Text } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../components/AppBar';
-import RouteLink from '../../components/RouteLink';
+import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import RouteLink from '../../shared/react/RouteLink';
 
 function Pricing({ isLoggedIn }) {
   return (

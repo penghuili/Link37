@@ -1,8 +1,8 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
 
 import { routeHelpers } from '../../shared/react/routeHelpers';
-import { appActionCreators } from '../app/appActions';
-import { toastTypes } from '../app/appReducer';
+import { sharedActionCreators } from '../../shared/react/store/sharedActions';
+import { toastTypes } from '../../shared/react/store/sharedReducer';
 import { linksActionCreators, linksActionTypes } from './linksActions';
 import {
   createGroup,
@@ -58,9 +58,9 @@ function* handleCreatePagePressed({ payload: { title, note, showIndex, layout, s
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(appActionCreators.setToast('Page is created!'));
+    yield put(sharedActionCreators.setToast('Page is created!'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -84,9 +84,9 @@ function* handleUpdatePagePressed({
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(appActionCreators.setToast('Page is updated.'));
+    yield put(sharedActionCreators.setToast('Page is updated.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -101,9 +101,9 @@ function* handlePublicPagePressed({ payload: { pageId } }) {
   });
   if (data) {
     yield put(linksActionCreators.setPage({ ...page, ...data }));
-    yield put(appActionCreators.setToast('Your page is public now, share it with friends!'));
+    yield put(sharedActionCreators.setToast('Your page is public now, share it with friends!'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -116,9 +116,9 @@ function* handlePrivatePagePressed({ payload: { pageId } }) {
   const { data } = yield call(privatePage, pageId);
   if (data) {
     yield put(linksActionCreators.setPage({ ...page, ...data }));
-    yield put(appActionCreators.setToast('Your page is private now, only you can access.'));
+    yield put(sharedActionCreators.setToast('Your page is private now, only you can access.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -131,9 +131,9 @@ function* handleDeletePagePressed({ payload: { pageId } }) {
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(appActionCreators.setToast('Page is deleted.'));
+    yield put(sharedActionCreators.setToast('Page is deleted.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -152,9 +152,9 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(appActionCreators.setToast('Link is created.'));
+    yield put(sharedActionCreators.setToast('Link is created.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -182,9 +182,9 @@ function* handleUpdateLinkPressed({
     if (goBack) {
       yield call(routeHelpers.goBack);
     }
-    yield put(appActionCreators.setToast('Link is updated.'));
+    yield put(sharedActionCreators.setToast('Link is updated.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -203,9 +203,9 @@ function* handleDeleteLinkPressed({ payload: { pageId, linkId } }) {
     const updated = { ...page, links: page.links.filter(link => link.sortKey !== linkId) };
     const sorted = groupLinks(updated);
     yield put(linksActionCreators.setPage(sorted));
-    yield put(appActionCreators.setToast('Link is deleted.'));
+    yield put(sharedActionCreators.setToast('Link is deleted.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -219,9 +219,9 @@ function* handleCreateGroupPressed({ payload: { pageId, title } }) {
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(appActionCreators.setToast('Group is created.'));
+    yield put(sharedActionCreators.setToast('Group is created.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -240,9 +240,9 @@ function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position
     if (goBack) {
       yield call(routeHelpers.goBack);
     }
-    yield put(appActionCreators.setToast('Group is updated.'));
+    yield put(sharedActionCreators.setToast('Group is updated.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
@@ -257,9 +257,9 @@ function* handleDeleteGroupPressed({ payload: { pageId, groupId } }) {
     const updated = { ...page, groups: page.groups.filter(item => item.sortKey !== groupId) };
     const sorted = groupLinks(updated);
     yield put(linksActionCreators.setPage(sorted));
-    yield put(appActionCreators.setToast('Group is deleted.'));
+    yield put(sharedActionCreators.setToast('Group is deleted.'));
   } else {
-    yield put(appActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));

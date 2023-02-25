@@ -1,11 +1,11 @@
 import { connect } from 'react-redux';
 
-import { authSelectors } from '../store/auth/authSelectors';
+import sharedSelectors from '../shared/react/store/sharedSelectors';
 import Router from './Router';
 
 const mapStateToProps = state => ({
-  isCheckingRefreshToken: authSelectors.isCheckingRefreshToken(state),
-  isLoggedIn: authSelectors.isLoggedIn(state),
+  isCheckingRefreshToken: sharedSelectors.isCheckingRefreshToken(state),
+  isLoggedIn: sharedSelectors.isLoggedIn(state),
 });
 
 const mapDispatchToProps = {};

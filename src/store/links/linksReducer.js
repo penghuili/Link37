@@ -1,4 +1,4 @@
-import { appActionTypes } from '../app/appActions';
+import { sharedActionTypes } from '../../shared/react/store/sharedActions';
 import { linksActionTypes } from './linksActions';
 
 const initialState = {
@@ -34,7 +34,7 @@ export function linksReducer(state = initialState, action) {
     case linksActionTypes.IS_LOADING:
       return handleIsLoading(state, action.payload);
 
-    case appActionTypes.RESET:
+    case sharedActionTypes.RESET:
       return handleReset();
 
     default:

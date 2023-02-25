@@ -1,10 +1,8 @@
 import { all } from 'redux-saga/effects';
-import { accountSagas } from './account/accountSagas';
 
-import { appSagas } from './app/appSagas';
-import { authSagas } from './auth/authSagas';
+import { sharedSagas } from '../shared/react/store/sharedSaga';
 import { linksSagas } from './links/linksSagas';
 
 export function* sagas() {
-  yield all([appSagas(), authSagas(), accountSagas(), linksSagas()]);
+  yield all([linksSagas(), sharedSagas()]);
 }

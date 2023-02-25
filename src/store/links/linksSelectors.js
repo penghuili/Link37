@@ -1,4 +1,4 @@
-import { accountSelectors } from '../account/accountSelectors';
+import sharedSelectors from '../../shared/react/store/sharedSelectors';
 
 export const linksSelectors = {
   isLoading: state => state.links.isLoading,
@@ -10,7 +10,7 @@ export const linksSelectors = {
   getDetails: state => state.links.details,
   isPageOwner: state => {
     const pageOwner = linksSelectors.getDetails(state)?.id;
-    const userId = accountSelectors.getAccount(state).userId;
+    const userId = sharedSelectors.getAccount(state).userId;
     return !!pageOwner && pageOwner === userId;
   },
 };

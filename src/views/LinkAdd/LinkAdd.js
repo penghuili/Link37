@@ -1,14 +1,14 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../components/AppBar';
 import GroupSelector from '../../components/GroupSelector';
-import InputField from '../../components/InputField';
-import Spacer from '../../components/Spacer';
-import { useEffectOnce } from '../../hooks/useEffectOnce';
+import AppBar from '../../shared/react/AppBar';
 import AreaField from '../../shared/react/AreaField';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
+import InputField from '../../shared/react/InputField';
 import { getQueryParams } from '../../shared/react/routeHelpers';
+import Spacer from '../../shared/react/Spacer';
 
 function LinkAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
   const { groupId: groupIdInQuery } = getQueryParams();

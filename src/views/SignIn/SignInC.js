@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-import { authActionCreators } from '../../store/auth/authActions';
-import { authSelectors } from '../../store/auth/authSelectors';
 
+import { sharedActionCreators } from '../../shared/react/store/sharedActions';
+import sharedSelectors from '../../shared/react/store/sharedSelectors';
 import SignIn from './SignIn';
 
 const mapStateToProps = state => ({
-  errorMessage: authSelectors.getErrorMessage(state),
-  isLoading: authSelectors.isLoading(state),
+  errorMessage: sharedSelectors.getErrorMessage(state),
+  isLoading: sharedSelectors.isLoadingAuth(state),
 });
 
 const mapDispatchToProps = {
-  onClearError: () => authActionCreators.setError(null),
-  onSignIn: authActionCreators.signInPressed,
+  onClearError: () => sharedActionCreators.setAuthError(null),
+  onSignIn: sharedActionCreators.signInPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

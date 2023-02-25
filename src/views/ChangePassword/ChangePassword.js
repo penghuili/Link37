@@ -1,10 +1,10 @@
 import { Button, Spinner } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../components/AppBar';
-import PasswordInput from '../../components/PasswordInput';
-import Spacer from '../../components/Spacer';
+import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import PasswordInput from '../../shared/react/PasswordInput';
+import Spacer from '../../shared/react/Spacer';
 
 function ChangePassword({ isLoading, onChange }) {
   const [currentPassword, setCurrentPassword] = useState('');
