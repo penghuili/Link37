@@ -8,6 +8,7 @@ export const linksSelectors = {
   getGroup: (state, groupId) =>
     linksSelectors.getDetails(state)?.groups?.find(group => group.sortKey === groupId),
   getDetails: state => state.links.details,
+  getFetchError: state => state.links.fetchError,
   isPageOwner: state => {
     const pageOwner = linksSelectors.getDetails(state)?.id;
     const userId = sharedSelectors.getAccount(state).userId;

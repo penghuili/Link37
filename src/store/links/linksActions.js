@@ -2,6 +2,7 @@ export const linksActionTypes = {
   IS_LOADING: 'links/IS_LOADING',
   SET_PAGES: 'links/SET_PAGES',
   SET_PAGE: 'links/SET_PAGE',
+  SET_FETCH_ERROR: 'links/SET_FETCH_ERROR',
   FETCH_PAGES_REQUESTED: 'links/FETCH_PAGES_REQUESTED',
   FETCH_PAGE_REQUESTED: 'links/FETCH_PAGE_REQUESTED',
   CREATE_PAGE_PRESSED: 'links/CREATE_PAGE_PRESSED',
@@ -34,6 +35,12 @@ export const linksActionCreators = {
     return {
       type: linksActionTypes.SET_PAGE,
       payload: { page },
+    };
+  },
+  setFetchError(error) {
+    return {
+      type: linksActionTypes.SET_FETCH_ERROR,
+      payload: { error },
     };
   },
   fetchPagesRequested() {

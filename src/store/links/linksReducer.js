@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   pages: [],
   details: null,
+  fetchError: null,
 };
 
 function handleSetPages(state, { pages }) {
@@ -13,6 +14,10 @@ function handleSetPages(state, { pages }) {
 
 function handleSetPage(state, { page }) {
   return { ...state, details: page };
+}
+
+function handleSetFetchError(state, { error }) {
+  return { ...state, fetchError: error };
 }
 
 function handleIsLoading(state, { value }) {
@@ -30,6 +35,9 @@ export function linksReducer(state = initialState, action) {
 
     case linksActionTypes.SET_PAGE:
       return handleSetPage(state, action.payload);
+
+    case linksActionTypes.SET_FETCH_ERROR:
+      return handleSetFetchError(state, action.payload);
 
     case linksActionTypes.IS_LOADING:
       return handleIsLoading(state, action.payload);

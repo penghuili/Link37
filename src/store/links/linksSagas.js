@@ -42,10 +42,24 @@ function* handleFetchPageRequested({ payload: { pageId } }) {
   yield put(linksActionCreators.isLoading(true));
   yield put(linksActionCreators.setPage(null));
 
-  const { data } = yield call(fetchPage, pageId);
+  const { data, error } = yield call(fetchPage, pageId);
 
   if (data) {
     yield put(linksActionCreators.setPage(data));
+  }
+
+  if (error) {
+    if (error.status === 401) {
+      yield put(linksActionCreators.setFetchError('You need to login to view this page.'));
+    }
+
+    if (error.status === 403) {
+      yield put(linksActionCreators.setFetchError('You do not have access to this page.'));
+    }
+
+    if (error.status === 404) {
+      yield put(linksActionCreators.setFetchError('This page does not exist.'));
+    }
   }
 
   yield put(linksActionCreators.isLoading(false));

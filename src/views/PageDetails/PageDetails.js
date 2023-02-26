@@ -54,6 +54,7 @@ function Link({ pageId, link, isOwner, onDelete }) {
 function PageDetails({
   params: { pageId },
   page,
+  fetchError,
   isLoading,
   isOwner,
   onFetch,
@@ -72,6 +73,8 @@ function PageDetails({
     <>
       <AppBar title="Page details" isLoading={isLoading} hasBack />
       <ContentWrapper>
+        {!!fetchError && <Text size="large">{fetchError}</Text>}
+
         {isOwner && (
           <>
             <HorizontalCenter margin="0 0 1rem">

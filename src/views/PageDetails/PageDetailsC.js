@@ -7,6 +7,7 @@ import PageDetails from './PageDetails';
 
 const mapStateToProps = state => ({
   page: linksSelectors.getDetails(state),
+  fetchError: linksSelectors.getFetchError(state),
   isLoading: linksSelectors.isLoading(state),
   isOwner: linksSelectors.isPageOwner(state),
 });
