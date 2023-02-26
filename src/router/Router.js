@@ -2,10 +2,10 @@ import { Spinner } from 'grommet';
 import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
 
+import ChangePassword from '../shared/react/ChangePassword';
 import HorizontalCenter from '../shared/react/HorizontalCenter';
 import Security from '../shared/react/Security';
 import Account from '../views/Account';
-import ChangePassword from '../views/ChangePassword';
 import Contact from '../views/Contact';
 import Encryption from '../views/Encryption';
 import GroupAdd from '../views/GroupAdd';
