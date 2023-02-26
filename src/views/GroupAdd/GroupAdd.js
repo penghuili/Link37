@@ -1,7 +1,7 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../components/AppBar';
+import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import InputField from '../../shared/react/InputField';

@@ -1,7 +1,7 @@
 import { Heading } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../components/AppBar';
+import AppBar from '../../shared/react/AppBar';
 import DragDrop from '../../components/DragDrop';
 import { calculateItemPosition } from '../../shared/js/position';
 import ContentWrapper from '../../shared/react/ContentWrapper';

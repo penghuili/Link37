@@ -1,7 +1,7 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../components/AppBar';
+import AppBar from '../../shared/react/AppBar';
 import { LAYOUT } from '../../lib/constants';
 import AreaField from '../../shared/react/AreaField';
 import ContentWrapper from '../../shared/react/ContentWrapper';

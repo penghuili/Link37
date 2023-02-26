@@ -2,11 +2,15 @@ import React from 'react';
 import { Provider as StoreProvider, useDispatch } from 'react-redux';
 import { useLocation } from 'wouter';
 
+import logo from './assets/logo.png';
 import Router from './router';
 import AppContainer from './shared/react/AppContainer';
 import createTheme from './shared/react/AppContainer/createTheme';
 import { HooksOutsieWrapper, setHook } from './shared/react/hooksOutside';
+import initShared from './shared/react/initShared';
 import store from './store';
+
+initShared({ logo });
 
 setHook('location', useLocation);
 setHook('dispatch', useDispatch);

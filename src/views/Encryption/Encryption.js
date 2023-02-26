@@ -1,7 +1,7 @@
 import { Anchor, Heading, Text } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../components/AppBar';
+import AppBar from '../../shared/react/AppBar';
 import Pitch from '../../components/Pitch';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 
