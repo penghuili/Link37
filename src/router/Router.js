@@ -3,10 +3,12 @@ import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
 
 import ChangePassword from '../shared/react/ChangePassword';
+import Contact from '../shared/react/Contact';
 import HorizontalCenter from '../shared/react/HorizontalCenter';
 import Security from '../shared/react/Security';
+import SignIn from '../shared/react/SignIn';
+import SignUp from '../shared/react/SignUp';
 import Account from '../views/Account';
-import Contact from '../views/Contact';
 import Encryption from '../views/Encryption';
 import GroupAdd from '../views/GroupAdd';
 import GroupsOrder from '../views/GroupsOrder';
@@ -20,8 +22,6 @@ import Pages from '../views/Pages';
 import PageUpdate from '../views/PageUpdate';
 import Pricing from '../views/Pricing';
 import Privacy from '../views/Privacy';
-import SignIn from '../views/SignIn';
-import SignUp from '../views/SignUp';
 import Terms from '../views/Terms';
 import Welcome from '../views/Welcome';
 

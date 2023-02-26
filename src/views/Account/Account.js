@@ -1,15 +1,15 @@
 import { Spinner, Text } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../shared/react/AppBar';
 import { formatDateTime } from '../../shared/js/date';
+import AppBar from '../../shared/react/AppBar';
 import ChangeTheme from '../../shared/react/ChangeTheme';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';
 import RouteLink from '../../shared/react/RouteLink';
 import Spacer from '../../shared/react/Spacer';
 
-function Home({ account, isLoadingAccount }) {
+function Account({ account, isLoadingAccount }) {
   return (
     <>
       <AppBar title="Account" hasBack />
@@ -45,4 +45,4 @@ function Home({ account, isLoadingAccount }) {
   );
 }
 
-export default Home;
+export default Account;
