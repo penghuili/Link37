@@ -1,8 +1,10 @@
 import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import apps from '../../shared/js/apps';
 
 import { routeHelpers } from '../../shared/react/routeHelpers';
-import { sharedActionCreators } from '../../shared/react/store/sharedActions';
+import { sharedActionCreators, sharedActionTypes } from '../../shared/react/store/sharedActions';
 import { toastTypes } from '../../shared/react/store/sharedReducer';
+import sharedSelectors from '../../shared/react/store/sharedSelectors';
 import { linksActionCreators, linksActionTypes } from './linksActions';
 import {
   createGroup,
@@ -22,7 +24,18 @@ import {
 } from './linksNetwork';
 import { linksSelectors } from './linksSelectors';
 
+function* handleIsLoggedIn({ payload: { loggedIn } }) {
+  if (loggedIn) {
+    yield put(sharedActionCreators.fetchSettingsRequested(apps.link37.name));
+  }
+}
+
 function* handleFetchPagesRequested() {
+  const isAccountValid = yield select(sharedSelectors.isAccountValid);
+  if (!isAccountValid) {
+    return;
+  }
+
   yield put(linksActionCreators.isLoading(true));
 
   const { data } = yield call(fetchPages);
@@ -281,6 +294,7 @@ function* handleDeleteGroupPressed({ payload: { pageId, groupId } }) {
 
 export function* linksSagas() {
   yield all([
+    takeLatest(sharedActionTypes.IS_LOGGED_IN, handleIsLoggedIn),
     takeLatest(linksActionTypes.FETCH_PAGES_REQUESTED, handleFetchPagesRequested),
     takeLatest(linksActionTypes.FETCH_PAGE_REQUESTED, handleFetchPageRequested),
     takeLatest(linksActionTypes.CREATE_PAGE_PRESSED, handleCreatePagePressed),

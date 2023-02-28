@@ -48,7 +48,7 @@
     ]
   },
   "scripts": {
-    "copyshared": "rm -rf src/shared && cp -a ../sharedjs/lib src/shared",
+    "copyshared": "rm -rf src/shared && mkdir src/shared && cp -a ../sharedjs/lib/js src/shared/js && cp -a ../sharedjs/lib/react src/shared/react",
     "start": "npm run copyshared && ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test",
     "build": "npm run copyshared && GENERATE_SOURCEMAP=false react-scripts build",

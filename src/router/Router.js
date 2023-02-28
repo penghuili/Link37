@@ -23,6 +23,7 @@ import PageUpdate from '../views/PageUpdate';
 import Pricing from '../views/Pricing';
 import Privacy from '../views/Privacy';
 import Terms from '../views/Terms';
+import Tickets from '../views/Tickets';
 import Welcome from '../views/Welcome';
 
 function Router({ isCheckingRefreshToken, isLoggedIn }) {
@@ -51,6 +52,8 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
         <Route path="/p/add" component={PageAdd} />
         <Route path="/p/:pageId" component={PageDetails} />
         <Route path="/p/:pageId/update" component={PageUpdate} />
+
+        <Route path="/tickets" component={Tickets} />
 
         <Route path="/encryption" component={Encryption} />
         <Route path="/pricing" component={Pricing} />
