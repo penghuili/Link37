@@ -1,5 +1,6 @@
 import { Box, Button, Heading, Text } from 'grommet';
 import React from 'react';
+import Examples from '../../components/Examples';
 
 import ExpiredBanner from '../../components/ExpiredBanner';
 import apps from '../../shared/js/apps';
@@ -46,13 +47,19 @@ function Pages({
               </Box>
             )}
 
-            {!pages?.length && !isLoading && <Text>No pages yet.</Text>}
+            {!pages?.length && !isLoading && (
+              <>
+                <Text margin="0 0 1rem">No pages yet.</Text>
+                <Examples />
+              </>
+            )}
           </>
         )}
 
         {!isAccountValid && !isLoadingSettings && !tried && (
           <>
-            <Heading level="4" margin="0 0 0.5rem">
+            <Examples />
+            <Heading level="4" margin="1rem 0 0.5rem">
               Start 14 days of <Text color="status-ok">free</Text> trial to create your own pages.
             </Heading>
             <Button

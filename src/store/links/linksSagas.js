@@ -1,9 +1,10 @@
-import { all, call, put, select, takeLatest } from 'redux-saga/effects';
+import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import apps from '../../shared/js/apps';
 import { routeHelpers } from '../../shared/react/routeHelpers';
 import { sharedActionCreators, sharedActionTypes } from '../../shared/react/store/sharedActions';
 import { toastTypes } from '../../shared/react/store/sharedReducer';
+import sharedSelectors from '../../shared/react/store/sharedSelectors';
 import { linksActionCreators, linksActionTypes } from './linksActions';
 import {
   createGroup,
@@ -30,6 +31,16 @@ function* handleIsLoggedIn({ payload: { loggedIn } }) {
 }
 
 function* handleFetchPagesRequested() {
+  const settings = yield select(sharedSelectors.getSettings);
+  if (!settings) {
+    take(sharedActionTypes.FETCH_SETTINGS_FINISHED);
+  }
+
+  const isAccountValid = yield select(sharedSelectors.isAccountValid);
+  if (!isAccountValid) {
+    return;
+  }
+
   yield put(linksActionCreators.isLoading(true));
 
   const { data } = yield call(fetchPages);
