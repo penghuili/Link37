@@ -9,11 +9,10 @@ import Pages from './Pages';
 const mapStateToProps = state => ({
   pages: linksSelectors.getPages(state),
   isLoading: linksSelectors.isLoading(state),
-  // isAccountValid: sharedSelectors.isAccountValid(state),
-  isAccountValid: false,
-  // tried: sharedSelectors.tried(state),
-  tried: true,
+  isAccountValid: sharedSelectors.isAccountValid(state),
+  tried: sharedSelectors.tried(state),
   isLoadingSettings: sharedSelectors.isLoadingSettings(state),
+  isTrying: sharedSelectors.isTrying(state),
 });
 
 const mapDispatchToProps = {

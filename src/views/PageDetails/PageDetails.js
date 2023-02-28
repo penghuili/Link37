@@ -2,8 +2,9 @@ import { Anchor, Box, Drop, Heading, Menu, Text } from 'grommet';
 import { MoreVertical } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
 
-import AppBar from '../../shared/react/AppBar';
+import ExpiredBanner from '../../components/ExpiredBanner';
 import PageAccess from '../../components/PageAccess';
+import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
@@ -73,6 +74,8 @@ function PageDetails({
     <>
       <AppBar title="Page details" isLoading={isLoading} hasBack />
       <ContentWrapper>
+        <ExpiredBanner />
+
         {!!fetchError && <Text size="large">{fetchError}</Text>}
 
         {isOwner && (

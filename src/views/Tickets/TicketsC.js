@@ -7,6 +7,7 @@ import Tickets from './Tickets';
 const mapStateToProps = state => ({
   payError: sharedSelectors.getPayError(state),
   isLoading: sharedSelectors.isLoadingSettings(state),
+  isPaying: sharedSelectors.isPaying(state),
 });
 
 const mapDispatchToProps = {
