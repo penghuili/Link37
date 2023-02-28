@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 
 import ExpiredBanner from '../../components/ExpiredBanner';
 import PageAccess from '../../components/PageAccess';
+import copyToClipboard from '../../lib/copyToClipboard';
 import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';
@@ -12,7 +13,7 @@ import HorizontalCenter from '../../shared/react/HorizontalCenter';
 import RouteLink from '../../shared/react/RouteLink';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
 
-function Link({ pageId, link, isOwner, onDelete }) {
+function Link({ pageId, link, isOwner, onToast, onDelete }) {
   const ref = useRef();
   const [showContext, setShowContext] = useState(false);
 
@@ -38,6 +39,25 @@ function Link({ pageId, link, isOwner, onDelete }) {
           onClickOutside={() => setShowContext(false)}
           pad="1rem"
         >
+          <Anchor
+            label="Copy link"
+            onClick={() => {
+              copyToClipboard(link.url);
+              setShowContext(false);
+              onToast('Link copied to clipboard.');
+            }}
+            margin="0.5rem 0"
+          />
+
+          <Anchor
+            label="Open in new tab"
+            onClick={() => {
+              window.open(link.url, '_blank');
+              setShowContext(false);
+            }}
+            margin="0.5rem 0"
+          />
+
           <RouteLink label="Edit" to={`/p/${pageId}/links/${link.sortKey}`} margin="0.5rem 0" />
 
           <Anchor
@@ -65,6 +85,7 @@ function PageDetails({
   onDeleteGroup,
   onDeletePage,
   onNav,
+  onToast,
 }) {
   useEffectOnce(() => {
     onFetch(pageId);
@@ -199,6 +220,7 @@ function PageDetails({
                         pageId={pageId}
                         link={link}
                         isOwner={isOwner}
+                        onToast={onToast}
                         onDelete={onDeleteLink}
                       />
                     ))}

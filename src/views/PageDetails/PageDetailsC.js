@@ -20,6 +20,7 @@ const mapDispatchToProps = {
   onDeleteGroup: linksActionCreators.deleteGroupPressed,
   onDeletePage: linksActionCreators.deletePagePressed,
   onNav: sharedActionCreators.navigate,
+  onToast: sharedActionCreators.setToast,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageDetails);
