@@ -4,6 +4,7 @@ import React, { useRef, useState } from 'react';
 
 import ExpiredBanner from '../../components/ExpiredBanner';
 import PageAccess from '../../components/PageAccess';
+import { isMobile } from '../../lib/browser';
 import copyToClipboard from '../../lib/copyToClipboard';
 import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
@@ -123,11 +124,15 @@ function PageDetails({
                       onClick: () => onNav(`/p/${pageId}/update`),
                       margin: '0.25rem 0',
                     },
-                    {
-                      label: 'Re-order groups',
-                      onClick: () => onNav(`/p/${pageId}/groups/order`),
-                      margin: '0.25rem 0',
-                    },
+                    ...(isMobile()
+                      ? []
+                      : [
+                          {
+                            label: 'Re-order groups',
+                            onClick: () => onNav(`/p/${pageId}/groups/order`),
+                            margin: '0.25rem 0',
+                          },
+                        ]),
                     page.isPublic
                       ? {
                           label: 'Make it private',
@@ -171,15 +176,19 @@ function PageDetails({
                             },
                           ]
                         : []),
-                      {
-                        label: 'Open all links',
-                        onClick: () => {
-                          for (let i = 0; i < group.links.length; i += 1) {
-                            window.open(group.links[i].url, '_blank');
-                          }
-                        },
-                        margin: '0.25rem 0',
-                      },
+                      ...(isMobile()
+                        ? []
+                        : [
+                            {
+                              label: 'Open all links',
+                              onClick: () => {
+                                for (let i = 0; i < group.links.length; i += 1) {
+                                  window.open(group.links[i].url, '_blank');
+                                }
+                              },
+                              margin: '0.25rem 0',
+                            },
+                          ]),
                       ...(group.sortKey !== noGroupLinksId && isOwner
                         ? [
                             {
@@ -189,7 +198,7 @@ function PageDetails({
                             },
                           ]
                         : []),
-                      ...(group.links.length > 1 && isOwner
+                      ...(group.links.length > 1 && isOwner && !isMobile()
                         ? [
                             {
                               label: 'Re-order',
