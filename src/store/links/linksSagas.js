@@ -33,7 +33,7 @@ function* handleIsLoggedIn({ payload: { loggedIn } }) {
 function* handleFetchPagesRequested() {
   const settings = yield select(sharedSelectors.getSettings);
   if (!settings) {
-    take(sharedActionTypes.FETCH_SETTINGS_FINISHED);
+   yield take(sharedActionTypes.FETCH_SETTINGS_FINISHED);
   }
 
   const isAccountValid = yield select(sharedSelectors.isAccountValid);
@@ -304,7 +304,7 @@ export function* linksSagas() {
       [
         linksActionTypes.FETCH_PAGES_REQUESTED,
         sharedActionTypes.TRY_SUCCEEDED,
-        sharedActionTypes.PAY_PRESSED,
+        sharedActionTypes.PAY_SUCCEEDED,
       ],
       handleFetchPagesRequested
     ),
