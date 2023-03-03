@@ -6,8 +6,10 @@ import ChangePassword from '../shared/react/ChangePassword';
 import Contact from '../shared/react/Contact';
 import HorizontalCenter from '../shared/react/HorizontalCenter';
 import Security from '../shared/react/Security';
+import Setup2FA from '../shared/react/Setup2FA';
 import SignIn from '../shared/react/SignIn';
 import SignUp from '../shared/react/SignUp';
+import Verify2FA from '../shared/react/Verify2FA';
 import Account from '../views/Account';
 import Encryption from '../views/Encryption';
 import GroupAdd from '../views/GroupAdd';
@@ -40,6 +42,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
       <Switch>
         <Route path="/account" component={Account} />
         <Route path="/security" component={Security} />
+        <Route path="/security/2fa" component={Setup2FA} />
         <Route path="/security/password" component={ChangePassword} />
 
         <Route path="/p/:pageId/links/add" component={LinkAdd} />
@@ -70,6 +73,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
     <Switch>
       <Route path="/sign-up" component={SignUp} />
       <Route path="/sign-in" component={SignIn} />
+      <Route path="/sign-in/2fa" component={Verify2FA} />
 
       <Route path="/p/:pageId" component={PageDetails} />
 
