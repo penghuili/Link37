@@ -1,6 +1,8 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
+import { localStorageKeys } from '../../lib/constants';
 
 import apps from '../../shared/js/apps';
+import { LocalStorage } from '../../shared/js/LocalStorage';
 import { routeHelpers } from '../../shared/react/routeHelpers';
 import { sharedActionCreators, sharedActionTypes } from '../../shared/react/store/sharedActions';
 import { toastTypes } from '../../shared/react/store/sharedReducer';
@@ -30,10 +32,19 @@ function* handleIsLoggedIn({ payload: { loggedIn } }) {
   }
 }
 
+function handleReset() {
+  const keys = Object.keys(localStorage);
+  (keys || [])
+    .filter(key => key.startsWith(localStorageKeys.page))
+    .forEach(key => {
+      LocalStorage.remove(key);
+    });
+}
+
 function* handleFetchPagesRequested() {
   const settings = yield select(sharedSelectors.getSettings);
   if (!settings) {
-   yield take(sharedActionTypes.FETCH_SETTINGS_FINISHED);
+    yield take(sharedActionTypes.FETCH_SETTINGS_FINISHED);
   }
 
   const isAccountValid = yield select(sharedSelectors.isAccountValid);
@@ -52,18 +63,25 @@ function* handleFetchPagesRequested() {
   yield put(linksActionCreators.isLoading(false));
 }
 
+function getLocalStorageKey(pageId) {
+  return `${localStorageKeys.page}${pageId}`;
+}
+
 function* handleFetchPageRequested({ payload: { pageId } }) {
   if (!pageId) {
     return;
   }
 
   yield put(linksActionCreators.isLoading(true));
-  yield put(linksActionCreators.setPage(null));
+  const localStorageKey = getLocalStorageKey(pageId);
+  const cached = LocalStorage.get(localStorageKey);
+  yield put(linksActionCreators.setPage(cached || null));
 
   const { data, error } = yield call(fetchPage, pageId);
 
   if (data) {
     yield put(linksActionCreators.setPage(data));
+    LocalStorage.set(localStorageKey, data);
   }
 
   if (error) {
@@ -300,6 +318,7 @@ function* handleDeleteGroupPressed({ payload: { pageId, groupId } }) {
 export function* linksSagas() {
   yield all([
     takeLatest(sharedActionTypes.IS_LOGGED_IN, handleIsLoggedIn),
+    takeLatest(sharedActionTypes.RESET, handleReset),
     takeLatest(
       [
         linksActionTypes.FETCH_PAGES_REQUESTED,
