@@ -85,6 +85,9 @@ function* handleFetchPageRequested({ payload: { pageId } }) {
   }
 
   if (error) {
+    yield put(linksActionCreators.setPage(null));
+    LocalStorage.remove(localStorageKey);
+
     if (error.status === 401) {
       yield put(linksActionCreators.setFetchError('You need to login to view this page.'));
     }
