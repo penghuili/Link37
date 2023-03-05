@@ -1,17 +1,25 @@
-import { Anchor, Drop } from 'grommet';
+import { Anchor, Drop, Text } from 'grommet';
 import React, { useRef, useState } from 'react';
 
 import copyToClipboard from '../../../lib/copyToClipboard';
 import RouteLink from '../../../shared/react/RouteLink';
 
-function Link({ pageId, link, isOwner, onToast, onDelete, onUpdate }) {
+function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onUpdate }) {
   const ref = useRef();
   const [showContext, setShowContext] = useState(false);
 
   return (
     <>
       <Anchor
-        label={link.title}
+        label={
+          showClickedTimes ? (
+            <Text>
+              {link.title}<Text size="xsmall">({link.times || 0})</Text>
+            </Text>
+          ) : (
+            link.title
+          )
+        }
         href={link.url}
         target="_blank"
         onClick={() => {

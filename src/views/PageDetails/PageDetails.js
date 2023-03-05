@@ -103,6 +103,7 @@ function PageDetails({
                   pageId={pageId}
                   group={{ title: 'Popular 🔥', links: page.popular }}
                   isOwner={isOwner}
+                  showClickedTimes
                   onDelete={onDeleteGroup}
                   onDeleteLink={onDeleteLink}
                   onUpdateLink={onUpdateLink}

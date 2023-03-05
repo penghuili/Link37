@@ -13,6 +13,7 @@ function Group({
   group,
   isOwner,
   showMenu,
+  showClickedTimes,
   onDelete,
   onDeleteLink,
   onUpdateLink,
@@ -93,6 +94,7 @@ function Group({
               pageId={pageId}
               link={link}
               isOwner={isOwner}
+              showClickedTimes={showClickedTimes}
               onToast={onToast}
               onDelete={onDeleteLink}
               onUpdate={onUpdateLink}
