@@ -184,7 +184,7 @@ export async function updateLink(
   decryptedPassword,
   pageId,
   linkId,
-  { title, url, note, groupId, position }
+  { title, url, note, groupId, position, times }
 ) {
   try {
     const {
@@ -199,6 +199,7 @@ export async function updateLink(
       note: encryptedNote,
       groupId,
       position,
+      times,
     });
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
@@ -353,6 +354,7 @@ export function groupLinks(page) {
     groupsObj[g.sortKey] = { ...g, links: [] };
   });
   const noGroupLinks = [];
+  const popularLinks = [];
 
   page.links.forEach(link => {
     if (groupsObj[link.groupId]) {
@@ -360,12 +362,18 @@ export function groupLinks(page) {
     } else {
       noGroupLinks.push(link);
     }
+
+    if (link.times > 0) {
+      popularLinks.push(link);
+    }
   });
 
   const groups = page.groups.map(g => groupsObj[g.sortKey]);
   groups.push({ title: 'Links without group', sortKey: noGroupLinksId, links: noGroupLinks });
 
-  return { ...page, groups };
+  const popular = popularLinks.sort((a, b) => b.times - a.times).slice(0, 10);
+
+  return { ...page, groups, popular };
 }
 
 export const noGroupLinksId = 'noGroupLinks';

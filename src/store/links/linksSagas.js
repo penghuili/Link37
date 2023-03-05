@@ -214,7 +214,7 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
 }
 
 function* handleUpdateLinkPressed({
-  payload: { pageId, linkId, title, url, note, groupId, position, goBack },
+  payload: { pageId, linkId, title, url, note, groupId, position, times, goBack, silent },
 }) {
   if (!pageId || !linkId) {
     return;
@@ -229,15 +229,21 @@ function* handleUpdateLinkPressed({
     note,
     groupId,
     position,
+    times,
   });
 
   if (data) {
     if (goBack) {
       yield call(routeHelpers.goBack);
     }
-    yield put(sharedActionCreators.setToast('Link is updated.'));
+
+    if (!silent) {
+      yield put(sharedActionCreators.setToast('Link is updated.'));
+    }
   } else {
-    yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    if (!silent) {
+      yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
+    }
   }
 
   yield put(linksActionCreators.isLoading(false));

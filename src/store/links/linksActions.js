@@ -85,10 +85,32 @@ export const linksActionCreators = {
       payload: { pageId, title, url, note, groupId },
     };
   },
-  updateLinkPressed({ pageId, linkId, title, url, note, groupId, position, goBack }) {
+  updateLinkPressed({
+    pageId,
+    linkId,
+    title,
+    url,
+    note,
+    groupId,
+    position,
+    times,
+    goBack,
+    silent,
+  }) {
     return {
       type: linksActionTypes.UPDATE_LINK_PRESSED,
-      payload: { pageId, linkId, title, url, note, groupId, position, goBack },
+      payload: {
+        pageId,
+        linkId,
+        title,
+        url,
+        note,
+        groupId,
+        position,
+        times,
+        goBack,
+        silent,
+      },
     };
   },
   deleteLinkPressed(pageId, linkId) {
