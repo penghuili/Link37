@@ -67,6 +67,15 @@ function getLocalStorageKey(pageId) {
   return `${localStorageKeys.page}${pageId}`;
 }
 
+function handleSetPage({ payload: { page } }) {
+  if (!page) {
+    return;
+  }
+
+  const localStorageKey = getLocalStorageKey(page.sid);
+  LocalStorage.set(localStorageKey, page);
+}
+
 function* handleFetchPageRequested({ payload: { pageId } }) {
   if (!pageId) {
     return;
@@ -81,7 +90,6 @@ function* handleFetchPageRequested({ payload: { pageId } }) {
 
   if (data) {
     yield put(linksActionCreators.setPage(data));
-    LocalStorage.set(localStorageKey, data);
   }
 
   if (error) {
@@ -233,6 +241,14 @@ function* handleUpdateLinkPressed({
   });
 
   if (data) {
+    const page = yield select(linksSelectors.getDetails);
+    const updated = {
+      ...page,
+      links: page.links.map(link => (link.sortKey === linkId ? data : link)),
+    };
+    const sorted = groupLinks(updated);
+    yield put(linksActionCreators.setPage(sorted));
+
     if (goBack) {
       yield call(routeHelpers.goBack);
     }
@@ -337,6 +353,7 @@ export function* linksSagas() {
       handleFetchPagesRequested
     ),
     takeLatest(linksActionTypes.FETCH_PAGE_REQUESTED, handleFetchPageRequested),
+    takeLatest(linksActionTypes.SET_PAGE, handleSetPage),
     takeLatest(linksActionTypes.CREATE_PAGE_PRESSED, handleCreatePagePressed),
     takeLatest(linksActionTypes.UPDATE_PAGE_PRESSED, handleUpdatePagePressed),
     takeLatest(linksActionTypes.PUBLIC_PAGE_PRESSED, handlePublicPagePressed),
