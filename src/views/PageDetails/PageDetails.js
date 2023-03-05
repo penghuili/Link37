@@ -1,4 +1,4 @@
-import { Heading, Menu, Text } from 'grommet';
+import { Box, Heading, Menu, Text } from 'grommet';
 import { MoreVertical } from 'grommet-icons';
 import React from 'react';
 
@@ -98,16 +98,18 @@ function PageDetails({
             </HorizontalCenter>
 
             {!!page.popular?.length && (
-              <Group
-                pageId={pageId}
-                group={{ title: 'Popular 🔥', links: page.popular }}
-                isOwner={isOwner}
-                onDelete={onDeleteGroup}
-                onDeleteLink={onDeleteLink}
-                onUpdateLink={onUpdateLink}
-                onToast={onToast}
-                onNav={onNav}
-              />
+              <Box border={{ color: 'status-ok' }} round="xsmall" pad="1rem 1rem 0.25rem">
+                <Group
+                  pageId={pageId}
+                  group={{ title: 'Popular 🔥', links: page.popular }}
+                  isOwner={isOwner}
+                  onDelete={onDeleteGroup}
+                  onDeleteLink={onDeleteLink}
+                  onUpdateLink={onUpdateLink}
+                  onToast={onToast}
+                  onNav={onNav}
+                />
+              </Box>
             )}
 
             {page.groups.map(group => (

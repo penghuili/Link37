@@ -18,6 +18,7 @@ import {
   fetchPage,
   fetchPages,
   groupLinks,
+  noGroupLinksId,
   privatePage,
   publicPage,
   updateGroup,
@@ -245,6 +246,7 @@ function* handleUpdateLinkPressed({
     const updated = {
       ...page,
       links: page.links.map(link => (link.sortKey === linkId ? data : link)),
+      groups: (page.groups || []).filter(group => group.sortKey !== noGroupLinksId),
     };
     const sorted = groupLinks(updated);
     yield put(linksActionCreators.setPage(sorted));
