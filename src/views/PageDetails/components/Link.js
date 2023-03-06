@@ -14,7 +14,8 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onUp
         label={
           showClickedTimes ? (
             <Text>
-              {link.title}<Text size="xsmall">({link.times || 0})</Text>
+              {link.title}
+              <Text size="xsmall">({link.times || 0})</Text>
             </Text>
           ) : (
             link.title
@@ -23,12 +24,14 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onUp
         href={link.url}
         target="_blank"
         onClick={() => {
-          onUpdate({
-            pageId,
-            linkId: link.sortKey,
-            times: link.times ? link.times + 1 : 1,
-            silent: true,
-          });
+          if (isOwner) {
+            onUpdate({
+              pageId,
+              linkId: link.sortKey,
+              times: link.times ? link.times + 1 : 1,
+              silent: true,
+            });
+          }
         }}
         onContextMenu={e => {
           if (isOwner) {
