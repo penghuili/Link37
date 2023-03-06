@@ -2,7 +2,6 @@ import { Anchor, Heading, Text } from 'grommet';
 import React from 'react';
 
 import AppBar from '../../shared/react/AppBar';
-import Pitch from '../../components/Pitch';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 
 function Encryption() {
@@ -10,8 +9,6 @@ function Encryption() {
     <>
       <AppBar title="How encryption works in Link37?" hasBack />
       <ContentWrapper>
-        <Pitch />
-
         <Text margin="3rem 0 0">
           Link37 uses the famous{' '}
           <Anchor label="openpgpjs" href="https://github.com/openpgpjs/openpgpjs" target="_blank" />{' '}

@@ -1,4 +1,4 @@
-import { Spinner, Text } from 'grommet';
+import { Anchor, Spinner, Text } from 'grommet';
 import React from 'react';
 
 import apps from '../../shared/js/apps';
@@ -32,6 +32,12 @@ function Account({ account, isLoadingAccount }) {
             <RouteLink label="Security" to="/security" />
             <Spacer />
             <Divider />
+            <Spacer />
+            <Anchor
+              label="Product updates"
+              href="https://blog.peng.kiwi/series/link37"
+              target="_blank"
+            />
             <Spacer />
             <RouteLink label="How encryption works?" to="/encryption" />
             <Spacer />

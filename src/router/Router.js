@@ -62,6 +62,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
         <Route path="/pricing" component={Pricing} />
         <Route path="/privacy" component={Privacy} />
         <Route path="/terms" component={Terms} />
+        <Route path="/contact" component={Contact} />
 
         <Route path="/" component={Pages} />
         <Route>{() => <Redirect to="/" />}</Route>
