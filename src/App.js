@@ -29,6 +29,7 @@ function App() {
         <Router />
 
         <ContentWrapper as="footer">
+          <Spacer />
           <Divider />
           <Spacer />
           <Pitch />
