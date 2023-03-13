@@ -25,7 +25,7 @@ function PageDetails({
   onDeleteLink,
   onDeleteGroup,
   onDeletePage,
-  onUpdateLink,
+  onIncreaseLinkTimes,
   onNav,
   onToast,
 }) {
@@ -106,7 +106,7 @@ function PageDetails({
                   showClickedTimes
                   onDelete={onDeleteGroup}
                   onDeleteLink={onDeleteLink}
-                  onUpdateLink={onUpdateLink}
+                  onIncreaseLinkTimes={onIncreaseLinkTimes}
                   onToast={onToast}
                   onNav={onNav}
                 />
@@ -122,7 +122,7 @@ function PageDetails({
                 isOwner={isOwner}
                 onDelete={onDeleteGroup}
                 onDeleteLink={onDeleteLink}
-                onUpdateLink={onUpdateLink}
+                onIncreaseLinkTimes={onIncreaseLinkTimes}
                 onToast={onToast}
                 onNav={onNav}
               />

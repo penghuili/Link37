@@ -4,7 +4,7 @@ import React, { useRef, useState } from 'react';
 import copyToClipboard from '../../../lib/copyToClipboard';
 import RouteLink from '../../../shared/react/RouteLink';
 
-function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onUpdate }) {
+function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIncreaseTimes }) {
   const ref = useRef();
   const [showContext, setShowContext] = useState(false);
 
@@ -25,11 +25,9 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onUp
         target="_blank"
         onClick={() => {
           if (isOwner) {
-            onUpdate({
+            onIncreaseTimes({
               pageId,
               linkId: link.sortKey,
-              times: link.times ? link.times + 1 : 1,
-              silent: true,
             });
           }
         }}

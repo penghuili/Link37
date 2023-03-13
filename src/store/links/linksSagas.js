@@ -18,6 +18,7 @@ import {
   fetchPage,
   fetchPages,
   groupLinks,
+  increaseLinkTimes,
   noGroupLinksId,
   privatePage,
   publicPage,
@@ -223,7 +224,7 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
 }
 
 function* handleUpdateLinkPressed({
-  payload: { pageId, linkId, title, url, note, groupId, position, times, goBack, silent },
+  payload: { pageId, linkId, title, url, note, groupId, position, goBack, silent },
 }) {
   if (!pageId || !linkId) {
     return;
@@ -238,7 +239,6 @@ function* handleUpdateLinkPressed({
     note,
     groupId,
     position,
-    times,
   });
 
   if (data) {
@@ -265,6 +265,26 @@ function* handleUpdateLinkPressed({
   }
 
   yield put(linksActionCreators.isLoading(false));
+}
+
+function* handleIncreaseLinkTimesPressed({ payload: { pageId, linkId } }) {
+  if (!pageId || !linkId) {
+    return;
+  }
+
+  const page = yield select(linksSelectors.getDetails);
+  const { data } = yield call(increaseLinkTimes, page.decryptedPassword, pageId, linkId);
+
+  if (data) {
+    const page = yield select(linksSelectors.getDetails);
+    const updated = {
+      ...page,
+      links: page.links.map(link => (link.sortKey === linkId ? data : link)),
+      groups: (page.groups || []).filter(group => group.sortKey !== noGroupLinksId),
+    };
+    const sorted = groupLinks(updated);
+    yield put(linksActionCreators.setPage(sorted));
+  }
 }
 
 function* handleDeleteLinkPressed({ payload: { pageId, linkId } }) {
@@ -363,6 +383,7 @@ export function* linksSagas() {
     takeLatest(linksActionTypes.DELETE_PAGE_PRESSED, handleDeletePagePressed),
     takeLatest(linksActionTypes.CREATE_LINK_PRESSED, handleCreateLinkPressed),
     takeLatest(linksActionTypes.UPDATE_LINK_PRESSED, handleUpdateLinkPressed),
+    takeLatest(linksActionTypes.INCREASE_LINK_TIMES_PRESSED, handleIncreaseLinkTimesPressed),
     takeLatest(linksActionTypes.DELETE_LINK_PRESSED, handleDeleteLinkPressed),
     takeLatest(linksActionTypes.CREATE_GROUP_PRESSED, handleCreateGroupPressed),
     takeLatest(linksActionTypes.UPDATE_GROUP_PRESSED, handleUpdateGroupPressed),

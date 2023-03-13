@@ -19,7 +19,7 @@ const mapDispatchToProps = {
   onDeleteLink: linksActionCreators.deleteLinkPressed,
   onDeleteGroup: linksActionCreators.deleteGroupPressed,
   onDeletePage: linksActionCreators.deletePagePressed,
-  onUpdateLink: linksActionCreators.updateLinkPressed,
+  onIncreaseLinkTimes: linksActionCreators.increaseLinkTimesPressed,
   onNav: sharedActionCreators.navigate,
   onToast: sharedActionCreators.setToast,
 };

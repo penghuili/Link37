@@ -12,6 +12,7 @@ export const linksActionTypes = {
   DELETE_PAGE_PRESSED: 'links/DELETE_PAGE_PRESSED',
   CREATE_LINK_PRESSED: 'links/CREATE_LINK_PRESSED',
   UPDATE_LINK_PRESSED: 'links/UPDATE_LINK_PRESSED',
+  INCREASE_LINK_TIMES_PRESSED: 'links/INCREASE_LINK_TIMES_PRESSED',
   DELETE_LINK_PRESSED: 'links/DELETE_LINK_PRESSED',
   CREATE_GROUP_PRESSED: 'links/CREATE_GROUP_PRESSED',
   UPDATE_GROUP_PRESSED: 'links/UPDATE_GROUP_PRESSED',
@@ -85,18 +86,7 @@ export const linksActionCreators = {
       payload: { pageId, title, url, note, groupId },
     };
   },
-  updateLinkPressed({
-    pageId,
-    linkId,
-    title,
-    url,
-    note,
-    groupId,
-    position,
-    times,
-    goBack,
-    silent,
-  }) {
+  updateLinkPressed({ pageId, linkId, title, url, note, groupId, position, goBack, silent }) {
     return {
       type: linksActionTypes.UPDATE_LINK_PRESSED,
       payload: {
@@ -107,10 +97,15 @@ export const linksActionCreators = {
         note,
         groupId,
         position,
-        times,
         goBack,
         silent,
       },
+    };
+  },
+  increaseLinkTimesPressed({ pageId, linkId }) {
+    return {
+      type: linksActionTypes.INCREASE_LINK_TIMES_PRESSED,
+      payload: { pageId, linkId },
     };
   },
   deleteLinkPressed(pageId, linkId) {

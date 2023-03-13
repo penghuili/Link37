@@ -16,7 +16,7 @@ function Group({
   showClickedTimes,
   onDelete,
   onDeleteLink,
-  onUpdateLink,
+  onIncreaseLinkTimes,
   onToast,
   onNav,
 }) {
@@ -97,7 +97,7 @@ function Group({
               showClickedTimes={showClickedTimes}
               onToast={onToast}
               onDelete={onDeleteLink}
-              onUpdate={onUpdateLink}
+              onIncreaseTimes={onIncreaseLinkTimes}
             />
           ))}
         </Box>

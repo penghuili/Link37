@@ -184,7 +184,7 @@ export async function updateLink(
   decryptedPassword,
   pageId,
   linkId,
-  { title, url, note, groupId, position, times }
+  { title, url, note, groupId, position }
 ) {
   try {
     const {
@@ -199,8 +199,19 @@ export async function updateLink(
       note: encryptedNote,
       groupId,
       position,
-      times,
     });
+
+    const decrypted = await decryptLinkContent(decryptedPassword, link);
+
+    return { data: decrypted, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
+}
+
+export async function increaseLinkTimes(decryptedPassword, pageId, linkId) {
+  try {
+    const link = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}/times`);
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
 
