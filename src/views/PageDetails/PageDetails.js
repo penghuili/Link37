@@ -44,8 +44,13 @@ function PageDetails({
         {isOwner && (
           <>
             <HorizontalCenter margin="0 0 1rem">
-              <RouteLink to={`/p/${pageId}/links/add`} label="Create link" margin="0 1rem 0 0" />
-              <RouteLink to={`/p/${pageId}/groups/add`} label="Create group" />
+              <RouteLink
+                to={`/p/${pageId}/links/add`}
+                label="Create link"
+                color="status-ok"
+                margin="0 1rem 0 0"
+              />
+              <RouteLink to={`/p/${pageId}/groups/add`} label="Create group" color="status-ok" />
             </HorizontalCenter>
 
             <Divider />

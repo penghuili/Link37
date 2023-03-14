@@ -33,7 +33,7 @@ function Pages({
 
         {isAccountValid && (
           <>
-            <RouteLink to="/p/add" label="Create page" margin="0 0 1rem" />
+            <RouteLink to="/p/add" label="Create page" color="status-ok" margin="0 0 1rem" />
             <Divider />
             <Spacer />
 
