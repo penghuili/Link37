@@ -103,7 +103,7 @@ function PageDetails({
             </HorizontalCenter>
 
             {!!page.popular?.length && (
-              <Box border={{ color: 'status-ok' }} round="xsmall" pad="1rem 1rem 0.25rem">
+              <Box border={{ color: 'status-ok' }} round="xsmall" pad="1rem 1rem 0" margin="0 0 1.5rem">
                 <Group
                   pageId={pageId}
                   group={{ title: 'Popular 🔥', links: page.popular }}
