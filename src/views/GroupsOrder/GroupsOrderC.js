@@ -11,7 +11,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   onFetch: linksActionCreators.fetchPageRequested,
-  onUpdate: linksActionCreators.updateLinkPressed,
+  onUpdate: linksActionCreators.updateGroupPressed,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupsOrder);
