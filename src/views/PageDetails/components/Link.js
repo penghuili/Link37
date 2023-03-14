@@ -1,45 +1,62 @@
-import { Anchor, Drop, Text } from 'grommet';
+import { Anchor, Box, Drop, Text } from 'grommet';
+import { Info } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
 
 import copyToClipboard from '../../../lib/copyToClipboard';
+import HorizontalCenter from '../../../shared/react/HorizontalCenter';
+import Modal from '../../../shared/react/Modal';
 import RouteLink from '../../../shared/react/RouteLink';
 
 function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIncreaseTimes }) {
   const ref = useRef();
   const [showContext, setShowContext] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   return (
     <>
-      <Anchor
-        label={
-          showClickedTimes ? (
-            <Text>
-              {link.title}
-              <Text size="xsmall">({link.times || 0})</Text>
-            </Text>
-          ) : (
-            link.title
-          )
-        }
-        href={link.url}
-        target="_blank"
-        onClick={() => {
-          if (isOwner) {
-            onIncreaseTimes({
-              pageId,
-              linkId: link.sortKey,
-            });
+      <HorizontalCenter margin="0 1.5rem 1rem 0">
+        <Anchor
+          label={
+            showClickedTimes ? (
+              <Text>
+                {link.title}
+                <Text size="xsmall">({link.times || 0})</Text>{' '}
+              </Text>
+            ) : (
+              <>{link.title} </>
+            )
           }
-        }}
-        onContextMenu={e => {
-          if (isOwner) {
-            e.preventDefault();
-            setShowContext(true);
-          }
-        }}
-        margin="0 1rem 1rem 0"
-        ref={ref}
-      />
+          href={link.url}
+          target="_blank"
+          onClick={() => {
+            if (isOwner) {
+              onIncreaseTimes({
+                pageId,
+                linkId: link.sortKey,
+              });
+            }
+          }}
+          onContextMenu={e => {
+            if (isOwner) {
+              e.preventDefault();
+              setShowContext(true);
+            }
+          }}
+          ref={ref}
+        />
+
+        {!showClickedTimes && !!link.note && (
+          <>
+            <Box width="0.25rem" />
+            <Info
+              onClick={() => {
+                setShowModal(true);
+              }}
+              size="12px"
+            />
+          </>
+        )}
+      </HorizontalCenter>
       {showContext && ref.current && (
         <Drop
           target={ref.current}
@@ -76,6 +93,10 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIn
           />
         </Drop>
       )}
+
+      <Modal show={!!showModal} onClose={() => setShowModal(false)}>
+        {link.note}
+      </Modal>
     </>
   );
 }
