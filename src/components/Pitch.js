@@ -5,7 +5,7 @@ import RouteLink from '../shared/react/RouteLink';
 function Pitch() {
   return (
     <Text>
-      Your browser's start page, <RouteLink label="encrytped" to="/encryption" />.
+      Your browser's start page, <RouteLink label="encrytped" to="/encryption" />
     </Text>
   );
 }
