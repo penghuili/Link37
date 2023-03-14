@@ -8,6 +8,7 @@ import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
+import HorizontalCenter from '../../shared/react/HorizontalCenter';
 import RouteLink from '../../shared/react/RouteLink';
 import Spacer from '../../shared/react/Spacer';
 
@@ -33,7 +34,12 @@ function Pages({
 
         {isAccountValid && (
           <>
-            <RouteLink to="/p/add" label="Create page" color="status-ok" margin="0 0 1rem" />
+            <HorizontalCenter margin="0 0 1rem">
+              <RouteLink to="/p/add" label="Create page" color="status-ok" margin="0 1rem 0 0" />
+              {pages?.length > 1 && (
+                <RouteLink to="/p/order" label="Re-order pages" color="status-ok" />
+              )}
+            </HorizontalCenter>
             <Divider />
             <Spacer />
 

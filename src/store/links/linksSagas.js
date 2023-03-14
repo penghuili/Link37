@@ -134,7 +134,8 @@ function* handleUpdatePagePressed({
 }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const page = yield select(linksSelectors.getDetails);
+  const pages = yield select(linksSelectors.getPages);
+  const page = pages.find(p => p.sid === pageId || p.sortKey === pageId);
   const { data } = yield call(updatePage, page.decryptedPassword, pageId, {
     encrypted: page.encrypted,
     title,
@@ -147,7 +148,11 @@ function* handleUpdatePagePressed({
 
   if (data) {
     yield call(routeHelpers.goBack);
-    yield put(sharedActionCreators.setToast('Page is updated.'));
+    if (position) {
+      yield put(sharedActionCreators.setToast('Pages are re-ordered.'));
+    } else {
+      yield put(sharedActionCreators.setToast('Page is updated.'));
+    }
   } else {
     yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }

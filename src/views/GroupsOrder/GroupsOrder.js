@@ -28,7 +28,7 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
               {page.title}
             </Heading>
             <DragDrop
-              items={groups.filter(g => g.sortKey !== noGroupLinksId)}
+              items={groups}
               onDragEnd={(sourceId, targetId) => {
                 const newPosition = calculateItemPosition(groups, sourceId, targetId);
                 onUpdate({ pageId, groupId: sourceId, position: newPosition });

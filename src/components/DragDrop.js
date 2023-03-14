@@ -10,6 +10,7 @@ import {
 import { arrayMove, rectSortingStrategy, SortableContext, useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import React, { useMemo, useState } from 'react';
+import { useListener } from '../shared/react/hooks/useListener';
 
 function SortableItem({ link }) {
   const { attributes, listeners, setNodeRef, transform, transition } = useSortable({
@@ -29,7 +30,8 @@ function SortableItem({ link }) {
 }
 
 function DragDrop({ items, onDragEnd }) {
-  const [innerItems, setInnerItems] = useState(items);
+  const [innerItems, setInnerItems] = useState(items || []);
+  useListener(items, value => setInnerItems(value));
   const ids = useMemo(() => innerItems.map(i => i.sortKey), [innerItems]);
 
   const sensors = useSensors(

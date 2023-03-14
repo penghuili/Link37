@@ -21,6 +21,7 @@ import LinkUpdate from '../views/LinkUpdate';
 import PageAdd from '../views/PageAdd';
 import PageDetails from '../views/PageDetails';
 import Pages from '../views/Pages';
+import PagesOrder from '../views/PagesOrder';
 import PageUpdate from '../views/PageUpdate';
 import Pricing from '../views/Pricing';
 import Privacy from '../views/Privacy';
@@ -53,6 +54,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
         <Route path="/p/:pageId/groups/:groupId/update" component={GroupUpdate} />
         <Route path="/p/:pageId/groups/:groupId/order" component={LinksOrder} />
         <Route path="/p/add" component={PageAdd} />
+        <Route path="/p/order" component={PagesOrder} />
         <Route path="/p/:pageId" component={PageDetails} />
         <Route path="/p/:pageId/update" component={PageUpdate} />
 
