@@ -31,7 +31,7 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
               items={groups.filter(g => g.sortKey !== noGroupLinksId)}
               onDragEnd={(sourceId, targetId) => {
                 const newPosition = calculateItemPosition(groups, sourceId, targetId);
-                onUpdate({ pageId, linkId: sourceId, position: newPosition });
+                onUpdate({ pageId, groupId: sourceId, position: newPosition });
               }}
             />
           </>
