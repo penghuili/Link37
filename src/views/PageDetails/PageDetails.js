@@ -106,7 +106,7 @@ function PageDetails({
               <Box border={{ color: 'status-ok' }} round="xsmall" pad="1rem 1rem 0" margin="0 0 1.5rem">
                 <Group
                   pageId={pageId}
-                  group={{ title: 'Popular 🔥', links: page.popular }}
+                  group={{ title: `Top ${page.popular.length} links 🔥`, links: page.popular }}
                   isOwner={isOwner}
                   showClickedTimes
                   onDelete={onDeleteGroup}
