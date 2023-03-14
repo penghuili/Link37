@@ -1,5 +1,5 @@
 import { Heading } from 'grommet';
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import AppBar from '../../shared/react/AppBar';
 import DragDrop from '../../components/DragDrop';
@@ -9,6 +9,11 @@ import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
 
 function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {
+  const groups = useMemo(
+    () => (page?.groups || []).filter(g => g.sortKey !== noGroupLinksId),
+    [page]
+  );
+
   useEffectOnce(() => {
     onFetch(pageId);
   });
@@ -23,9 +28,9 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
               {page.title}
             </Heading>
             <DragDrop
-              items={page.groups.filter(g => g.sortKey !== noGroupLinksId)}
+              items={groups.filter(g => g.sortKey !== noGroupLinksId)}
               onDragEnd={(sourceId, targetId) => {
-                const newPosition = calculateItemPosition(page.groups, sourceId, targetId);
+                const newPosition = calculateItemPosition(groups, sourceId, targetId);
                 onUpdate({ pageId, linkId: sourceId, position: newPosition });
               }}
             />
