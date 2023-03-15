@@ -102,7 +102,7 @@ function PageDetails({
               <PageAccess page={page} />
             </HorizontalCenter>
 
-            {!!page.popular?.length && (
+            {page.popular?.length > 1 && (
               <Box border={{ color: 'status-ok' }} round="xsmall" pad="1rem 1rem 0" margin="0 0 1.5rem">
                 <Group
                   pageId={pageId}
