@@ -74,8 +74,18 @@ function Group({
               ...(group.sortKey !== noGroupLinksId && isOwner
                 ? [
                     {
-                      label: 'Delete',
-                      onClick: () => onDelete(pageId, group.sortKey),
+                      label: 'Delete group only',
+                      onClick: () => onDelete(pageId, group.sortKey, false),
+                      margin: '0.25rem 0',
+                      color: 'status-critical',
+                    },
+                  ]
+                : []),
+              ...(group.sortKey !== noGroupLinksId && isOwner
+                ? [
+                    {
+                      label: 'Delete group and links',
+                      onClick: () => onDelete(pageId, group.sortKey, true),
                       margin: '0.25rem 0',
                       color: 'status-critical',
                     },

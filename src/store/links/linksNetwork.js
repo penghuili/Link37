@@ -264,9 +264,12 @@ export async function updateGroup(decryptedPassword, pageId, groupId, { title, p
   }
 }
 
-export async function deleteGroup(pageId, groupId) {
+export async function deleteGroup(pageId, groupId, includeLinks) {
   try {
-    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}/groups/${groupId}`);
+    const result = await HTTP.delete(
+      apps.link37.name,
+      `/v1/pages/${pageId}/groups/${groupId}${includeLinks ? '?links=1' : ''}`
+    );
 
     return { data: result, error: null };
   } catch (error) {

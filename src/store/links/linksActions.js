@@ -126,10 +126,10 @@ export const linksActionCreators = {
       payload: { pageId, groupId, title, position },
     };
   },
-  deleteGroupPressed(pageId, groupId) {
+  deleteGroupPressed(pageId, groupId, includeLinks) {
     return {
       type: linksActionTypes.DELETE_GROUP_PRESSED,
-      payload: { pageId, groupId },
+      payload: { pageId, groupId, includeLinks },
     };
   },
 };

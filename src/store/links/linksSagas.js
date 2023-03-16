@@ -350,13 +350,19 @@ function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position
   yield put(linksActionCreators.isLoading(false));
 }
 
-function* handleDeleteGroupPressed({ payload: { pageId, groupId } }) {
+function* handleDeleteGroupPressed({ payload: { pageId, groupId, includeLinks } }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const { data } = yield call(deleteGroup, pageId, groupId);
+  const { data } = yield call(deleteGroup, pageId, groupId, includeLinks);
   if (data) {
     const page = yield select(linksSelectors.getDetails);
-    const updated = { ...page, groups: page.groups.filter(item => item.sortKey !== groupId) };
+    const updated = {
+      ...page,
+      groups: page.groups.filter(
+        item => item.sortKey !== groupId && item.sortKey !== noGroupLinksId
+      ),
+      links: includeLinks ? page.links.filter(link => link.groupId !== groupId) : page.links,
+    };
     const sorted = groupLinks(updated);
     yield put(linksActionCreators.setPage(sorted));
     yield put(sharedActionCreators.setToast('Group is deleted.'));
