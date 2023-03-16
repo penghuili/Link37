@@ -55,6 +55,8 @@ export async function fetchPage(pageId) {
       groups: decryptedGroups,
     });
 
+    console.log('groupedPage', groupedPage);
+
     return {
       data: groupedPage,
       error: null,
@@ -157,19 +159,33 @@ export async function deletePage(pageId) {
   }
 }
 
-export async function createLink(decryptedPassword, pageId, { title, url, note, groupId }) {
+export async function getLinkMeta(link) {
+  try {
+    const meta = await HTTP.post(apps.link37.name, `/v1/link-meta`, {
+      link,
+    });
+
+    return { data: meta, error: null };
+  } catch (error) {
+    return { data: null, error };
+  }
+}
+
+export async function createLink(decryptedPassword, pageId, { title, url, note, groupId, iconLink }) {
   try {
     const {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
-    } = await encryptLinkContent({ title, url, note }, decryptedPassword);
+      iconLink: encryptedIconLink,
+    } = await encryptLinkContent({ title, url, note, iconLink }, decryptedPassword);
 
     const link = await HTTP.post(apps.link37.name, `/v1/pages/${pageId}/links`, {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
       groupId,
+      iconLink: encryptedIconLink,
     });
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
@@ -184,14 +200,15 @@ export async function updateLink(
   decryptedPassword,
   pageId,
   linkId,
-  { title, url, note, groupId, position }
+  { title, url, note, groupId, position, iconLink }
 ) {
   try {
     const {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
-    } = await encryptLinkContent({ title, url, note }, decryptedPassword);
+      iconLink: encryptedIconLink,
+    } = await encryptLinkContent({ title, url, note, iconLink }, decryptedPassword);
 
     const link = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}`, {
       title: encryptedTitle,
@@ -199,6 +216,7 @@ export async function updateLink(
       note: encryptedNote,
       groupId,
       position,
+      iconLink: encryptedIconLink,
     });
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
@@ -307,32 +325,40 @@ async function decryptPageContent(page) {
 }
 
 async function encryptLinkContent(link, decryptedPassword) {
-  const { title, url, note } = link;
+  const { title, url, note, iconLink } = link;
 
   const encryptedTitle = title ? await encryptMessageSymmetric(decryptedPassword, title) : title;
   const encryptedUrl = url ? await encryptMessageSymmetric(decryptedPassword, url) : url;
   const encryptedNote = note ? await encryptMessageSymmetric(decryptedPassword, note) : note;
+  const encryptedIconLink = iconLink
+    ? await encryptMessageSymmetric(decryptedPassword, iconLink)
+    : iconLink;
 
   return {
     ...link,
     title: encryptedTitle,
     url: encryptedUrl,
     note: encryptedNote,
+    iconLink: encryptedIconLink,
   };
 }
 
 async function decryptLinkContent(decryptedPassword, link) {
-  const { title, url, note } = link;
+  const { title, url, note, iconLink } = link;
 
   const decryptedTitle = await decryptMessageSymmetric(decryptedPassword, title);
   const decryptedUrl = await decryptMessageSymmetric(decryptedPassword, url);
   const decryptedNote = note ? await decryptMessageSymmetric(decryptedPassword, note) : null;
+  const decryptedIconLink = iconLink
+    ? await decryptMessageSymmetric(decryptedPassword, iconLink)
+    : null;
 
   return {
     ...link,
     title: decryptedTitle,
     url: decryptedUrl,
     note: decryptedNote,
+    iconLink: decryptedIconLink,
   };
 }
 

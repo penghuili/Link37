@@ -14,4 +14,5 @@ export const linksSelectors = {
     const userId = sharedSelectors.getAccount(state).userId;
     return !!pageOwner && pageOwner === userId;
   },
+  getLinkMeta: state => state.links.linkMeta,
 };

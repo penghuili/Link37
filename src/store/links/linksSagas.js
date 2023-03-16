@@ -17,6 +17,7 @@ import {
   deletePage,
   fetchPage,
   fetchPages,
+  getLinkMeta,
   groupLinks,
   increaseLinkTimes,
   noGroupLinksId,
@@ -207,7 +208,21 @@ function* handleDeletePagePressed({ payload: { pageId } }) {
   yield put(linksActionCreators.isLoading(false));
 }
 
-function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId } }) {
+function* handleFetchLinkMetaRequested({ payload: { url } }) {
+  yield put(linksActionCreators.isLoading(true));
+
+  const { data } = yield call(getLinkMeta, url);
+
+  if (data) {
+    yield put(linksActionCreators.setLinkMeta(data));
+  } else {
+    yield put(linksActionCreators.setLinkMeta(null));
+  }
+
+  yield put(linksActionCreators.isLoading(false));
+}
+
+function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId, iconLink } }) {
   yield put(linksActionCreators.isLoading(true));
 
   const page = yield select(linksSelectors.getDetails);
@@ -216,6 +231,7 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
     url,
     note,
     groupId,
+    iconLink,
   });
 
   if (data) {
@@ -229,7 +245,7 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
 }
 
 function* handleUpdateLinkPressed({
-  payload: { pageId, linkId, title, url, note, groupId, position, goBack, silent },
+  payload: { pageId, linkId, title, url, note, groupId, position, iconLink, goBack, silent },
 }) {
   if (!pageId || !linkId) {
     return;
@@ -244,6 +260,7 @@ function* handleUpdateLinkPressed({
     note,
     groupId,
     position,
+    iconLink,
   });
 
   if (data) {
@@ -393,6 +410,7 @@ export function* linksSagas() {
     takeLatest(linksActionTypes.PRIVATE_PAGE_PRESSED, handlePrivatePagePressed),
     takeLatest(linksActionTypes.DELETE_PAGE_PRESSED, handleDeletePagePressed),
     takeLatest(linksActionTypes.CREATE_LINK_PRESSED, handleCreateLinkPressed),
+    takeLatest(linksActionTypes.FETCH_LINK_META_REQUESTED, handleFetchLinkMetaRequested),
     takeLatest(linksActionTypes.UPDATE_LINK_PRESSED, handleUpdateLinkPressed),
     takeLatest(linksActionTypes.INCREASE_LINK_TIMES_PRESSED, handleIncreaseLinkTimesPressed),
     takeLatest(linksActionTypes.DELETE_LINK_PRESSED, handleDeleteLinkPressed),
