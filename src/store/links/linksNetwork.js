@@ -55,8 +55,6 @@ export async function fetchPage(pageId) {
       groups: decryptedGroups,
     });
 
-    console.log('groupedPage', groupedPage);
-
     return {
       data: groupedPage,
       error: null,

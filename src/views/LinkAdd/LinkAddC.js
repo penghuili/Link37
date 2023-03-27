@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   onFetch: linksActionCreators.fetchPageRequested,
   onFetchLinkMeta: linksActionCreators.fetchLinkMetaRequested,
+  onClearMeta: () => linksActionCreators.setLinkMeta(null),
   onCreate: linksActionCreators.createLinkPressed,
 };
 

@@ -10,15 +10,29 @@ import InputField from '../../shared/react/InputField';
 import { getQueryParams } from '../../shared/react/routeHelpers';
 import Spacer from '../../shared/react/Spacer';
 
-function LinkAdd({ params: { pageId }, isLoading, meta, onFetch, onFetchLinkMeta, onCreate }) {
+function LinkAdd({
+  params: { pageId },
+  isLoading,
+  meta,
+  onFetch,
+  onFetchLinkMeta,
+  onClearMeta,
+  onCreate,
+}) {
   const { groupId: groupIdInQuery } = getQueryParams();
-  const [title, setTitle] = useState('');
   const [url, setUrl] = useState('');
+
+  const [title, setTitle] = useState('');
+  const [isTitleTouched, setIsTitleTouched] = useState(false);
+
   const [note, setNote] = useState('');
+  const [isNoteTouched, setIsNoteTouched] = useState(false);
+
   const [groupId, setGroupId] = useState(groupIdInQuery || '');
 
   useEffectOnce(() => {
     onFetch(pageId);
+    return onClearMeta;
   });
 
   useEffect(() => {
@@ -29,15 +43,17 @@ function LinkAdd({ params: { pageId }, isLoading, meta, onFetch, onFetchLinkMeta
 
   useEffect(() => {
     if (meta) {
-      if (!title && meta.title) {
+      if (!isTitleTouched && meta.title) {
         setTitle(meta.title);
+        setIsTitleTouched(true);
       }
 
-      if (!note && meta.description) {
+      if (!isNoteTouched && meta.description) {
         setNote(meta.description);
+        setIsNoteTouched(true);
       }
     }
-  }, [title, note, meta]);
+  }, [isTitleTouched, isNoteTouched, meta]);
 
   return (
     <>
@@ -49,9 +65,29 @@ function LinkAdd({ params: { pageId }, isLoading, meta, onFetch, onFetchLinkMeta
 
         <AreaField label="Link" placeholder="Link" value={url} onChange={setUrl} />
         <Spacer />
-        <InputField label="Title" placeholder="Title" value={title} onChange={setTitle} />
+        <InputField
+          label="Title"
+          placeholder="Title"
+          value={title}
+          onChange={value => {
+            setTitle(value);
+            if (!isTitleTouched) {
+              setIsTitleTouched(true);
+            }
+          }}
+        />
         <Spacer />
-        <AreaField label="Note" placeholder="Note" value={note} onChange={setNote} />
+        <AreaField
+          label="Note"
+          placeholder="Note"
+          value={note}
+          onChange={value => {
+            setNote(value);
+            if (!isNoteTouched) {
+              setIsNoteTouched(true);
+            }
+          }}
+        />
         <Spacer />
         <GroupSelector pageId={pageId} groupId={groupIdInQuery} onChange={setGroupId} />
         <Spacer />

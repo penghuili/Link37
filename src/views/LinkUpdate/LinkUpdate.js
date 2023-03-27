@@ -17,19 +17,27 @@ function LinkUpdate({
   meta,
   onFetch,
   onFetchLinkMeta,
+  onClearMeta,
   onUpdate,
 }) {
-  const [title, setTitle] = useState('');
-  useListener(link?.title, value => setTitle(value || ''));
   const [url, setUrl] = useState('');
   useListener(link?.url, value => setUrl(value || ''));
+
+  const [title, setTitle] = useState('');
+  useListener(link?.title, value => setTitle(value || ''));
+  const [isTitleTouched, setIsTitleTouched] = useState(false);
+
   const [note, setNote] = useState('');
   useListener(link?.note, value => setNote(value || ''));
+  const [isNoteTouched, setIsNoteTouched] = useState(false);
+
   const [groupId, setGroupId] = useState('');
   useListener(link?.groupId, value => setGroupId(value || ''));
 
   useEffectOnce(() => {
     onFetch(pageId);
+
+    return onClearMeta;
   });
 
   useEffect(() => {
@@ -37,6 +45,20 @@ function LinkUpdate({
       onFetchLinkMeta(link.url);
     }
   }, [link?.url, onFetchLinkMeta]);
+
+  useEffect(() => {
+    if (meta) {
+      if (!isTitleTouched && meta.title) {
+        setTitle(meta.title);
+        setIsTitleTouched(true);
+      }
+
+      if (!isNoteTouched && meta.description) {
+        setNote(meta.description);
+        setIsNoteTouched(true);
+      }
+    }
+  }, [isTitleTouched, isNoteTouched, meta]);
 
   const iconElement = useMemo(() => {
     if (meta?.iconLink) {
@@ -56,15 +78,6 @@ function LinkUpdate({
       <ContentWrapper>
         {iconElement}
 
-        <InputField
-          label="Title"
-          placeholder="Title"
-          value={title}
-          onChange={setTitle}
-          disabled={isLoading}
-        />
-
-        <Spacer />
         <AreaField
           label="Link"
           placeholder="Link"
@@ -74,11 +87,30 @@ function LinkUpdate({
         />
 
         <Spacer />
+        <InputField
+          label="Title"
+          placeholder="Title"
+          value={title}
+          onChange={value => {
+            setTitle(value);
+            if (!isTitleTouched) {
+              setIsTitleTouched(true);
+            }
+          }}
+          disabled={isLoading}
+        />
+
+        <Spacer />
         <AreaField
           label="Note"
           placeholder="Note"
           value={note}
-          onChange={setNote}
+          onChange={value => {
+            setNote(value);
+            if (!isNoteTouched) {
+              setIsNoteTouched(true);
+            }
+          }}
           disabled={isLoading}
         />
 
