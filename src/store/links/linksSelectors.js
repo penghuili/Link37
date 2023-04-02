@@ -2,6 +2,7 @@ import sharedSelectors from '../../shared/react/store/sharedSelectors';
 
 export const linksSelectors = {
   isLoading: state => state.links.isLoading,
+  isLoadingMeta: state => state.links.isLoadingMeta,
   getPages: state => state.links.pages,
   getLink: (state, linkId) =>
     linksSelectors.getDetails(state)?.links?.find(link => link.sortKey === linkId),

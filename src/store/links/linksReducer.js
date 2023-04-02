@@ -3,6 +3,7 @@ import { linksActionTypes } from './linksActions';
 
 const initialState = {
   isLoading: false,
+  isLoadingMeta: false,
   pages: [],
   details: null,
   fetchError: null,
@@ -29,6 +30,10 @@ function handleIsLoading(state, { value }) {
   return { ...state, isLoading: value };
 }
 
+function handleIsLoadingMeta(state, { value }) {
+  return { ...state, isLoadingMeta: value };
+}
+
 function handleReset() {
   return initialState;
 }
@@ -49,6 +54,9 @@ export function linksReducer(state = initialState, action) {
 
     case linksActionTypes.IS_LOADING:
       return handleIsLoading(state, action.payload);
+
+    case linksActionTypes.IS_LOADING_META:
+      return handleIsLoadingMeta(state, action.payload);
 
     case sharedActionTypes.RESET:
       return handleReset();

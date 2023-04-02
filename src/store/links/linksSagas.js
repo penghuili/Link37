@@ -209,7 +209,7 @@ function* handleDeletePagePressed({ payload: { pageId } }) {
 }
 
 function* handleFetchLinkMetaRequested({ payload: { url } }) {
-  yield put(linksActionCreators.isLoading(true));
+  yield put(linksActionCreators.isLoadingMeta(true));
 
   const { data } = yield call(getLinkMeta, url);
 
@@ -219,7 +219,7 @@ function* handleFetchLinkMetaRequested({ payload: { url } }) {
     yield put(linksActionCreators.setLinkMeta(null));
   }
 
-  yield put(linksActionCreators.isLoading(false));
+  yield put(linksActionCreators.isLoadingMeta(false));
 }
 
 function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId, iconLink } }) {

@@ -1,5 +1,6 @@
 export const linksActionTypes = {
   IS_LOADING: 'links/IS_LOADING',
+  IS_LOADING_META: 'links/IS_LOADING_META',
   SET_PAGES: 'links/SET_PAGES',
   SET_PAGE: 'links/SET_PAGE',
   SET_FETCH_ERROR: 'links/SET_FETCH_ERROR',
@@ -25,6 +26,12 @@ export const linksActionCreators = {
   isLoading(value) {
     return {
       type: linksActionTypes.IS_LOADING,
+      payload: { value },
+    };
+  },
+  isLoadingMeta(value) {
+    return {
+      type: linksActionTypes.IS_LOADING_META,
       payload: { value },
     };
   },
