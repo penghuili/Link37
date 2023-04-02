@@ -24,12 +24,16 @@ function LinkUpdate({
   useListener(link?.url, value => setUrl(value || ''));
 
   const [title, setTitle] = useState('');
-  useListener(link?.title, value => setTitle(value || ''));
   const [isTitleTouched, setIsTitleTouched] = useState(false);
+  useListener(link?.title, value => {
+    setTitle(value || '');
+  });
 
   const [note, setNote] = useState('');
-  useListener(link?.note, value => setNote(value || ''));
   const [isNoteTouched, setIsNoteTouched] = useState(false);
+  useListener(link?.note, value => {
+    setNote(value || '');
+  });
 
   const [groupId, setGroupId] = useState('');
   useListener(link?.groupId, value => setGroupId(value || ''));
@@ -45,20 +49,6 @@ function LinkUpdate({
       onFetchLinkMeta(link.url);
     }
   }, [link?.url, onFetchLinkMeta]);
-
-  useEffect(() => {
-    if (meta) {
-      if (!isTitleTouched && meta.title) {
-        setTitle(meta.title);
-        setIsTitleTouched(true);
-      }
-
-      if (!isNoteTouched && meta.description) {
-        setNote(meta.description);
-        setIsNoteTouched(true);
-      }
-    }
-  }, [isTitleTouched, isNoteTouched, meta]);
 
   const iconElement = useMemo(() => {
     if (meta?.iconLink) {
