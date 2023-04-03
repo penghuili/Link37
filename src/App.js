@@ -32,7 +32,7 @@ function App() {
           <Spacer />
           <Divider />
           <Spacer />
-          <Pitch />
+          <Pitch showHome />
         </ContentWrapper>
       </AppContainer>
       <HooksOutsieWrapper />
