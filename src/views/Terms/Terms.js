@@ -1,6 +1,7 @@
 import { Anchor, Text } from 'grommet';
 import React from 'react';
 
+import { contactEmail } from '../../shared/js/constants';
 import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 
@@ -19,7 +20,7 @@ function Terms() {
 
         <Text margin="1rem 0 0">
           Contact me for anything:{' '}
-          <Anchor label="peng@duck.com" href="mailto:peng@duck.com" target="_blank" />
+          <Anchor label={contactEmail} href={`mailto:${contactEmail}`} target="_blank" />
         </Text>
       </ContentWrapper>
     </>

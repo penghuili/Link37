@@ -2,10 +2,10 @@ import { Anchor, Heading, Text } from 'grommet';
 import { Copy } from 'grommet-icons';
 import React from 'react';
 
-import copyToClipboard from '../../lib/copyToClipboard';
 import apps from '../../shared/js/apps';
 import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
+import copyToClipboard from '../../shared/react/copyToClipboard';
 import Divider from '../../shared/react/Divider';
 import PaymentStatus from '../../shared/react/PaymentStatus';
 import Spacer from '../../shared/react/Spacer';

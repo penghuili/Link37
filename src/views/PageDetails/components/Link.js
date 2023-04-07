@@ -2,7 +2,7 @@ import { Anchor, Box, Drop, Image, Text } from 'grommet';
 import { Info } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
 
-import copyToClipboard from '../../../lib/copyToClipboard';
+import copyToClipboard from '../../../shared/react/copyToClipboard';
 import HorizontalCenter from '../../../shared/react/HorizontalCenter';
 import Modal from '../../../shared/react/Modal';
 import RouteLink from '../../../shared/react/RouteLink';
