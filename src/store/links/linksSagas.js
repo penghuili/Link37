@@ -450,11 +450,7 @@ export function* linksSagas() {
     takeLatest(sharedActionTypes.IS_LOGGED_IN, handleIsLoggedIn),
     takeLatest(sharedActionTypes.RESET, handleReset),
     takeLatest(
-      [
-        linksActionTypes.FETCH_PAGES_REQUESTED,
-        sharedActionTypes.TRY_SUCCEEDED,
-        sharedActionTypes.PAY_SUCCEEDED,
-      ],
+      [linksActionTypes.FETCH_PAGES_REQUESTED, sharedActionTypes.TRY_SUCCEEDED],
       handleFetchPagesRequested
     ),
     takeLatest(linksActionTypes.FETCH_PAGE_REQUESTED, handleFetchPageRequested),
