@@ -1,8 +1,9 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
-import { localStorageKeys } from '../../lib/constants';
 
+import { localStorageKeys } from '../../lib/constants';
 import apps from '../../shared/js/apps';
 import { LocalStorage } from '../../shared/js/LocalStorage';
+import { orderByPosition } from '../../shared/js/position';
 import { routeHelpers } from '../../shared/react/routeHelpers';
 import { sharedActionCreators, sharedActionTypes } from '../../shared/react/store/sharedActions';
 import { toastTypes } from '../../shared/react/store/sharedReducer';
@@ -83,6 +84,10 @@ function* handleFetchPageRequested({ payload: { pageId } }) {
   if (!pageId) {
     return;
   }
+  const pageInStore = yield select(linksSelectors.getDetails, pageId);
+  if (pageInStore?.sid === pageId) {
+    return;
+  }
 
   yield put(linksActionCreators.isLoading(true));
   const localStorageKey = getLocalStorageKey(pageId);
@@ -121,6 +126,9 @@ function* handleCreatePagePressed({ payload: { title, note, showIndex, layout, s
   const { data } = yield call(createPage, { title, note, showIndex, layout, showNote });
 
   if (data) {
+    const pages = yield select(linksSelectors.getPages);
+    yield put(linksActionCreators.setPages([data, ...(pages || [])]));
+
     yield call(routeHelpers.goBack);
     yield put(sharedActionCreators.setToast('Page is created!'));
   } else {
@@ -128,6 +136,18 @@ function* handleCreatePagePressed({ payload: { title, note, showIndex, layout, s
   }
 
   yield put(linksActionCreators.isLoading(false));
+}
+
+function* updatePageInStore(newPage) {
+  const pages = yield select(linksSelectors.getPages);
+  yield put(
+    linksActionCreators.setPages((pages || []).map(p => (p.sid === newPage.sid ? newPage : p)))
+  );
+
+  const pageDetails = yield select(linksSelectors.getDetails);
+  if (pageDetails?.sid === newPage.sid) {
+    yield put(linksActionCreators.setPage({ ...pageDetails, ...newPage }));
+  }
 }
 
 function* handleUpdatePagePressed({
@@ -148,6 +168,8 @@ function* handleUpdatePagePressed({
   });
 
   if (data) {
+    yield call(updatePageInStore, data);
+
     yield call(routeHelpers.goBack);
     if (position) {
       yield put(sharedActionCreators.setToast('Pages are re-ordered.'));
@@ -169,7 +191,8 @@ function* handlePublicPagePressed({ payload: { pageId } }) {
     password: page.decryptedPassword,
   });
   if (data) {
-    yield put(linksActionCreators.setPage({ ...page, ...data }));
+    yield call(updatePageInStore, data);
+
     yield put(sharedActionCreators.setToast('Your page is public now, share it with friends!'));
   } else {
     yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
@@ -181,10 +204,10 @@ function* handlePublicPagePressed({ payload: { pageId } }) {
 function* handlePrivatePagePressed({ payload: { pageId } }) {
   yield put(linksActionCreators.isLoading(true));
 
-  const page = yield select(linksSelectors.getDetails);
   const { data } = yield call(privatePage, pageId);
   if (data) {
-    yield put(linksActionCreators.setPage({ ...page, ...data }));
+    yield call(updatePageInStore, data);
+
     yield put(sharedActionCreators.setToast('Your page is private now, only you can access.'));
   } else {
     yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
@@ -199,6 +222,9 @@ function* handleDeletePagePressed({ payload: { pageId } }) {
   const { data } = yield call(deletePage, pageId);
 
   if (data) {
+    const pages = yield select(linksSelectors.getPages);
+    yield put(linksActionCreators.setPages(pages.filter(p => p.sid !== pageId)));
+
     yield call(routeHelpers.goBack);
     yield put(sharedActionCreators.setToast('Page is deleted.'));
   } else {
@@ -222,6 +248,28 @@ function* handleFetchLinkMetaRequested({ payload: { url } }) {
   yield put(linksActionCreators.isLoadingMeta(false));
 }
 
+function* updateLinkInStore(newLink, { isNew, isDelete } = {}) {
+  const page = yield select(linksSelectors.getDetails);
+  if (page) {
+    let links;
+    if (isNew) {
+      links = [newLink, ...(page.links || [])];
+    } else if (isDelete) {
+      links = (page.links || []).filter(l => l.sortKey !== newLink.id);
+    } else {
+      links = orderByPosition(
+        (page.links || []).map(l => (l.sortKey === newLink.sortKey ? newLink : l))
+      );
+    }
+    const newPage = groupLinks({
+      ...page,
+      links,
+      groups: (page.groups || []).filter(group => group.sortKey !== noGroupLinksId),
+    });
+    yield put(linksActionCreators.setPage(newPage));
+  }
+}
+
 function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId, iconLink } }) {
   yield put(linksActionCreators.isLoading(true));
 
@@ -235,6 +283,8 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
   });
 
   if (data) {
+    yield call(updateLinkInStore, data, { isNew: true });
+
     yield call(routeHelpers.goBack);
     yield put(sharedActionCreators.setToast('Link is created.'));
   } else {
@@ -264,14 +314,7 @@ function* handleUpdateLinkPressed({
   });
 
   if (data) {
-    const page = yield select(linksSelectors.getDetails);
-    const updated = {
-      ...page,
-      links: page.links.map(link => (link.sortKey === linkId ? data : link)),
-      groups: (page.groups || []).filter(group => group.sortKey !== noGroupLinksId),
-    };
-    const sorted = groupLinks(updated);
-    yield put(linksActionCreators.setPage(sorted));
+    yield call(updateLinkInStore, data);
 
     if (goBack) {
       yield call(routeHelpers.goBack);
@@ -298,14 +341,7 @@ function* handleIncreaseLinkTimesPressed({ payload: { pageId, linkId } }) {
   const { data } = yield call(increaseLinkTimes, page.decryptedPassword, pageId, linkId);
 
   if (data) {
-    const page = yield select(linksSelectors.getDetails);
-    const updated = {
-      ...page,
-      links: page.links.map(link => (link.sortKey === linkId ? data : link)),
-      groups: (page.groups || []).filter(group => group.sortKey !== noGroupLinksId),
-    };
-    const sorted = groupLinks(updated);
-    yield put(linksActionCreators.setPage(sorted));
+    yield call(updateLinkInStore, data);
   }
 }
 
@@ -318,16 +354,39 @@ function* handleDeleteLinkPressed({ payload: { pageId, linkId } }) {
 
   const { data } = yield call(deleteLink, pageId, linkId);
   if (data) {
-    const page = yield select(linksSelectors.getDetails);
-    const updated = { ...page, links: page.links.filter(link => link.sortKey !== linkId) };
-    const sorted = groupLinks(updated);
-    yield put(linksActionCreators.setPage(sorted));
+    yield call(updateLinkInStore, data, { isDelete: true });
+
     yield put(sharedActionCreators.setToast('Link is deleted.'));
   } else {
     yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
   }
 
   yield put(linksActionCreators.isLoading(false));
+}
+
+function* updateGroupInStore(newGroup, { isNew, isDelete, areLinksDeleted } = {}) {
+  const page = yield select(linksSelectors.getDetails);
+  if (page) {
+    let groups;
+    let links = page.links;
+    if (isNew) {
+      groups = [newGroup, ...(page.groups || [])];
+    } else if (isDelete) {
+      groups = (page.groups || []).filter(l => l.sortKey !== newGroup.id);
+      if (areLinksDeleted) {
+        links = links.filter(l => l.groupId !== newGroup.sortKey);
+      }
+    } else {
+      groups = page.groups.map(g => (g.sortKey === newGroup.sortKey ? newGroup : g));
+    }
+    const newPage = groupLinks({
+      ...page,
+      links,
+      groups: orderByPosition(groups.filter(group => group.sortKey !== noGroupLinksId)),
+    });
+
+    yield put(linksActionCreators.setPage(newPage));
+  }
 }
 
 function* handleCreateGroupPressed({ payload: { pageId, title } }) {
@@ -337,6 +396,8 @@ function* handleCreateGroupPressed({ payload: { pageId, title } }) {
   const { data } = yield call(createGroup, page.decryptedPassword, pageId, { title });
 
   if (data) {
+    yield call(updateGroupInStore, data, { isNew: true });
+
     yield call(routeHelpers.goBack);
     yield put(sharedActionCreators.setToast('Group is created.'));
   } else {
@@ -356,6 +417,8 @@ function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position
   });
 
   if (data) {
+    yield call(updateGroupInStore, data);
+
     if (goBack) {
       yield call(routeHelpers.goBack);
     }
@@ -372,16 +435,8 @@ function* handleDeleteGroupPressed({ payload: { pageId, groupId, includeLinks } 
 
   const { data } = yield call(deleteGroup, pageId, groupId, includeLinks);
   if (data) {
-    const page = yield select(linksSelectors.getDetails);
-    const updated = {
-      ...page,
-      groups: page.groups.filter(
-        item => item.sortKey !== groupId && item.sortKey !== noGroupLinksId
-      ),
-      links: includeLinks ? page.links.filter(link => link.groupId !== groupId) : page.links,
-    };
-    const sorted = groupLinks(updated);
-    yield put(linksActionCreators.setPage(sorted));
+    yield call(updateGroupInStore, data, { isDelete: true, areLinksDeleted: includeLinks });
+
     yield put(sharedActionCreators.setToast('Group is deleted.'));
   } else {
     yield put(sharedActionCreators.setToast('Something went wrong.', toastTypes.critical));
