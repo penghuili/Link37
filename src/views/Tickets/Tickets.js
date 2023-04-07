@@ -1,23 +1,16 @@
-import { Anchor, Spinner, Text } from 'grommet';
-import React, { useEffect } from 'react';
+import { Anchor, Heading, Text } from 'grommet';
+import { Copy } from 'grommet-icons';
+import React from 'react';
 
+import copyToClipboard from '../../lib/copyToClipboard';
 import apps from '../../shared/js/apps';
 import AppBar from '../../shared/react/AppBar';
 import ContentWrapper from '../../shared/react/ContentWrapper';
 import Divider from '../../shared/react/Divider';
 import PaymentStatus from '../../shared/react/PaymentStatus';
-import { getQueryParams } from '../../shared/react/routeHelpers';
 import Spacer from '../../shared/react/Spacer';
 
-function Tickets({ payError, isLoading, isPaying, onPay }) {
-  const { code } = getQueryParams();
-
-  useEffect(() => {
-    if (code) {
-      onPay(apps.link37.name, code);
-    }
-  }, [code, onPay]);
-
+function Tickets({ account, isLoading, onToast }) {
   return (
     <>
       <AppBar title="Buy tickets" isLoading={isLoading} hasBack />
@@ -31,19 +24,39 @@ function Tickets({ payError, isLoading, isPaying, onPay }) {
         <PaymentStatus app={apps.link37.name} showBuyButton={false} />
         <Divider />
 
-        <Text margin="1rem 0 0">
-          You can buy ticket at my{' '}
-          <Anchor label="ko-fi" href="https://ko-fi.com/penghuili/shop" target="_blank" /> shop.
-        </Text>
-        <Text>
-          (I only created 5 tickets for now,{' '}
-          <Anchor label="let me know" href="mailto:peng@duck.com" target="_blank" /> if sold out)
-        </Text>
+        {!!account && (
+          <>
+            <Heading margin="1rem 0 0" level="3">
+              Buy ticket
+            </Heading>
 
-        <Text margin="1rem 0">You will be redirected back to this page after payment.</Text>
+            <Text margin="1rem 0 0">You can buy ticket at my stripe page.</Text>
 
-        {isPaying && <Spinner />}
-        {!!payError && <Text color="status-error">{payError}</Text>}
+            <Text margin="1rem 0 0">
+              1. Please add your user id to the "Your Link37 user id" field when checkout.
+            </Text>
+            <Text margin="1rem 0 0">
+              Your user ID: {account.userId}{' '}
+              <Copy
+                onClick={() => {
+                  copyToClipboard(account.userId);
+                  onToast('Copied!');
+                }}
+              />
+            </Text>
+
+            <Text margin="1rem 0 0">
+              2.{' '}
+              <Anchor
+                label="Buy 1 year ticket for $19"
+                href={process.env.REACT_APP_STRIPE_URL}
+                target="_blank"
+              />
+            </Text>
+
+            <Text margin="1rem 0 0">3. After payment, come back to this page and refresh.</Text>
+          </>
+        )}
       </ContentWrapper>
     </>
   );
