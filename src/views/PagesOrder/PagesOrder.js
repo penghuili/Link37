@@ -2,8 +2,8 @@ import React from 'react';
 
 import DragDrop from '../../components/DragDrop';
 import { calculateItemPosition } from '../../shared/js/position';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import AppBar from '../../shared/react/AppBar';
-import ContentWrapper from '../../shared/react/ContentWrapper';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
 function PagesOrder({ isLoading, pages, onFetch, onUpdate }) {

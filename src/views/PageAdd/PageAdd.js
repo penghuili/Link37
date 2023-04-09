@@ -1,12 +1,12 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
 
-import AppBar from '../../shared/react/AppBar';
 import { LAYOUT } from '../../lib/constants';
-import AreaField from '../../shared/react/AreaField';
-import ContentWrapper from '../../shared/react/ContentWrapper';
-import InputField from '../../shared/react/InputField';
-import Spacer from '../../shared/react/Spacer';
+import AreaField from '../../shared/react-pure/AreaField';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import InputField from '../../shared/react-pure/InputField';
+import Spacer from '../../shared/react-pure/Spacer';
+import AppBar from '../../shared/react/AppBar';
 
 function PageAdd({ isLoading, onCreate }) {
   const [title, setTitle] = useState('');

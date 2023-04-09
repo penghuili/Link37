@@ -1,13 +1,13 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
 
+import AreaField from '../../shared/react-pure/AreaField';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import InputField from '../../shared/react-pure/InputField';
+import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
-import AreaField from '../../shared/react/AreaField';
-import ContentWrapper from '../../shared/react/ContentWrapper';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { useListener } from '../../shared/react/hooks/useListener';
-import InputField from '../../shared/react/InputField';
-import Spacer from '../../shared/react/Spacer';
 
 function PageUpdate({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {
   const [title, setTitle] = useState('');

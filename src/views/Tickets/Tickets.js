@@ -3,12 +3,12 @@ import { Copy } from 'grommet-icons';
 import React from 'react';
 
 import apps from '../../shared/js/apps';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Divider from '../../shared/react-pure/Divider';
+import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
-import ContentWrapper from '../../shared/react/ContentWrapper';
 import copyToClipboard from '../../shared/react/copyToClipboard';
-import Divider from '../../shared/react/Divider';
 import PaymentStatus from '../../shared/react/PaymentStatus';
-import Spacer from '../../shared/react/Spacer';
 
 function Tickets({ account, isLoading, onToast }) {
   return (

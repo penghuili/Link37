@@ -3,7 +3,7 @@ import { MoreVertical } from 'grommet-icons';
 import React from 'react';
 
 import { isMobile } from '../../../lib/browser';
-import HorizontalCenter from '../../../shared/react/HorizontalCenter';
+import HorizontalCenter from '../../../shared/react-pure/HorizontalCenter';
 import RouteLink from '../../../shared/react/RouteLink';
 import { noGroupLinksId } from '../../../store/links/linksNetwork';
 import Link from './Link';

@@ -5,11 +5,11 @@ import React from 'react';
 import ExpiredBanner from '../../components/ExpiredBanner';
 import PageAccess from '../../components/PageAccess';
 import { isMobile } from '../../lib/browser';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Divider from '../../shared/react-pure/Divider';
+import HorizontalCenter from '../../shared/react-pure/HorizontalCenter';
 import AppBar from '../../shared/react/AppBar';
-import ContentWrapper from '../../shared/react/ContentWrapper';
-import Divider from '../../shared/react/Divider';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
-import HorizontalCenter from '../../shared/react/HorizontalCenter';
 import RouteLink from '../../shared/react/RouteLink';
 import Group from './components/Group';
 

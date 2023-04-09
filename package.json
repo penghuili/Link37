@@ -53,7 +53,7 @@
     ]
   },
   "scripts": {
-    "copyshared": "rm -rf src/shared && mkdir src/shared && cp -a ../sharedjs/lib/js src/shared/js && cp -a ../sharedjs/lib/react src/shared/react",
+    "copyshared": "rm -rf src/shared && mkdir src/shared && cp -a ../sharedjs/lib/js src/shared/js && cp -a ../sharedjs/lib/react src/shared/react && cp -a ../sharedjs/lib/react-pure src/shared/react-pure",
     "start": "npm run copyshared && ESLINT_NO_DEV_ERRORS=true react-scripts start",
     "test": "react-scripts test",
     "build": "npm run copyshared && GENERATE_SOURCEMAP=false react-scripts build",

@@ -1,10 +1,10 @@
 import { Heading } from 'grommet';
 import React from 'react';
 
-import AppBar from '../../shared/react/AppBar';
 import DragDrop from '../../components/DragDrop';
 import { calculateItemPosition } from '../../shared/js/position';
-import ContentWrapper from '../../shared/react/ContentWrapper';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
 function LinksOrder({ params: { pageId }, isLoading, group, onFetch, onUpdate }) {

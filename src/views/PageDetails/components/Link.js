@@ -2,9 +2,9 @@ import { Anchor, Box, Drop, Image, Text } from 'grommet';
 import { Info } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
 
+import HorizontalCenter from '../../../shared/react-pure/HorizontalCenter';
+import Modal from '../../../shared/react-pure/Modal';
 import copyToClipboard from '../../../shared/react/copyToClipboard';
-import HorizontalCenter from '../../../shared/react/HorizontalCenter';
-import Modal from '../../../shared/react/Modal';
 import RouteLink from '../../../shared/react/RouteLink';
 
 function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIncreaseTimes }) {

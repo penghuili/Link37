@@ -2,9 +2,9 @@ import { Spinner } from 'grommet';
 import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
 
+import HorizontalCenter from '../shared/react-pure/HorizontalCenter';
 import ChangePassword from '../shared/react/ChangePassword';
 import Contact from '../shared/react/Contact';
-import HorizontalCenter from '../shared/react/HorizontalCenter';
 import Security from '../shared/react/Security';
 import Setup2FA from '../shared/react/Setup2FA';
 import SignIn from '../shared/react/SignIn';

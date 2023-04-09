@@ -4,11 +4,11 @@ import React from 'react';
 import logo from '../../assets/logo.png';
 import Examples from '../../components/Examples';
 import Pitch from '../../components/Pitch';
-import ContentWrapper from '../../shared/react/ContentWrapper';
-import Divider from '../../shared/react/Divider';
-import HorizontalCenter from '../../shared/react/HorizontalCenter';
+import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Divider from '../../shared/react-pure/Divider';
+import HorizontalCenter from '../../shared/react-pure/HorizontalCenter';
+import Spacer from '../../shared/react-pure/Spacer';
 import RouteLink from '../../shared/react/RouteLink';
-import Spacer from '../../shared/react/Spacer';
 
 function Welcome() {
   return (

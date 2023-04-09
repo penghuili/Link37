@@ -1,7 +1,7 @@
 import { FormView, FormViewHide } from 'grommet-icons';
 import React, { useState } from 'react';
 
-import Modal from '../shared/react/Modal';
+import Modal from '../shared/react-pure/Modal';
 
 function PageAccess({ page }) {
   const [modalMessage, setModalMessage] = useState('');
