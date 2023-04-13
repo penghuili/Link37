@@ -115,6 +115,8 @@ function* handleFetchPageRequested({ payload: { pageId } }) {
     if (error.status === 404) {
       yield put(linksActionCreators.setFetchError('This page does not exist.'));
     }
+  } else {
+    yield put(linksActionCreators.setFetchError(''));
   }
 
   yield put(linksActionCreators.isLoading(false));
