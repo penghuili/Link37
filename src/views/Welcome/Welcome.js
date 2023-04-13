@@ -8,6 +8,7 @@ import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';
 import HorizontalCenter from '../../shared/react-pure/HorizontalCenter';
 import Spacer from '../../shared/react-pure/Spacer';
+import ChangeTheme from '../../shared/react/ChangeTheme';
 import RouteLink from '../../shared/react/RouteLink';
 
 function Welcome() {
@@ -28,9 +29,11 @@ function Welcome() {
         <RouteLink to="/sign-up" label="Sign up" />
         <Spacer />
         <RouteLink to="/sign-in" label="Sign in" />
+
         <Spacer />
         <Divider />
         <Spacer />
+
         <Anchor
           label="How encryption works?"
           href="https://www.peng.kiwi/link37/encryption"
@@ -44,6 +47,12 @@ function Welcome() {
         <Anchor label="Terms" href="https://www.peng.kiwi/link37/terms" target="_blank" />
         <Spacer />
         <Anchor label="Contact" href="https://www.peng.kiwi/contact" target="_blank" />
+
+        <Spacer />
+        <Divider />
+        <Spacer />
+
+        <ChangeTheme />
       </ContentWrapper>
     </>
   );
