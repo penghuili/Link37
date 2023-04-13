@@ -9,7 +9,7 @@ function Pitch({ showHome }) {
   return (
     <>
       <Text margin="0 0 1rem">
-        Your browser's start page, <RouteLink label="encrytped" to="/encryption" />.
+        Your browser's start page, <RouteLink label="encrypted" to="/encryption" />.
       </Text>
       {showHome && location !== '/' && <RouteLink label="← Back to Home" to="/" />}
     </>
