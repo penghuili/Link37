@@ -54,7 +54,7 @@
   },
   "scripts": {
     "copyshared": "rm -rf src/shared && mkdir src/shared && cp -a ../sharedjs/lib/js src/shared/js && cp -a ../sharedjs/lib/react src/shared/react && cp -a ../sharedjs/lib/react-pure src/shared/react-pure",
-    "start": "npm run copyshared && ESLINT_NO_DEV_ERRORS=true react-scripts start",
+    "start": "npm run copyshared && ESLINT_NO_DEV_ERRORS=true BROWSER=none react-scripts start",
     "test": "react-scripts test",
     "build": "npm run copyshared && GENERATE_SOURCEMAP=false react-scripts build",
     "postbuild": "find ./build -name '*.map' -delete && find ./build -name '.DS_Store' -delete",
