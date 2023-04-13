@@ -1,4 +1,4 @@
-import { Avatar, Heading } from 'grommet';
+import { Anchor, Avatar, Heading } from 'grommet';
 import React from 'react';
 
 import logo from '../../assets/logo.png';
@@ -31,15 +31,19 @@ function Welcome() {
         <Spacer />
         <Divider />
         <Spacer />
-        <RouteLink label="How encryption works?" to="/encryption" />
+        <Anchor
+          label="How encryption works?"
+          href="https://www.peng.kiwi/link37/encryption"
+          target="_blank"
+        />
         <Spacer />
         <RouteLink label="Pricing" to="/pricing" />
         <Spacer />
-        <RouteLink label="Privacy" to="/privacy" />
+        <Anchor label="Privacy" href="https://www.peng.kiwi/link37/privacy" target="_blank" />
         <Spacer />
-        <RouteLink label="Terms" to="/terms" />
+        <Anchor label="Terms" href="https://www.peng.kiwi/link37/terms" target="_blank" />
         <Spacer />
-        <RouteLink label="Contact" to="/contact" />
+        <Anchor label="Contact" href="https://www.peng.kiwi/contact" target="_blank" />
       </ContentWrapper>
     </>
   );
