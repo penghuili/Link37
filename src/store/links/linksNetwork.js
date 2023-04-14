@@ -169,7 +169,11 @@ export async function getLinkMeta(link) {
   }
 }
 
-export async function createLink(decryptedPassword, pageId, { title, url, note, groupId, iconLink }) {
+export async function createLink(
+  decryptedPassword,
+  pageId,
+  { title, url, note, groupId, iconLink }
+) {
   try {
     const {
       title: encryptedTitle,
@@ -227,7 +231,12 @@ export async function updateLink(
 
 export async function increaseLinkTimes(decryptedPassword, pageId, linkId) {
   try {
-    const link = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}/times`);
+    const hasToken =
+      LocalStorage.get(sharedLocalStorageKeys.refreshToken) &&
+      LocalStorage.get(sharedLocalStorageKeys.accessToken);
+
+    const putMethod = hasToken ? HTTP.put : HTTP.publicPut;
+    const link = await putMethod(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}/times`);
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
 

@@ -15,7 +15,9 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIn
   return (
     <>
       <HorizontalCenter margin="0 1.5rem 1rem 0">
-        {!!link.iconLink && <Image src={link.iconLink} width="18px" height="18px" margin="0 0.25rem 0 0" />}
+        {!!link.iconLink && (
+          <Image src={link.iconLink} width="18px" height="18px" margin="0 0.25rem 0 0" />
+        )}
         <Anchor
           label={
             showClickedTimes ? (
@@ -30,12 +32,10 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIn
           href={link.url}
           target="_blank"
           onClick={() => {
-            if (isOwner) {
-              onIncreaseTimes({
-                pageId,
-                linkId: link.sortKey,
-              });
-            }
+            onIncreaseTimes({
+              pageId,
+              linkId: link.sortKey,
+            });
           }}
           onContextMenu={e => {
             if (isOwner) {
