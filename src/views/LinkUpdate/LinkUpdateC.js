@@ -6,6 +6,7 @@ import LinkUpdate from './LinkUpdate';
 
 const mapStateToProps = (state, { params: { linkId } }) => ({
   isLoading: linksSelectors.isLoading(state),
+  isLoadingMeta: linksSelectors.isLoadingMeta(state),
   link: linksSelectors.getLink(state, linkId),
   meta: linksSelectors.getLinkMeta(state),
 });

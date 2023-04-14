@@ -6,6 +6,7 @@ import LinkAdd from './LinkAdd';
 
 const mapStateToProps = state => ({
   isLoading: linksSelectors.isLoading(state),
+  isLoadingMeta: linksSelectors.isLoadingMeta(state),
   meta: linksSelectors.getLinkMeta(state),
 });
 

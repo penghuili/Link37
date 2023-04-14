@@ -13,6 +13,7 @@ import { getQueryParams } from '../../shared/react/routeHelpers';
 function LinkAdd({
   params: { pageId },
   isLoading,
+  isLoadingMeta,
   meta,
   onFetch,
   onFetchLinkMeta,
@@ -57,7 +58,7 @@ function LinkAdd({
 
   return (
     <>
-      <AppBar title="Add link" isLoading={isLoading} hasBack />
+      <AppBar title="Add link" isLoading={isLoading || isLoadingMeta} hasBack />
       <ContentWrapper>
         {!!meta?.iconLink && (
           <Image src={meta.iconLink} width="24px" height="24px" margin="0 0 1rem" />

@@ -14,6 +14,7 @@ function LinkUpdate({
   params: { pageId, linkId },
   link,
   isLoading,
+  isLoadingMeta,
   meta,
   onFetch,
   onFetchLinkMeta,
@@ -64,7 +65,7 @@ function LinkUpdate({
 
   return (
     <>
-      <AppBar title="Update link" isLoading={isLoading} hasBack />
+      <AppBar title="Update link" isLoading={isLoading || isLoadingMeta} hasBack />
       <ContentWrapper>
         {iconElement}
 
