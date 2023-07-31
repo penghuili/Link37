@@ -9,8 +9,8 @@ function Pitch({ showHome }) {
   return (
     <>
       <Text margin="0 0 1rem">
-        Your browser's start page,{' '}
-        <Anchor label="encrypted" href="https://www.peng.kiwi/link37/encryption" target="_blank" />.
+        Your browser's start page.{' '}
+        <Anchor label="Encrypted" href="https://www.peng.kiwi/link37/encryption" target="_blank" />.
       </Text>
       {showHome && location !== '/' && <RouteLink label="← Back to Home" to="/" />}
     </>
