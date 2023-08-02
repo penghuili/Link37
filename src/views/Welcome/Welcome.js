@@ -36,17 +36,17 @@ function Welcome() {
 
         <Anchor
           label="How encryption works?"
-          href="https://www.peng.kiwi/link37/encryption"
+          href="https://peng37.com/link37/encryption"
           target="_blank"
         />
         <Spacer />
         <RouteLink label="Pricing" to="/pricing" />
         <Spacer />
-        <Anchor label="Privacy" href="https://www.peng.kiwi/link37/privacy" target="_blank" />
+        <Anchor label="Privacy" href="https://peng37.com/link37/privacy" target="_blank" />
         <Spacer />
-        <Anchor label="Terms" href="https://www.peng.kiwi/link37/terms" target="_blank" />
+        <Anchor label="Terms" href="https://peng37.com/link37/terms" target="_blank" />
         <Spacer />
-        <Anchor label="Contact" href="https://www.peng.kiwi/contact" target="_blank" />
+        <Anchor label="Contact" href="https://peng37.com/contact" target="_blank" />
 
         <Spacer />
         <Divider />
