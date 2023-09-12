@@ -1,8 +1,7 @@
 import React from 'react';
 
-import DragDrop from '../../components/DragDrop';
-import { calculateItemPosition } from '../../shared/js/position';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Reorder from '../../shared/react-pure/Reorder';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
@@ -15,11 +14,14 @@ function PagesOrder({ isLoading, pages, onFetch, onUpdate }) {
     <>
       <AppBar title="Order pages" isLoading={isLoading} hasBack />
       <ContentWrapper>
-        <DragDrop
+        <Reorder
           items={pages}
-          onDragEnd={(sourceId, targetId) => {
-            const newPosition = calculateItemPosition(pages, sourceId, targetId);
-            onUpdate({ pageId: sourceId, position: newPosition });
+          onReorder={({ itemId, newPosition, onSucceeded }) => {
+            onUpdate({
+              pageId: itemId,
+              position: newPosition,
+              onSucceeded,
+            });
           }}
         />
       </ContentWrapper>

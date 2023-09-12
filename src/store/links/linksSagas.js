@@ -153,7 +153,7 @@ function* updatePageInStore(newPage) {
 }
 
 function* handleUpdatePagePressed({
-  payload: { pageId, title, note, showIndex, layout, showNote, position },
+  payload: { pageId, title, note, showIndex, layout, showNote, position, onSucceeded },
 }) {
   yield put(linksActionCreators.isLoading(true));
 
@@ -171,6 +171,10 @@ function* handleUpdatePagePressed({
 
   if (data) {
     yield call(updatePageInStore, data);
+
+    if (onSucceeded) {
+      onSucceeded(data);
+    }
 
     yield call(routeHelpers.goBack);
     if (position) {
@@ -297,7 +301,19 @@ function* handleCreateLinkPressed({ payload: { pageId, title, url, note, groupId
 }
 
 function* handleUpdateLinkPressed({
-  payload: { pageId, linkId, title, url, note, groupId, position, iconLink, goBack, silent },
+  payload: {
+    pageId,
+    linkId,
+    title,
+    url,
+    note,
+    groupId,
+    position,
+    iconLink,
+    goBack,
+    silent,
+    onSucceeded,
+  },
 }) {
   if (!pageId || !linkId) {
     return;
@@ -317,6 +333,10 @@ function* handleUpdateLinkPressed({
 
   if (data) {
     yield call(updateLinkInStore, data);
+
+    if (onSucceeded) {
+      onSucceeded(data);
+    }
 
     if (goBack) {
       yield call(routeHelpers.goBack);
@@ -409,7 +429,9 @@ function* handleCreateGroupPressed({ payload: { pageId, title } }) {
   yield put(linksActionCreators.isLoading(false));
 }
 
-function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position, goBack } }) {
+function* handleUpdateGroupPressed({
+  payload: { pageId, groupId, title, position, goBack, onSucceeded },
+}) {
   yield put(linksActionCreators.isLoading(true));
 
   const page = yield select(linksSelectors.getDetails);
@@ -421,6 +443,9 @@ function* handleUpdateGroupPressed({ payload: { pageId, groupId, title, position
   if (data) {
     yield call(updateGroupInStore, data);
 
+    if (onSucceeded) {
+      onSucceeded(data);
+    }
     if (goBack) {
       yield call(routeHelpers.goBack);
     }

@@ -71,10 +71,10 @@ export const linksActionCreators = {
       payload: { title, note, showIndex, layout, showNote },
     };
   },
-  updatePagePressed({ pageId, title, note, showIndex, layout, showNote, position }) {
+  updatePagePressed({ pageId, title, note, showIndex, layout, showNote, position, onSucceeded }) {
     return {
       type: linksActionTypes.UPDATE_PAGE_PRESSED,
-      payload: { pageId, title, note, showIndex, layout, showNote, position },
+      payload: { pageId, title, note, showIndex, layout, showNote, position, onSucceeded },
     };
   },
   publicPagePressed(pageId) {
@@ -118,6 +118,7 @@ export const linksActionCreators = {
     iconLink,
     goBack,
     silent,
+    onSucceeded,
   }) {
     return {
       type: linksActionTypes.UPDATE_LINK_PRESSED,
@@ -132,6 +133,7 @@ export const linksActionCreators = {
         iconLink,
         goBack,
         silent,
+        onSucceeded,
       },
     };
   },
@@ -153,10 +155,10 @@ export const linksActionCreators = {
       payload: { pageId, title },
     };
   },
-  updateGroupPressed({ pageId, groupId, title, position }) {
+  updateGroupPressed({ pageId, groupId, title, position, onSucceeded }) {
     return {
       type: linksActionTypes.UPDATE_GROUP_PRESSED,
-      payload: { pageId, groupId, title, position },
+      payload: { pageId, groupId, title, position, onSucceeded },
     };
   },
   deleteGroupPressed(pageId, groupId, includeLinks) {

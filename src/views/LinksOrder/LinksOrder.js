@@ -1,9 +1,8 @@
 import { Heading } from 'grommet';
 import React from 'react';
 
-import DragDrop from '../../components/DragDrop';
-import { calculateItemPosition } from '../../shared/js/position';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Reorder from '../../shared/react-pure/Reorder';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
@@ -21,11 +20,15 @@ function LinksOrder({ params: { pageId }, isLoading, group, onFetch, onUpdate })
             <Heading level="3" margin="0 0 1rem">
               {group.title}
             </Heading>
-            <DragDrop
+            <Reorder
               items={group.links}
-              onDragEnd={(sourceId, targetId) => {
-                const newPosition = calculateItemPosition(group.links, sourceId, targetId);
-                onUpdate({ pageId, linkId: sourceId, position: newPosition });
+              onReorder={({ itemId, newPosition, onSucceeded }) => {
+                onUpdate({
+                  pageId,
+                  linkId: itemId,
+                  position: newPosition,
+                  onSucceeded,
+                });
               }}
             />
           </>

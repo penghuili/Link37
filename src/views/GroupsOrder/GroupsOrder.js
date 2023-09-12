@@ -1,9 +1,8 @@
 import { Heading } from 'grommet';
 import React, { useMemo } from 'react';
 
-import DragDrop from '../../components/DragDrop';
-import { calculateItemPosition } from '../../shared/js/position';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
+import Reorder from '../../shared/react-pure/Reorder';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { noGroupLinksId } from '../../store/links/linksNetwork';
@@ -27,11 +26,15 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
             <Heading level="3" margin="0 0 1rem">
               {page.title}
             </Heading>
-            <DragDrop
+            <Reorder
               items={groups}
-              onDragEnd={(sourceId, targetId) => {
-                const newPosition = calculateItemPosition(groups, sourceId, targetId);
-                onUpdate({ pageId, groupId: sourceId, position: newPosition });
+              onReorder={({ itemId, newPosition, onSucceeded }) => {
+                onUpdate({
+                  pageId,
+                  groupId: itemId,
+                  position: newPosition,
+                  onSucceeded,
+                });
               }}
             />
           </>
