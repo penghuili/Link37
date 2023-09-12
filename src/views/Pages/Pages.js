@@ -28,7 +28,7 @@ function Pages({
 
   return (
     <>
-      <AppBar title="Pages" isLoading={isLoading} />
+      <AppBar title="Pages" isLoading={isLoading || isLoadingSettings || isTrying} />
       <ContentWrapper>
         <ExpiredBanner />
 
