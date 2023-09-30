@@ -10,7 +10,7 @@ function Pitch({ showHome }) {
     <>
       <Text margin="0 0 1rem">
         Your browser's start page.{' '}
-        <Anchor label="Encrypted" href="https://peng37.com/link37/encryption" target="_blank" />.
+        <Anchor label="Encrypted" href="https://encrypt37.com/encryption" target="_blank" />.
       </Text>
       {showHome && location !== '/' && <RouteLink label="← Back to Home" to="/" />}
     </>

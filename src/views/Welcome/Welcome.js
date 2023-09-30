@@ -1,7 +1,6 @@
 import { Anchor, Avatar, Heading } from 'grommet';
 import React from 'react';
 
-import logo from '../../assets/logo.png';
 import Examples from '../../components/Examples';
 import Pitch from '../../components/Pitch';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
@@ -16,7 +15,7 @@ function Welcome() {
     <>
       <ContentWrapper>
         <HorizontalCenter margin="2rem 0 1rem">
-          <Avatar src={logo} />{' '}
+          <Avatar src={`${process.env.REACT_APP_ASSETS_FOR_CODE}/logo.png`} />{' '}
           <Heading level="2" margin="0 0 0 1rem">
             Link37
           </Heading>
@@ -36,17 +35,13 @@ function Welcome() {
 
         <Anchor
           label="How encryption works?"
-          href="https://peng37.com/link37/encryption"
+          href="https://encrypt37.com/encryption"
           target="_blank"
         />
         <Spacer />
         <RouteLink label="Pricing" to="/pricing" />
         <Spacer />
-        <Anchor label="Privacy" href="https://peng37.com/link37/privacy" target="_blank" />
-        <Spacer />
-        <Anchor label="Terms" href="https://peng37.com/link37/terms" target="_blank" />
-        <Spacer />
-        <Anchor label="Contact" href="https://peng37.com/contact" target="_blank" />
+        <Anchor label="Contact" href="https://encrypt37.com/contact" target="_blank" />
 
         <Spacer />
         <Divider />

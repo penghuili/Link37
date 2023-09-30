@@ -35,7 +35,7 @@ function Account({ account, isLoadingAccount }) {
             <Spacer />
             <Anchor
               label="How encryption works?"
-              href="https://peng37.com/link37/encryption"
+              href="https://encrypt37.com/encryption"
               target="_blank"
             />
             <Spacer />
@@ -43,11 +43,7 @@ function Account({ account, isLoadingAccount }) {
             <Spacer />
             <RouteLink label="Buy tickets" to="/tickets" />
             <Spacer />
-            <Anchor label="Privacy" href="https://peng37.com/link37/privacy" target="_blank" />
-            <Spacer />
-            <Anchor label="Terms" href="https://peng37.com/link37/terms" target="_blank" />
-            <Spacer />
-            <Anchor label="Contact" href="https://peng37.com/contact" target="_blank" />
+            <Anchor label="Contact" href="https://encrypt37.com/contact" target="_blank" />
             <Spacer />
             <Divider />
             <Spacer />

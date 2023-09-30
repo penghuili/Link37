@@ -1,7 +1,6 @@
 import { all, call, put, select, take, takeLatest } from 'redux-saga/effects';
 
 import { localStorageKeys } from '../../lib/constants';
-import apps from '../../shared/js/apps';
 import { LocalStorage } from '../../shared/js/LocalStorage';
 import { orderByPosition } from '../../shared/js/position';
 import { routeHelpers } from '../../shared/react/routeHelpers';
@@ -29,12 +28,6 @@ import {
   updatePage,
 } from './linksNetwork';
 import { linksSelectors } from './linksSelectors';
-
-function* handleIsLoggedIn({ payload: { loggedIn } }) {
-  if (loggedIn) {
-    yield put(sharedActionCreators.fetchSettingsRequested(apps.link37.name));
-  }
-}
 
 function handleReset() {
   const keys = Object.keys(localStorage);
@@ -474,7 +467,6 @@ function* handleDeleteGroupPressed({ payload: { pageId, groupId, includeLinks } 
 
 export function* linksSagas() {
   yield all([
-    takeLatest(sharedActionTypes.IS_LOGGED_IN, handleIsLoggedIn),
     takeLatest(sharedActionTypes.RESET, handleReset),
     takeLatest(
       [linksActionTypes.FETCH_PAGES_REQUESTED, sharedActionTypes.TRY_SUCCEEDED],

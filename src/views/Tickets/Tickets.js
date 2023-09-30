@@ -33,13 +33,13 @@ function Tickets({ account, isLoading, onToast }) {
             <Text margin="1rem 0 0">You can buy ticket at my stripe page.</Text>
 
             <Text margin="1rem 0 0">
-              1. Please add your user id to the "Your Link37 user id" field when checkout.
+              1. Please add your username to the "Your Link37 username" field when checkout.
             </Text>
             <Text margin="1rem 0 0">
-              Your user ID: {account.userId}{' '}
+              Your username: {account.username}{' '}
               <Copy
                 onClick={() => {
-                  copyToClipboard(account.userId);
+                  copyToClipboard(account.username);
                   onToast('Copied!');
                 }}
               />
