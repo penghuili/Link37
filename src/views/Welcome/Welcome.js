@@ -41,6 +41,8 @@ function Welcome() {
         <Spacer />
         <RouteLink label="Pricing" to="/pricing" />
         <Spacer />
+        <Anchor label="Source code" href="https://github.com/penghuili/Link37" target="_blank" />
+        <Spacer />
         <Anchor label="Privacy" href={privacyUrl} target="_blank" />
         <Spacer />
         <Anchor label="Terms" href={termsUrl} target="_blank" />

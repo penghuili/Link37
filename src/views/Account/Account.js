@@ -1,6 +1,5 @@
 import { Anchor, Spinner, Text } from 'grommet';
 import React from 'react';
-
 import apps from '../../shared/js/apps';
 import { formatDateTime } from '../../shared/js/date';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
@@ -9,9 +8,9 @@ import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
 import AppVersion from '../../shared/react/AppVersion';
 import ChangeTheme from '../../shared/react/ChangeTheme';
-import { privacyUrl, termsUrl } from '../../shared/react/initShared';
 import PaymentStatus from '../../shared/react/PaymentStatus';
 import RouteLink from '../../shared/react/RouteLink';
+import { privacyUrl, termsUrl } from '../../shared/react/initShared';
 
 function Account({ account, isLoadingAccount }) {
   return (
@@ -37,6 +36,12 @@ function Account({ account, isLoadingAccount }) {
             <Anchor
               label="How encryption works?"
               href="https://encrypt37.com/encryption"
+              target="_blank"
+            />
+            <Spacer />
+            <Anchor
+              label="Source code"
+              href="https://github.com/penghuili/Link37"
               target="_blank"
             />
             <Spacer />
