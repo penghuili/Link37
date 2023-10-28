@@ -1,17 +1,16 @@
 import { connect } from 'react-redux';
-
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { pageActions, pageSelectors } from '../../store/page/pageStore';
 import PagesOrder from './PagesOrder';
 
 const mapStateToProps = state => ({
-  isLoading: linksSelectors.isLoading(state),
-  pages: linksSelectors.getPages(state),
+  pages: pageSelectors.data.getItems(state),
+  isLoading: pageSelectors.fetchItems.isPending(state),
+  isUpdating: pageSelectors.updateItem.isPending(state),
 });
 
 const mapDispatchToProps = {
-  onFetch: linksActionCreators.fetchPagesRequested,
-  onUpdate: linksActionCreators.updatePagePressed,
+  onFetch: pageActions.fetchItemsRequested,
+  onUpdate: pageActions.updateRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PagesOrder);

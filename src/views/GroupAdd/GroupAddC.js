@@ -1,16 +1,18 @@
 import { connect } from 'react-redux';
-
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { groupActions, groupSelectors } from '../../store/group/groupStore';
+import { pageActions, pageSelectors } from '../../store/page/pageStore';
 import GroupAdd from './GroupAdd';
 
-const mapStateToProps = state => ({
-  isLoading: linksSelectors.isLoading(state),
+const mapStateToProps = (state, { params: { pageId } }) => ({
+  pageId,
+  page: pageSelectors.data.getStandaloneItem(state),
+  isLoadingPage: pageSelectors.fetchItem.isPending(state),
+  isCreating: groupSelectors.createItem.isPending(state, pageId),
 });
 
 const mapDispatchToProps = {
-  onFetch: linksActionCreators.fetchPageRequested,
-  onCreate: linksActionCreators.createGroupPressed,
+  onFetch: pageActions.fetchItemRequested,
+  onCreate: groupActions.createRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupAdd);

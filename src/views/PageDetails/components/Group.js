@@ -1,17 +1,16 @@
 import { Box, Heading, Menu, Text } from 'grommet';
 import { MoreVertical } from 'grommet-icons';
 import React from 'react';
-
 import { isMobile } from '../../../lib/browser';
 import HorizontalCenter from '../../../shared/react-pure/HorizontalCenter';
 import RouteLink from '../../../shared/react/RouteLink';
-import { noGroupLinksId } from '../../../store/links/linksNetwork';
+import { noGroupLinksId } from '../../../store/link/linkNetwork';
 import Link from './Link';
 
 function Group({
   pageId,
+  page,
   group,
-  isOwner,
   showMenu,
   showClickedTimes,
   onDelete,
@@ -31,15 +30,11 @@ function Group({
           <Menu
             icon={<MoreVertical />}
             items={[
-              ...(isOwner
-                ? [
-                    {
-                      label: 'Add link',
-                      onClick: () => onNav(`/p/${pageId}/links/add?groupId=${group.sortKey}`),
-                      margin: '0.25rem 0',
-                    },
-                  ]
-                : []),
+              {
+                label: 'Add link',
+                onClick: () => onNav(`/p/${pageId}/links/add?groupId=${group.sortKey}`),
+                margin: '0.25rem 0',
+              },
               ...(isMobile()
                 ? []
                 : [
@@ -53,7 +48,7 @@ function Group({
                       margin: '0.25rem 0',
                     },
                   ]),
-              ...(group.sortKey !== noGroupLinksId && isOwner
+              ...(group.sortKey !== noGroupLinksId
                 ? [
                     {
                       label: 'Update',
@@ -62,7 +57,7 @@ function Group({
                     },
                   ]
                 : []),
-              ...(group.links.length > 1 && isOwner && !isMobile()
+              ...(group.links.length > 1 && !isMobile()
                 ? [
                     {
                       label: 'Re-order',
@@ -71,21 +66,23 @@ function Group({
                     },
                   ]
                 : []),
-              ...(group.sortKey !== noGroupLinksId && isOwner
+              ...(group.sortKey !== noGroupLinksId
                 ? [
                     {
                       label: 'Delete group only',
-                      onClick: () => onDelete(pageId, group.sortKey, false),
+                      onClick: () =>
+                        onDelete({ id: pageId, itemId: group.sortKey, includeLinks: false }),
                       margin: '0.25rem 0',
                       color: 'status-critical',
                     },
                   ]
                 : []),
-              ...(group.sortKey !== noGroupLinksId && isOwner
+              ...(group.sortKey !== noGroupLinksId
                 ? [
                     {
                       label: 'Delete group and links',
-                      onClick: () => onDelete(pageId, group.sortKey, true),
+                      onClick: () =>
+                        onDelete({ id: pageId, itemId: group.sortKey, includeLinks: true }),
                       margin: '0.25rem 0',
                       color: 'status-critical',
                     },
@@ -102,8 +99,8 @@ function Group({
             <Link
               key={link.sortKey}
               pageId={pageId}
+              page={page}
               link={link}
-              isOwner={isOwner}
               showClickedTimes={showClickedTimes}
               onToast={onToast}
               onDelete={onDeleteLink}
@@ -114,13 +111,11 @@ function Group({
       ) : (
         <Text margin="0 0 1rem">
           No links yet.{' '}
-          {isOwner && (
-            <RouteLink
-              to={`/p/${pageId}/links/add?groupId=${group.sortKey}`}
-              label="Create link"
-              margin="0 1rem 0 0"
-            />
-          )}
+          <RouteLink
+            to={`/p/${pageId}/links/add?groupId=${group.sortKey}`}
+            label="Create link"
+            margin="0 1rem 0 0"
+          />
         </Text>
       )}
     </Box>

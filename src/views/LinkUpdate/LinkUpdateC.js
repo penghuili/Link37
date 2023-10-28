@@ -1,21 +1,22 @@
 import { connect } from 'react-redux';
-
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { linkActions, linkSelectors } from '../../store/link/linkStore';
+import { pageActions, pageSelectors } from '../../store/page/pageStore';
 import LinkUpdate from './LinkUpdate';
 
-const mapStateToProps = (state, { params: { linkId } }) => ({
-  isLoading: linksSelectors.isLoading(state),
-  isLoadingMeta: linksSelectors.isLoadingMeta(state),
-  link: linksSelectors.getLink(state, linkId),
-  meta: linksSelectors.getLinkMeta(state),
+const mapStateToProps = (state, { params: { pageId, linkId } }) => ({
+  pageId,
+  linkId,
+  page: pageSelectors.data.getStandaloneItem(state),
+  link: linkSelectors.data.getItem(state, pageId, linkId),
+  getLinkMeta: link => linkSelectors.data.getLinkMeta(state, link),
+  isLoadingPage: pageSelectors.fetchItem.isPending(state),
+  isUpdating: linkSelectors.updateItem.isPending(state, pageId),
 });
 
 const mapDispatchToProps = {
-  onClearMeta: () => linksActionCreators.setLinkMeta(null),
-  onFetch: linksActionCreators.fetchPageRequested,
-  onFetchLinkMeta: linksActionCreators.fetchLinkMetaRequested,
-  onUpdate: linksActionCreators.updateLinkPressed,
+  onFetch: pageActions.fetchItemRequested,
+  onFetchLinkMeta: linkActions.getLinkMetaRequested,
+  onUpdate: linkActions.updateRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LinkUpdate);

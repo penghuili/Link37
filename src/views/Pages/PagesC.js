@@ -1,14 +1,12 @@
 import { connect } from 'react-redux';
-
 import { sharedActionCreators } from '../../shared/react/store/sharedActions';
 import sharedSelectors from '../../shared/react/store/sharedSelectors';
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { pageActions, pageSelectors } from '../../store/page/pageStore';
 import Pages from './Pages';
 
 const mapStateToProps = state => ({
-  pages: linksSelectors.getPages(state),
-  isLoading: linksSelectors.isLoading(state),
+  pages: pageSelectors.data.getItems(state),
+  isLoading: pageSelectors.fetchItems.isPending(state),
   isAccountValid: sharedSelectors.isAccountValid(state),
   tried: sharedSelectors.tried(state),
   isLoadingSettings: sharedSelectors.isLoadingSettings(state),
@@ -16,7 +14,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  onFetch: linksActionCreators.fetchPagesRequested,
+  onFetch: pageActions.fetchItemsRequested,
   onTry: sharedActionCreators.tryPressed,
 };
 

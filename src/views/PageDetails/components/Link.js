@@ -1,13 +1,12 @@
 import { Anchor, Box, Drop, Image, Text } from 'grommet';
 import { Info } from 'grommet-icons';
 import React, { useRef, useState } from 'react';
-
 import HorizontalCenter from '../../../shared/react-pure/HorizontalCenter';
 import Modal from '../../../shared/react-pure/Modal';
-import copyToClipboard from '../../../shared/react/copyToClipboard';
 import RouteLink from '../../../shared/react/RouteLink';
+import copyToClipboard from '../../../shared/react/copyToClipboard';
 
-function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIncreaseTimes }) {
+function Link({ pageId, page, link, showClickedTimes, onToast, onDelete, onIncreaseTimes }) {
   const ref = useRef();
   const [showContext, setShowContext] = useState(false);
   const [showModal, setShowModal] = useState(false);
@@ -35,13 +34,12 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIn
             onIncreaseTimes({
               pageId,
               linkId: link.sortKey,
+              page,
             });
           }}
           onContextMenu={e => {
-            if (isOwner) {
-              e.preventDefault();
-              setShowContext(true);
-            }
+            e.preventDefault();
+            setShowContext(true);
           }}
           ref={ref}
         />
@@ -89,7 +87,7 @@ function Link({ pageId, link, isOwner, showClickedTimes, onToast, onDelete, onIn
           <Anchor
             label="Delete"
             color="status-critical"
-            onClick={() => onDelete(link.id, link.sortKey)}
+            onClick={() => onDelete({ id: pageId, itemId: link.sortKey })}
             margin="0.5rem 0"
           />
         </Drop>

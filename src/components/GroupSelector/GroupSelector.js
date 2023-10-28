@@ -1,14 +1,8 @@
 import { Select, Text } from 'grommet';
 import React, { useEffect, useState } from 'react';
 
-import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
-
-function GroupSelector({ pageId, groupId, page, disabled, onChange, onFetchPage }) {
+function GroupSelector({ groupId, page, disabled, onChange }) {
   const [value, setValue] = useState(null);
-
-  useEffectOnce(() => {
-    onFetchPage(pageId);
-  });
 
   useEffect(() => {
     if (groupId && page?.groups) {

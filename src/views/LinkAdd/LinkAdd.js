@@ -1,6 +1,5 @@
 import { Button, Image } from 'grommet';
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useMemo, useState } from 'react';
 import GroupSelector from '../../components/GroupSelector';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
@@ -11,13 +10,13 @@ import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { getQueryParams } from '../../shared/react/routeHelpers';
 
 function LinkAdd({
-  params: { pageId },
-  isLoading,
-  isLoadingMeta,
-  meta,
+  pageId,
+  page,
+  getLinkMeta,
+  isLoadingPage,
+  isCreating,
   onFetch,
   onFetchLinkMeta,
-  onClearMeta,
   onCreate,
 }) {
   const { groupId: groupIdInQuery } = getQueryParams();
@@ -31,37 +30,41 @@ function LinkAdd({
 
   const [groupId, setGroupId] = useState(groupIdInQuery || '');
 
+  const linkMeta = useMemo(() => {
+    return getLinkMeta(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
+
   useEffectOnce(() => {
-    onFetch(pageId);
-    return onClearMeta;
+    onFetch({ itemId: pageId });
   });
 
   useEffect(() => {
     if (url) {
-      onFetchLinkMeta(url);
+      onFetchLinkMeta({ link: url });
     }
   }, [url, onFetchLinkMeta]);
 
   useEffect(() => {
-    if (meta) {
-      if (!isTitleTouched && meta.title) {
-        setTitle(meta.title);
+    if (linkMeta) {
+      if (!isTitleTouched && linkMeta.title) {
+        setTitle(linkMeta.title);
         setIsTitleTouched(true);
       }
 
-      if (!isNoteTouched && meta.description) {
-        setNote(meta.description);
+      if (!isNoteTouched && linkMeta.description) {
+        setNote(linkMeta.description);
         setIsNoteTouched(true);
       }
     }
-  }, [isTitleTouched, isNoteTouched, meta]);
+  }, [isTitleTouched, isNoteTouched, linkMeta]);
 
   return (
     <>
-      <AppBar title="Add link" isLoading={isLoading || isLoadingMeta} hasBack />
+      <AppBar title="Add link" isLoading={isLoadingPage || isCreating} hasBack />
       <ContentWrapper>
-        {!!meta?.iconLink && (
-          <Image src={meta.iconLink} width="24px" height="24px" margin="0 0 1rem" />
+        {!!linkMeta?.iconLink && (
+          <Image src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />
         )}
 
         <AreaField label="Link" placeholder="Link" value={url} onChange={setUrl} />
@@ -90,22 +93,23 @@ function LinkAdd({
           }}
         />
         <Spacer />
-        <GroupSelector pageId={pageId} groupId={groupIdInQuery} onChange={setGroupId} />
+        <GroupSelector groupId={groupIdInQuery} onChange={setGroupId} />
         <Spacer />
         <Button
           label="Create link"
           onClick={() => {
-            const body = {
-              pageId,
+            onCreate({
+              id: pageId,
+              page,
               title,
               url,
               note,
               groupId,
-              iconLink: meta?.iconLink,
-            };
-            onCreate(body);
+              iconLink: linkMeta?.iconLink,
+              goBack: true,
+            });
           }}
-          disabled={!title || !url || isLoading}
+          disabled={!title || !url || isCreating}
         />
       </ContentWrapper>
     </>

@@ -1,7 +1,6 @@
 import { Spinner } from 'grommet';
 import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
-
 import HorizontalCenter from '../shared/react-pure/HorizontalCenter';
 import ChangePassword from '../shared/react/ChangePassword';
 import Security from '../shared/react/Security';
@@ -11,22 +10,23 @@ import SignUp from '../shared/react/SignUp';
 import Verify2FA from '../shared/react/Verify2FA';
 import Account from '../views/Account';
 import GroupAdd from '../views/GroupAdd';
-import GroupsOrder from '../views/GroupsOrder';
 import GroupUpdate from '../views/GroupUpdate';
+import GroupsOrder from '../views/GroupsOrder';
 import LinkAdd from '../views/LinkAdd';
-import LinksOrder from '../views/LinksOrder';
 import LinkUpdate from '../views/LinkUpdate';
+import LinksOrder from '../views/LinksOrder';
 import PageAdd from '../views/PageAdd';
 import PageDetails from '../views/PageDetails';
+import PageUpdate from '../views/PageUpdate';
 import Pages from '../views/Pages';
 import PagesOrder from '../views/PagesOrder';
-import PageUpdate from '../views/PageUpdate';
 import Pricing from '../views/Pricing';
 import Tickets from '../views/Tickets';
+import TryIt from '../views/TryIt'
 import Welcome from '../views/Welcome';
 
-function Router({ isCheckingRefreshToken, isLoggedIn }) {
-  if (isCheckingRefreshToken) {
+function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, tried, isExpired }) {
+  if (isCheckingRefreshToken || isLoadingSettings) {
     return (
       <HorizontalCenter justify="center" margin="3rem 0 0">
         <Spinner size="large" />
@@ -35,6 +35,29 @@ function Router({ isCheckingRefreshToken, isLoggedIn }) {
   }
 
   if (isLoggedIn) {
+    if (!tried) {
+      return <TryIt />;
+    }
+
+    if (isExpired) {
+      return (
+        <Switch>
+          <Route path="/account" component={Account} />
+          <Route path="/security" component={Security} />
+          <Route path="/security/2fa" component={Setup2FA} />
+          <Route path="/security/password" component={ChangePassword} />
+  
+          <Route path="/p/:pageId" component={PageDetails} />
+  
+          <Route path="/tickets" component={Tickets} />
+          <Route path="/pricing" component={Pricing} />
+  
+          <Route path="/" component={Pages} />
+          <Route>{() => <Redirect to="/" />}</Route>
+        </Switch>
+      );
+    }
+
     return (
       <Switch>
         <Route path="/account" component={Account} />

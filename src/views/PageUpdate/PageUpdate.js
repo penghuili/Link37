@@ -1,6 +1,5 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
-
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
@@ -9,19 +8,19 @@ import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { useListener } from '../../shared/react/hooks/useListener';
 
-function PageUpdate({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {
+function PageUpdate({ pageId, isLoading, isUpdating, page, onFetch, onUpdate }) {
   const [title, setTitle] = useState('');
   useListener(page?.title, value => setTitle(value || ''));
   const [note, setNote] = useState('');
   useListener(page?.note, value => setNote(value || ''));
 
   useEffectOnce(() => {
-    onFetch(pageId);
+    onFetch({ itemId: pageId });
   });
 
   return (
     <>
-      <AppBar title="Update page" isLoading={isLoading} hasBack />
+      <AppBar title="Update page" isLoading={isLoading || isUpdating} hasBack />
       <ContentWrapper>
         <InputField label="Title" placeholder="Title" value={title} onChange={setTitle} />
 
@@ -32,14 +31,15 @@ function PageUpdate({ params: { pageId }, isLoading, page, onFetch, onUpdate }) 
         <Button
           label="Update"
           onClick={() => {
-            const body = {
-              pageId,
+            onUpdate({
+              itemId: pageId,
+              page,
               title,
               note,
-            };
-            onUpdate(body);
+              goBack: true,
+            });
           }}
-          disabled={!title || isLoading}
+          disabled={!title || isUpdating}
         />
       </ContentWrapper>
     </>

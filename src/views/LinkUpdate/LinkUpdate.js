@@ -1,6 +1,5 @@
 import { Button, Image } from 'grommet';
 import React, { useEffect, useMemo, useState } from 'react';
-
 import GroupSelector from '../../components/GroupSelector';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
@@ -11,14 +10,15 @@ import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import { useListener } from '../../shared/react/hooks/useListener';
 
 function LinkUpdate({
-  params: { pageId, linkId },
+  pageId,
+  linkId,
+  page,
   link,
-  isLoading,
-  isLoadingMeta,
-  meta,
+  getLinkMeta,
+  isLoadingPage,
+  isUpdating,
   onFetch,
   onFetchLinkMeta,
-  onClearMeta,
   onUpdate,
 }) {
   const [url, setUrl] = useState('');
@@ -39,21 +39,24 @@ function LinkUpdate({
   const [groupId, setGroupId] = useState('');
   useListener(link?.groupId, value => setGroupId(value || ''));
 
-  useEffectOnce(() => {
-    onFetch(pageId);
+  const linkMeta = useMemo(() => {
+    return getLinkMeta(url);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [url]);
 
-    return onClearMeta;
+  useEffectOnce(() => {
+    onFetch({ itemId: pageId });
   });
 
   useEffect(() => {
     if (link?.url) {
-      onFetchLinkMeta(link.url);
+      onFetchLinkMeta({ link: link.url });
     }
   }, [link?.url, onFetchLinkMeta]);
 
   const iconElement = useMemo(() => {
-    if (meta?.iconLink) {
-      return <Image src={meta.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
+    if (linkMeta?.iconLink) {
+      return <Image src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
     }
 
     if (link?.iconLink) {
@@ -61,21 +64,15 @@ function LinkUpdate({
     }
 
     return null;
-  }, [meta?.iconLink, link?.iconLink]);
+  }, [linkMeta?.iconLink, link?.iconLink]);
 
   return (
     <>
-      <AppBar title="Update link" isLoading={isLoading || isLoadingMeta} hasBack />
+      <AppBar title="Update link" isLoading={isLoadingPage || isUpdating} hasBack />
       <ContentWrapper>
         {iconElement}
 
-        <AreaField
-          label="Link"
-          placeholder="Link"
-          value={url}
-          onChange={setUrl}
-          disabled={isLoading}
-        />
+        <AreaField label="Link" placeholder="Link" value={url} onChange={setUrl} />
 
         <Spacer />
         <InputField
@@ -88,7 +85,6 @@ function LinkUpdate({
               setIsTitleTouched(true);
             }
           }}
-          disabled={isLoading}
         />
 
         <Spacer />
@@ -102,33 +98,29 @@ function LinkUpdate({
               setIsNoteTouched(true);
             }
           }}
-          disabled={isLoading}
         />
 
         <Spacer />
-        <GroupSelector
-          pageId={pageId}
-          groupId={groupId}
-          onChange={setGroupId}
-          disabled={isLoading}
-        />
+        <GroupSelector groupId={groupId} onChange={setGroupId} />
 
         <Spacer />
         <Button
           label="Update"
           onClick={() => {
             const body = {
-              pageId,
-              linkId,
+              id: pageId,
+              page,
+              itemId: linkId,
               title,
               url,
               note,
               groupId,
-              iconLink: meta?.iconLink,
+              iconLink: linkMeta?.iconLink,
+              goBack: true,
             };
             onUpdate(body);
           }}
-          disabled={!title || !url || isLoading}
+          disabled={!title || !url || isUpdating}
         />
       </ContentWrapper>
     </>

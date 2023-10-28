@@ -1,19 +1,18 @@
 import { Heading } from 'grommet';
 import React from 'react';
-
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Reorder from '../../shared/react-pure/Reorder';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
-function LinksOrder({ params: { pageId }, isLoading, group, onFetch, onUpdate }) {
+function LinksOrder({ pageId, page, group, isLoadingPage, isUpdating, onFetch, onUpdate }) {
   useEffectOnce(() => {
-    onFetch(pageId);
+    onFetch({ itemId: pageId });
   });
 
   return (
     <>
-      <AppBar title="Order links" isLoading={isLoading} hasBack />
+      <AppBar title="Order links" isLoading={isLoadingPage || isUpdating} hasBack />
       <ContentWrapper>
         {!!group && (
           <>
@@ -24,8 +23,9 @@ function LinksOrder({ params: { pageId }, isLoading, group, onFetch, onUpdate })
               items={group.links}
               onReorder={({ itemId, newPosition, onSucceeded }) => {
                 onUpdate({
-                  pageId,
-                  linkId: itemId,
+                  id: pageId,
+                  page,
+                  itemId,
                   position: newPosition,
                   onSucceeded,
                 });

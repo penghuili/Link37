@@ -1,3 +1,4 @@
+import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
 import apps from '../../shared/js/apps';
 import asyncForEach from '../../shared/js/asyncForEach';
 import {
@@ -7,7 +8,6 @@ import {
   encryptMessageSymmetric,
 } from '../../shared/js/encryption';
 import generatePassword from '../../shared/js/generatePassword';
-import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
 import HTTP from '../../shared/react/HTTP';
 
 export async function fetchPages() {
@@ -350,7 +350,7 @@ async function encryptLinkContent(link, decryptedPassword) {
   };
 }
 
-async function decryptLinkContent(decryptedPassword, link) {
+export async function decryptLinkContent(decryptedPassword, link) {
   const { title, url, note, iconLink } = link;
 
   const decryptedTitle = await decryptMessageSymmetric(decryptedPassword, title);
@@ -380,7 +380,7 @@ async function encryptGroupContent(group, decryptedPassword) {
   };
 }
 
-async function decryptGroupContent(decryptedPassword, link) {
+export async function decryptGroupContent(decryptedPassword, link) {
   if (!link.encrypted) {
     return link;
   }

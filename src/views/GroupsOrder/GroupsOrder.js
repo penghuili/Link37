@@ -1,25 +1,24 @@
 import { Heading } from 'grommet';
 import React, { useMemo } from 'react';
-
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Reorder from '../../shared/react-pure/Reorder';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
-import { noGroupLinksId } from '../../store/links/linksNetwork';
+import { noGroupLinksId } from '../../store/link/linkNetwork';
 
-function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate }) {
+function GroupsOrder({ pageId, isLoadingPage, isUpdating, page, onFetch, onUpdate }) {
   const groups = useMemo(
     () => (page?.groups || []).filter(g => g.sortKey !== noGroupLinksId),
     [page]
   );
 
   useEffectOnce(() => {
-    onFetch(pageId);
+    onFetch({ itemId: pageId });
   });
 
   return (
     <>
-      <AppBar title="Order groups" isLoading={isLoading} hasBack />
+      <AppBar title="Order groups" isLoading={isLoadingPage || isUpdating} hasBack />
       <ContentWrapper>
         {!!page && (
           <>
@@ -30,8 +29,9 @@ function GroupsOrder({ params: { pageId }, isLoading, page, onFetch, onUpdate })
               items={groups}
               onReorder={({ itemId, newPosition, onSucceeded }) => {
                 onUpdate({
-                  pageId,
-                  groupId: itemId,
+                  id: pageId,
+                  page,
+                  itemId,
                   position: newPosition,
                   onSucceeded,
                 });

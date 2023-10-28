@@ -9,6 +9,7 @@ import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
 import AppVersion from '../../shared/react/AppVersion';
 import ChangeTheme from '../../shared/react/ChangeTheme';
+import { privacyUrl, termsUrl } from '../../shared/react/initShared';
 import PaymentStatus from '../../shared/react/PaymentStatus';
 import RouteLink from '../../shared/react/RouteLink';
 
@@ -42,6 +43,10 @@ function Account({ account, isLoadingAccount }) {
             <RouteLink label="Pricing" to="/pricing" />
             <Spacer />
             <RouteLink label="Buy tickets" to="/tickets" />
+            <Spacer />
+            <Anchor label="Privacy" href={privacyUrl} target="_blank" />
+            <Spacer />
+            <Anchor label="Terms" href={termsUrl} target="_blank" />
             <Spacer />
             <Anchor label="Contact" href="https://encrypt37.com/contact" target="_blank" />
             <Spacer />

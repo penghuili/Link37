@@ -1,17 +1,17 @@
 import { connect } from 'react-redux';
-
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { pageActions, pageSelectors } from '../../store/page/pageStore';
 import PageUpdate from './PageUpdate';
 
-const mapStateToProps = state => ({
-  isLoading: linksSelectors.isLoading(state),
-  page: linksSelectors.getDetails(state),
+const mapStateToProps = (state, { params: { pageId } }) => ({
+  pageId,
+  page: pageSelectors.data.getStandaloneItem(state),
+  isLoading: pageSelectors.fetchItem.isPending(state),
+  isUpdating: pageSelectors.updateItem.isPending(state),
 });
 
 const mapDispatchToProps = {
-  onFetch: linksActionCreators.fetchPageRequested,
-  onUpdate: linksActionCreators.updatePagePressed,
+  onFetch: pageActions.fetchItemRequested,
+  onUpdate: pageActions.updateRequested,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(PageUpdate);

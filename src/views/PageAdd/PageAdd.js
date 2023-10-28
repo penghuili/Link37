@@ -1,6 +1,5 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
-
 import { LAYOUT } from '../../lib/constants';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
@@ -8,13 +7,13 @@ import InputField from '../../shared/react-pure/InputField';
 import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
 
-function PageAdd({ isLoading, onCreate }) {
+function PageAdd({ isCreating, onCreate }) {
   const [title, setTitle] = useState('');
   const [note, setNote] = useState('');
 
   return (
     <>
-      <AppBar title="Add page" hasBack />
+      <AppBar title="Add page" hasBack isLoading={isCreating} />
       <ContentWrapper>
         <InputField label="Title" placeholder="Title" value={title} onChange={setTitle} />
 
@@ -30,10 +29,12 @@ function PageAdd({ isLoading, onCreate }) {
               note,
               showIndex: false,
               layout: LAYOUT.INLINE,
+              showNote: false,
+              goBack: true,
             };
             onCreate(body);
           }}
-          disabled={!title || isLoading}
+          disabled={!title || isCreating}
         />
       </ContentWrapper>
     </>

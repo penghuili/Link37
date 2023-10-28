@@ -1,15 +1,11 @@
 import { connect } from 'react-redux';
-
-import { linksActionCreators } from '../../store/links/linksActions';
-import { linksSelectors } from '../../store/links/linksSelectors';
+import { pageSelectors } from '../../store/page/pageStore';
 import GroupSelector from './GroupSelector';
 
 const mapStateToProps = state => ({
-  page: linksSelectors.getDetails(state),
+  page: pageSelectors.data.getStandaloneItem(state),
 });
 
-const mapDispatchToProps = {
-  onFetchPage: linksActionCreators.fetchPageRequested,
-};
+const mapDispatchToProps = {};
 
 export default connect(mapStateToProps, mapDispatchToProps)(GroupSelector);

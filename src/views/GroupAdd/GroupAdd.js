@@ -1,22 +1,21 @@
 import { Button } from 'grommet';
 import React, { useState } from 'react';
-
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
 import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 
-function GroupAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
+function GroupAdd({ pageId, page, isLoadingPage, isCreating, onFetch, onCreate }) {
   const [title, setTitle] = useState('');
 
   useEffectOnce(() => {
-    onFetch(pageId);
+    onFetch({ itemId: pageId });
   });
 
   return (
     <>
-      <AppBar title="Add group" hasBack />
+      <AppBar title="Add group" hasBack isLoading={isLoadingPage || isCreating} />
       <ContentWrapper>
         <InputField label="Title" placeholder="Title" value={title} onChange={setTitle} />
 
@@ -24,13 +23,14 @@ function GroupAdd({ params: { pageId }, isLoading, onFetch, onCreate }) {
         <Button
           label="Create group"
           onClick={() => {
-            const body = {
-              pageId,
+            onCreate({
+              id: pageId,
+              page,
               title,
-            };
-            onCreate(body);
+              goBack: true,
+            });
           }}
-          disabled={!title || isLoading}
+          disabled={!page || !title || isCreating}
         />
       </ContentWrapper>
     </>
