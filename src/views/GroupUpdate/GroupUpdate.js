@@ -42,6 +42,8 @@ function GroupUpdate({
               goBack: true,
             });
           }}
+          primary
+          color="brand"
           disabled={!title || isUpdating}
         />
       </ContentWrapper>

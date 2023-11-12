@@ -1,5 +1,5 @@
 import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
-import apps from '../../shared/js/apps';
+import { apps } from '../../shared/js/apps';
 import { decryptMessageSymmetric, encryptMessageSymmetric } from '../../shared/js/encryption';
 import HTTP from '../../shared/react/HTTP';
 
@@ -142,13 +142,14 @@ export async function decryptLinkContent(decryptedPassword, link) {
 
 export function groupLinks(page) {
   const groupsObj = {};
-  page.groups.forEach(g => {
+  const filteredGroups = (page.groups || []).filter(g => g.sortKey !== noGroupLinksId);
+  filteredGroups.forEach(g => {
     groupsObj[g.sortKey] = { ...g, links: [] };
   });
   const noGroupLinks = [];
   const popularLinks = [];
 
-  page.links.forEach(link => {
+  (page.links || []).forEach(link => {
     if (groupsObj[link.groupId]) {
       groupsObj[link.groupId].links.push(link);
     } else {
@@ -160,7 +161,7 @@ export function groupLinks(page) {
     }
   });
 
-  const groups = page.groups.map(g => groupsObj[g.sortKey]);
+  const groups = filteredGroups.map(g => groupsObj[g.sortKey]);
   groups.push({ title: 'Links without group', sortKey: noGroupLinksId, links: noGroupLinks });
 
   const popular = popularLinks.sort((a, b) => b.times - a.times).slice(0, 10);

@@ -109,6 +109,8 @@ function LinkAdd({
               goBack: true,
             });
           }}
+          primary
+          color="brand"
           disabled={!title || !url || isCreating}
         />
       </ContentWrapper>

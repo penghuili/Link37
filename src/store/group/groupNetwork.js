@@ -1,4 +1,4 @@
-import apps from '../../shared/js/apps';
+import { apps } from '../../shared/js/apps';
 import { decryptMessageSymmetric, encryptMessageSymmetric } from '../../shared/js/encryption';
 import HTTP from '../../shared/react/HTTP';
 

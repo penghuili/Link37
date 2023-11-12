@@ -1,6 +1,5 @@
 import { Anchor, Avatar, Heading } from 'grommet';
 import React from 'react';
-import Examples from '../../components/Examples';
 import Pitch from '../../components/Pitch';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';
@@ -21,8 +20,6 @@ function Welcome() {
           </Heading>
         </HorizontalCenter>
         <Pitch />
-        <Spacer />
-        <Examples />
         <Spacer size="2rem" />
 
         <RouteLink to="/sign-up" label="Sign up" />

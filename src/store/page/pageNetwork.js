@@ -1,13 +1,13 @@
 import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
-import apps from '../../shared/js/apps';
-import asyncForEach from '../../shared/js/asyncForEach';
+import { apps } from '../../shared/js/apps';
+import { asyncForEach } from '../../shared/js/asyncForEach';
 import {
   decryptMessage,
   decryptMessageSymmetric,
   encryptMessage,
   encryptMessageSymmetric,
 } from '../../shared/js/encryption';
-import generatePassword from '../../shared/js/generatePassword';
+import { generatePassword } from '../../shared/js/generatePassword';
 import HTTP from '../../shared/react/HTTP';
 import { createItemsCache } from '../../shared/react/cacheItems';
 import { decryptGroupContent } from '../group/groupNetwork';

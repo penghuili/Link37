@@ -106,6 +106,7 @@ function PageDetails({
               >
                 <Group
                   pageId={pageId}
+                  page={page}
                   group={{ title: `Top ${page.popular.length} links 🔥`, links: page.popular }}
                   showClickedTimes
                   onDelete={onDeleteGroup}
@@ -121,6 +122,7 @@ function PageDetails({
               <Group
                 key={group.sortKey}
                 pageId={pageId}
+                page={page}
                 group={group}
                 showMenu
                 onDelete={onDeleteGroup}

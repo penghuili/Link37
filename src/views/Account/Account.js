@@ -1,6 +1,6 @@
 import { Anchor, Spinner, Text } from 'grommet';
 import React from 'react';
-import apps from '../../shared/js/apps';
+import { apps } from '../../shared/js/apps';
 import { formatDateTime } from '../../shared/js/date';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';

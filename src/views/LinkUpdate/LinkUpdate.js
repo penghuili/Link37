@@ -120,6 +120,8 @@ function LinkUpdate({
             };
             onUpdate(body);
           }}
+          primary
+          color="brand"
           disabled={!title || !url || isUpdating}
         />
       </ContentWrapper>

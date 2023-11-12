@@ -30,6 +30,8 @@ function GroupAdd({ pageId, page, isLoadingPage, isCreating, onFetch, onCreate }
               goBack: true,
             });
           }}
+          primary
+          color="brand"
           disabled={!page || !title || isCreating}
         />
       </ContentWrapper>

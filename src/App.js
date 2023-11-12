@@ -2,7 +2,7 @@ import React from 'react';
 import { Provider as StoreProvider, useDispatch } from 'react-redux';
 import { useLocation } from 'wouter';
 import Router from './router';
-import apps from './shared/js/apps';
+import { apps } from './shared/js/apps';
 import createTheme from './shared/react-pure/createTheme';
 import AppContainer from './shared/react/AppContainer';
 import Toast from './shared/react/Toast';

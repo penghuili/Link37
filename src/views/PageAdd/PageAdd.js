@@ -34,6 +34,8 @@ function PageAdd({ isCreating, onCreate }) {
             };
             onCreate(body);
           }}
+          primary
+          color="brand"
           disabled={!title || isCreating}
         />
       </ContentWrapper>

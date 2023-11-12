@@ -39,6 +39,8 @@ function PageUpdate({ pageId, isLoading, isUpdating, page, onFetch, onUpdate }) 
               goBack: true,
             });
           }}
+          primary
+          color="brand"
           disabled={!title || isUpdating}
         />
       </ContentWrapper>

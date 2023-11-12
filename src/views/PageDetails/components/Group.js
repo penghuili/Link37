@@ -35,7 +35,7 @@ function Group({
                 onClick: () => onNav(`/p/${pageId}/links/add?groupId=${group.sortKey}`),
                 margin: '0.25rem 0',
               },
-              ...(isMobile()
+              ...(isMobile() || !group?.links?.length
                 ? []
                 : [
                     {
@@ -57,7 +57,7 @@ function Group({
                     },
                   ]
                 : []),
-              ...(group.links.length > 1 && !isMobile()
+              ...(group?.links?.length > 1 && !isMobile()
                 ? [
                     {
                       label: 'Re-order',
@@ -93,7 +93,7 @@ function Group({
         )}
       </HorizontalCenter>
 
-      {group.links.length ? (
+      {group?.links?.length ? (
         <Box direction="row" wrap>
           {group.links.map(link => (
             <Link
