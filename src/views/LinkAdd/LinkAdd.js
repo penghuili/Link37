@@ -1,6 +1,7 @@
-import { Button, Image } from 'grommet';
 import React, { useEffect, useMemo, useState } from 'react';
 import GroupSelector from '../../components/GroupSelector';
+import { Button } from '../../pico-components/Button';
+import { Img } from '../../pico-components/Img';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
@@ -64,7 +65,7 @@ function LinkAdd({
       <AppBar title="Add link" isLoading={isLoadingPage || isCreating} hasBack />
       <ContentWrapper>
         {!!linkMeta?.iconLink && (
-          <Image src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />
+          <Img src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />
         )}
 
         <AreaField label="Link" placeholder="Link" value={url} onChange={setUrl} />
@@ -96,7 +97,6 @@ function LinkAdd({
         <GroupSelector groupId={groupIdInQuery} onChange={setGroupId} />
         <Spacer />
         <Button
-          label="Create link"
           onClick={() => {
             onCreate({
               id: pageId,
@@ -109,10 +109,10 @@ function LinkAdd({
               goBack: true,
             });
           }}
-          primary
-          color="brand"
           disabled={!title || !url || isCreating}
-        />
+        >
+          Create link
+        </Button>
       </ContentWrapper>
     </>
   );

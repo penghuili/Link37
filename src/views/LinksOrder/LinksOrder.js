@@ -1,4 +1,3 @@
-import { Heading } from 'grommet';
 import React from 'react';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Reorder from '../../shared/react-pure/Reorder';
@@ -16,9 +15,9 @@ function LinksOrder({ pageId, page, group, isLoadingPage, isUpdating, onFetch, o
       <ContentWrapper>
         {!!group && (
           <>
-            <Heading level="3" margin="0 0 1rem">
+            <h1>
               {group.title}
-            </Heading>
+            </h1>
             <Reorder
               items={group.links}
               onReorder={({ itemId, newPosition, onSucceeded }) => {

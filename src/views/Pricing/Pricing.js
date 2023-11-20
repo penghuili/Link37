@@ -1,22 +1,20 @@
-import { Text } from 'grommet';
 import React from 'react';
-
+import { RouteLink } from '../../pico-components/RouteLink';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import AppBar from '../../shared/react/AppBar';
-import RouteLink from '../../shared/react/RouteLink';
 
 function Pricing({ isLoggedIn }) {
   return (
     <>
       <AppBar title="Pricing" hasBack />
       <ContentWrapper>
-        <Text>You can try Link37 for free for 14 days.</Text>
-        <Text margin="0 0 1rem">After that, it's only $19 / year.</Text>
+        <p>You can try Link37 for free for 14 days.</p>
+        <p>After that, it's only $19 / year.</p>
 
         {isLoggedIn && (
-          <Text margin="0 0 1rem">
+          <p>
             You can buy tickets <RouteLink label="here" to="/tickets" />.
-          </Text>
+          </p>
         )}
       </ContentWrapper>
     </>

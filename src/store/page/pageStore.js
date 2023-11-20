@@ -241,7 +241,6 @@ const customReducer = (state = {}, action) => {
         payload: { data },
       } = action;
       const page = safeGet(state, [defaultId, 'data', 'item']);
-      console.log('page', page, data);
       if (page && page.sortKey === data.id) {
         const newPage = groupLinks({
           ...page,

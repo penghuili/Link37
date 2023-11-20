@@ -1,5 +1,5 @@
-import { Button } from 'grommet';
 import React, { useState } from 'react';
+import { Button } from '../../pico-components/Button';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
@@ -29,7 +29,6 @@ function PageUpdate({ pageId, isLoading, isUpdating, page, onFetch, onUpdate }) 
 
         <Spacer />
         <Button
-          label="Update"
           onClick={() => {
             onUpdate({
               itemId: pageId,
@@ -39,10 +38,10 @@ function PageUpdate({ pageId, isLoading, isUpdating, page, onFetch, onUpdate }) 
               goBack: true,
             });
           }}
-          primary
-          color="brand"
           disabled={!title || isUpdating}
-        />
+        >
+          Update
+        </Button>
       </ContentWrapper>
     </>
   );

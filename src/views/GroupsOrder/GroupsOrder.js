@@ -1,4 +1,3 @@
-import { Heading } from 'grommet';
 import React, { useMemo } from 'react';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Reorder from '../../shared/react-pure/Reorder';
@@ -22,9 +21,7 @@ function GroupsOrder({ pageId, isLoadingPage, isUpdating, page, onFetch, onUpdat
       <ContentWrapper>
         {!!page && (
           <>
-            <Heading level="3" margin="0 0 1rem">
-              {page.title}
-            </Heading>
+            <h1>{page.title}</h1>
             <Reorder
               items={groups}
               onReorder={({ itemId, newPosition, onSucceeded }) => {

@@ -1,6 +1,7 @@
-import { Button, Image } from 'grommet';
 import React, { useEffect, useMemo, useState } from 'react';
 import GroupSelector from '../../components/GroupSelector';
+import { Button } from '../../pico-components/Button';
+import { Img } from '../../pico-components/Img';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
@@ -56,11 +57,11 @@ function LinkUpdate({
 
   const iconElement = useMemo(() => {
     if (linkMeta?.iconLink) {
-      return <Image src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
+      return <Img src={linkMeta.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
     }
 
     if (link?.iconLink) {
-      return <Image src={link.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
+      return <Img src={link.iconLink} width="24px" height="24px" margin="0 0 1rem" />;
     }
 
     return null;
@@ -105,7 +106,6 @@ function LinkUpdate({
 
         <Spacer />
         <Button
-          label="Update"
           onClick={() => {
             const body = {
               id: pageId,
@@ -120,10 +120,10 @@ function LinkUpdate({
             };
             onUpdate(body);
           }}
-          primary
-          color="brand"
           disabled={!title || !url || isUpdating}
-        />
+        >
+          Update
+        </Button>
       </ContentWrapper>
     </>
   );

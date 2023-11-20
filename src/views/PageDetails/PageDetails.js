@@ -1,13 +1,14 @@
-import { Box, Heading, Menu, Text } from 'grommet';
-import { MoreVertical } from 'grommet-icons';
 import React from 'react';
 import ExpiredBanner from '../../components/ExpiredBanner';
-import { isMobile } from '../../lib/browser';
+import { Box } from '../../pico-components/Box';
+import { Href } from '../../pico-components/Href';
+import { Menu } from '../../pico-components/Menu';
+import { RouteLink } from '../../pico-components/RouteLink';
+import { Heading } from '../../pico-components/Typography';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';
 import HorizontalCenter from '../../shared/react-pure/HorizontalCenter';
 import AppBar from '../../shared/react/AppBar';
-import RouteLink from '../../shared/react/RouteLink';
 import { useEffectOnce } from '../../shared/react/hooks/useEffectOnce';
 import Group from './components/Group';
 
@@ -52,16 +53,11 @@ function PageDetails({
       <ContentWrapper>
         <ExpiredBanner />
 
-        {!!fetchError && <Text size="large">{fetchError}</Text>}
+        {!!fetchError && <p>{fetchError}</p>}
 
         <HorizontalCenter margin="0 0 1rem">
-          <RouteLink
-            to={`/p/${pageId}/links/add`}
-            label="Create link"
-            color="status-ok"
-            margin="0 1rem 0 0"
-          />
-          <RouteLink to={`/p/${pageId}/groups/add`} label="Create group" color="status-ok" />
+          <RouteLink to={`/p/${pageId}/links/add`} label="Create link" margin="0 1rem 0 0" />
+          <RouteLink to={`/p/${pageId}/groups/add`} label="Create group" />
         </HorizontalCenter>
 
         <Divider />
@@ -70,40 +66,38 @@ function PageDetails({
           <>
             <HorizontalCenter margin="1rem 0">
               <Heading margin="0">{page.title}</Heading>
-              <Menu
-                icon={<MoreVertical />}
-                items={[
-                  {
-                    label: 'Update',
-                    onClick: () => onNav(`/p/${pageId}/update`),
-                    margin: '0.25rem 0',
-                  },
-                  ...(isMobile()
-                    ? []
-                    : [
-                        {
-                          label: 'Re-order groups',
-                          onClick: () => onNav(`/p/${pageId}/groups/order`),
-                          margin: '0.25rem 0',
-                        },
-                      ]),
-                  {
-                    label: 'Delete',
-                    onClick: () => onDeletePage({ itemId: pageId, goBack: true }),
-                    margin: '0.25rem 0',
-                    color: 'status-critical',
-                  },
-                ]}
-              />
+              <Menu>
+                <Href
+                  label="Update"
+                  onClick={e => {
+                    e.preventDefault();
+                    onNav(`/p/${pageId}/update`);
+                  }}
+                  margin="0.5rem 0"
+                />
+
+                <Href
+                  label="Re-order groups"
+                  onClick={e => {
+                    e.preventDefault();
+                    onNav(`/p/${pageId}/groups/order`);
+                  }}
+                  margin="0.5rem 0"
+                />
+
+                <Href
+                  label="Delete"
+                  onClick={e => {
+                    e.preventDefault();
+                    onDeletePage({ itemId: pageId, goBack: true });
+                  }}
+                  margin="0.5rem 0"
+                />
+              </Menu>
             </HorizontalCenter>
 
             {page.popular?.length > 1 && (
-              <Box
-                border={{ color: 'status-ok' }}
-                round="xsmall"
-                pad="1rem 1rem 0"
-                margin="0 0 1.5rem"
-              >
+              <Box border="success" borderRadius pad="1rem 1rem 0" margin="0 0 1.5rem">
                 <Group
                   pageId={pageId}
                   page={page}

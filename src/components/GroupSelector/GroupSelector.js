@@ -1,13 +1,13 @@
-import { Select, Text } from 'grommet';
 import React, { useEffect, useState } from 'react';
+import { Select } from '../../pico-components/Select';
 
 function GroupSelector({ groupId, page, disabled, onChange }) {
-  const [value, setValue] = useState(null);
+  const [selectedGroupId, setSelectedGroupId] = useState(null);
 
   useEffect(() => {
     if (groupId && page?.groups) {
       const found = page.groups.find(g => g.sortKey === groupId);
-      setValue(found);
+      setSelectedGroupId(found ? groupId : null);
     }
   }, [groupId, page]);
 
@@ -16,21 +16,18 @@ function GroupSelector({ groupId, page, disabled, onChange }) {
   }
 
   return (
-    <>
-      <Text weight="bold">Group</Text>
-      <Select
-        options={page.groups}
-        value={value}
-        onChange={({ option }) => {
-          setValue(option);
-          onChange(option.sortKey);
-        }}
-        labelKey="title"
-        valueKey="sortKey"
-        placeholder="Select group"
-        disabled={disabled}
-      />
-    </>
+    <Select
+      label="Group"
+      options={page.groups}
+      value={selectedGroupId}
+      onChange={value => {
+        setSelectedGroupId(value);
+        onChange(value);
+      }}
+      valueKey="sortKey"
+      renderItem={group => group.title}
+      disabled={disabled}
+    />
   );
 }
 

@@ -1,7 +1,6 @@
-import { Box, Text } from 'grommet';
 import React from 'react';
-
-import RouteLink from '../../shared/react/RouteLink';
+import { Box } from '../../pico-components/Box';
+import { RouteLink } from '../../pico-components/RouteLink';
 
 function ExpiredBanner({ isExpired }) {
   if (!isExpired) {
@@ -9,12 +8,11 @@ function ExpiredBanner({ isExpired }) {
   }
 
   return (
-    <Box border={{ color: 'status-critical' }} margin="1rem 0" pad="1rem">
-      <Text>Your account is expired.</Text>
-      <Text margin="1rem 0">You can't view your pages and links anymore.</Text>
-      <Text>
+    <Box border="critical" margin="0 0 1rem" pad="1rem">
+      <p>Your account is expired.</p>
+      <p>
         You can buy a ticket <RouteLink label="here" to="/tickets" />.
-      </Text>
+      </p>
     </Box>
   );
 }

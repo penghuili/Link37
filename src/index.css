@@ -1,0 +1,95 @@
+[data-theme='light'],
+:root:not([data-theme='dark']) {
+  --primary: #d2356e;
+  --primary-hover: #c02d62;
+  --primary-focus: rgba(210, 53, 110, 0.25);
+}
+
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary: #d2356e;
+    --primary-hover: #c02d62;
+    --primary-focus: rgba(210, 53, 110, 0.25);
+    --background-color: #1e1e1e;
+  }
+}
+
+[data-theme='dark'] {
+  --primary: #d2356e;
+  --primary-hover: #c02d62;
+  --primary-focus: rgba(210, 53, 110, 0.25);
+  --background-color: #1e1e1e;
+}
+
+:root {
+  --form-element-active-border-color: var(--primary);
+  --switch-checked-background-color: var(--primary);
+}
+
+button {
+  width: auto;
+}
+
+@import '../node_modules/@picocss/pico/css/pico.min.css';
+
+/* flex */
+.flex {
+  display: flex;
+}
+.flexRow {
+  flex-direction: row;
+}
+.flexColumn {
+  flex-direction: column;
+}
+.flexWrap {
+  flex-wrap: wrap;
+}
+.justifyConter {
+  justify-content: center;
+}
+.justifyStart {
+  justify-content: flex-start;
+}
+.justifyEnd {
+  justify-content: flex-end;
+}
+.justifyBetween {
+  justify-content: space-between;
+}
+.alignCenter {
+  align-items: center;
+}
+.alignStart {
+  align-items: flex-start;
+}
+.alignEnd {
+  align-items: flex-end;
+}
+.alignBaseline {
+  align-items: baseline;
+}
+
+.border {
+  border: 1px solid var(--form-element-border-color);
+}
+.borderSuccess {
+  border-color: var(--ins-color);
+}
+.borderCritical {
+  border: 1px solid var(--del-color);
+}
+.borderRadius {
+  border-radius: 8px;
+}
+
+/* context menu */
+.context-menu {
+  position: fixed;
+  display: none;
+  z-index: 999;
+  padding: 0.5rem;
+  flex-direction: column;
+  background-color: var(--background-color);
+  box-shadow: var(--dropdown-box-shadow);
+}

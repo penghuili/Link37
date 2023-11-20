@@ -1,6 +1,7 @@
-import { Button, Heading } from 'grommet';
 import React from 'react';
 import TryForFree from '../../components/TryForFree';
+import { Button } from '../../pico-components/Button';
+import { Heading } from '../../pico-components/Typography';
 import { apps } from '../../shared/js/apps';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Spacer from '../../shared/react-pure/Spacer';
@@ -15,14 +16,9 @@ function Expired({ isTrying, onTry }) {
         <TryForFree />
         <Spacer size="2rem" />
 
-        <Button
-          label="Start trying"
-          size="large"
-          primary
-          color="brand"
-          onClick={() => onTry(apps.link37.name)}
-          disabled={isTrying}
-        />
+        <Button onClick={() => onTry(apps.link37.name)} disabled={isTrying}>
+          Start trying
+        </Button>
       </ContentWrapper>
     </>
   );

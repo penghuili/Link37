@@ -1,6 +1,6 @@
-import { Spinner } from 'grommet';
 import React from 'react';
 import { Redirect, Route, Switch } from 'wouter';
+import { Spinner } from '../pico-components/Spinner';
 import HorizontalCenter from '../shared/react-pure/HorizontalCenter';
 import ChangePassword from '../shared/react/ChangePassword';
 import Security from '../shared/react/Security';
@@ -29,7 +29,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, tried, 
   if (isCheckingRefreshToken || isLoadingSettings) {
     return (
       <HorizontalCenter justify="center" margin="3rem 0 0">
-        <Spinner size="large" />
+        <Spinner large />
       </HorizontalCenter>
     );
   }

@@ -1,17 +1,17 @@
-import { Text, Anchor } from 'grommet';
 import React from 'react';
-import RouteLink from '../shared/react/RouteLink';
 import { useLocation } from 'wouter';
+import { Href } from '../pico-components/Href';
+import { RouteLink } from '../pico-components/RouteLink';
 
 function Pitch({ showHome }) {
   const [location] = useLocation();
 
   return (
     <>
-      <Text margin="0 0 1rem">
+      <p>
         Your browser's start page.{' '}
-        <Anchor label="Encrypted" href="https://encrypt37.com/encryption" target="_blank" />.
-      </Text>
+        <Href label="Encrypted" href="https://encrypt37.com/encryption" />.
+      </p>
       {showHome && location !== '/' && <RouteLink label="← Back to Home" to="/" />}
     </>
   );

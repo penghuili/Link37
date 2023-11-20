@@ -1,5 +1,5 @@
-import { Button } from 'grommet';
 import React, { useState } from 'react';
+import { Button } from '../../pico-components/Button';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
 import Spacer from '../../shared/react-pure/Spacer';
@@ -21,7 +21,6 @@ function GroupAdd({ pageId, page, isLoadingPage, isCreating, onFetch, onCreate }
 
         <Spacer />
         <Button
-          label="Create group"
           onClick={() => {
             onCreate({
               id: pageId,
@@ -30,10 +29,10 @@ function GroupAdd({ pageId, page, isLoadingPage, isCreating, onFetch, onCreate }
               goBack: true,
             });
           }}
-          primary
-          color="brand"
           disabled={!page || !title || isCreating}
-        />
+        >
+          Create group
+        </Button>
       </ContentWrapper>
     </>
   );

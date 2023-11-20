@@ -1,6 +1,7 @@
-import { Anchor, Heading, Text } from 'grommet';
 import { Copy } from 'grommet-icons';
 import React from 'react';
+import { Href } from '../../pico-components/Href';
+import { Heading } from '../../pico-components/Typography';
 import { apps } from '../../shared/js/apps';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';
@@ -14,8 +15,8 @@ function Tickets({ account, isLoading, onToast }) {
     <>
       <AppBar title="Buy tickets" isLoading={isLoading} hasBack />
       <ContentWrapper>
-        <Text>You can try Link37 for free for 14 days.</Text>
-        <Text margin="0 0 1rem">After that, it's only $19 / year.</Text>
+        <p>You can try Link37 for free for 14 days.</p>
+        <p>After that, it's only $19 / year.</p>
 
         <Divider />
 
@@ -29,12 +30,10 @@ function Tickets({ account, isLoading, onToast }) {
               Buy ticket
             </Heading>
 
-            <Text margin="1rem 0 0">You can buy ticket at my stripe page.</Text>
+            <p>You can buy ticket at my stripe page.</p>
 
-            <Text margin="1rem 0 0">
-              1. Please add your username to the "Your Link37 username" field when checkout.
-            </Text>
-            <Text margin="1rem 0 0">
+            <p>1. Please add your username to the "Your Link37 username" field when checkout.</p>
+            <p>
               Your username: {account.username}{' '}
               <Copy
                 onClick={() => {
@@ -42,18 +41,13 @@ function Tickets({ account, isLoading, onToast }) {
                   onToast('Copied!');
                 }}
               />
-            </Text>
+            </p>
 
-            <Text margin="1rem 0 0">
-              2.{' '}
-              <Anchor
-                label="Buy 1 year ticket for $19"
-                href={process.env.REACT_APP_STRIPE_URL}
-                target="_blank"
-              />
-            </Text>
+            <p>
+              2. <Href label="Buy 1 year ticket for $19" href={process.env.REACT_APP_STRIPE_URL} />
+            </p>
 
-            <Text margin="1rem 0 0">3. After payment, come back to this page and refresh.</Text>
+            <p>3. After payment, come back to this page and refresh.</p>
           </>
         )}
       </ContentWrapper>

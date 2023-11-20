@@ -1,6 +1,6 @@
-import { Button } from 'grommet';
 import React, { useState } from 'react';
 import { LAYOUT } from '../../lib/constants';
+import { Button } from '../../pico-components/Button';
 import AreaField from '../../shared/react-pure/AreaField';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import InputField from '../../shared/react-pure/InputField';
@@ -22,7 +22,6 @@ function PageAdd({ isCreating, onCreate }) {
 
         <Spacer />
         <Button
-          label="Create page"
           onClick={() => {
             const body = {
               title,
@@ -34,10 +33,10 @@ function PageAdd({ isCreating, onCreate }) {
             };
             onCreate(body);
           }}
-          primary
-          color="brand"
           disabled={!title || isCreating}
-        />
+        >
+          Create page
+        </Button>
       </ContentWrapper>
     </>
   );

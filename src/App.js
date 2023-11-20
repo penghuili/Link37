@@ -1,6 +1,7 @@
 import React from 'react';
 import { Provider as StoreProvider, useDispatch } from 'react-redux';
 import { useLocation } from 'wouter';
+import { PicoWrapper } from './pico-components/PicoWrapper';
 import Router from './router';
 import { apps } from './shared/js/apps';
 import createTheme from './shared/react-pure/createTheme';
@@ -25,11 +26,13 @@ const theme = createTheme('#D2356E');
 function App() {
   return (
     <StoreProvider store={store}>
-      <AppContainer theme={theme}>
-        <Router />
+      <PicoWrapper>
+        <AppContainer theme={theme}>
+          <Router />
 
-        <Toast />
-      </AppContainer>
+          <Toast />
+        </AppContainer>
+      </PicoWrapper>
       <HooksOutsieWrapper />
     </StoreProvider>
   );
