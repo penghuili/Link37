@@ -48,7 +48,7 @@ function Tickets({ account, isLoading, onToast }) {
               2.{' '}
               <Anchor
                 label="Buy 1 year ticket for $19"
-                href={process.env.REACT_APP_STRIPE_URL}
+                href={process.env.REACT_APP_LINK37_STRIPE_URL}
                 target="_blank"
               />
             </Text>
