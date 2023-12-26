@@ -10,7 +10,7 @@ import AppVersion from '../../shared/react/AppVersion';
 import ChangeTheme from '../../shared/react/ChangeTheme';
 import PaymentStatus from '../../shared/react/PaymentStatus';
 import RouteLink from '../../shared/react/RouteLink';
-import { privacyUrl, termsUrl } from '../../shared/react/initShared';
+import { encryptionUrl, privacyUrl, termsUrl } from '../../shared/react/initShared';
 
 function Account({ account, isLoadingAccount }) {
   return (
@@ -33,11 +33,7 @@ function Account({ account, isLoadingAccount }) {
             <Spacer />
             <Divider />
             <Spacer />
-            <Anchor
-              label="How encryption works?"
-              href="https://encrypt37.com/encryption"
-              target="_blank"
-            />
+            <Anchor label="How encryption works?" href={encryptionUrl} target="_blank" />
             <Spacer />
             <Anchor
               label="Source code"
@@ -53,7 +49,7 @@ function Account({ account, isLoadingAccount }) {
             <Spacer />
             <Anchor label="Terms" href={termsUrl} target="_blank" />
             <Spacer />
-            <Anchor label="Contact" href="https://encrypt37.com/contact" target="_blank" />
+            <Anchor label="Contact" href="https://peng37.com/contact" target="_blank" />
             <Spacer />
             <Divider />
             <Spacer />
