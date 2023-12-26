@@ -8,6 +8,7 @@ import Spacer from '../../shared/react-pure/Spacer';
 import AppBar from '../../shared/react/AppBar';
 import AppVersion from '../../shared/react/AppVersion';
 import ChangeTheme from '../../shared/react/ChangeTheme';
+import OneAccountFor from '../../shared/react/OneAccountFor';
 import PaymentStatus from '../../shared/react/PaymentStatus';
 import RouteLink from '../../shared/react/RouteLink';
 import { encryptionUrl, privacyUrl, termsUrl } from '../../shared/react/initShared';
@@ -52,6 +53,8 @@ function Account({ account, isLoadingAccount }) {
             <Anchor label="Contact" href="https://peng37.com/contact" target="_blank" />
             <Spacer />
             <Divider />
+            <Spacer />
+            <OneAccountFor app={apps.link37.name} />
             <Spacer />
             <AppVersion />
           </>
