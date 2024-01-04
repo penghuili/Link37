@@ -1,6 +1,6 @@
 import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStorage';
 import { apps } from '../../shared/js/apps';
-import { asyncForEach } from '../../shared/js/asyncForEach';
+import { asyncForAll } from '../../shared/js/asyncForAll';
 import {
   decryptMessage,
   decryptMessageSymmetric,
@@ -14,10 +14,9 @@ export async function fetchPages() {
   try {
     const pages = await HTTP.get(apps.link37.name, `/v1/pages`);
 
-    const decryptedPages = [];
-    await asyncForEach(pages, async page => {
+    const decryptedPages = await asyncForAll(pages, async page => {
       const decrypted = await decryptPageContent(page);
-      decryptedPages.push(decrypted);
+      return decrypted;
     });
 
     return { data: decryptedPages, error: null };
@@ -37,16 +36,14 @@ export async function fetchPage(pageId) {
 
     const decryptedPage = await decryptPageContent(page);
 
-    const decryptedLinks = [];
-    await asyncForEach(page?.links, async link => {
+    const decryptedLinks = await asyncForAll(page?.links, async link => {
       const decrypted = await decryptLinkContent(decryptedPage.decryptedPassword, link);
-      decryptedLinks.push(decrypted);
+      return decrypted;
     });
 
-    const decryptedGroups = [];
-    await asyncForEach(page?.groups, async group => {
+    const decryptedGroups = await asyncForAll(page?.groups, async group => {
       const decrypted = await decryptGroupContent(decryptedPage.decryptedPassword, group);
-      decryptedGroups.push(decrypted);
+      return decrypted;
     });
 
     const groupedPage = groupLinks({

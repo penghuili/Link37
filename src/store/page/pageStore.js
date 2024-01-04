@@ -1,8 +1,7 @@
-import { call, put, select, takeLatest } from 'redux-saga/effects';
+import { call, put, select } from 'redux-saga/effects';
 import { prepend, safeGet, safeSet } from '../../shared/js/object';
 import { orderByPosition } from '../../shared/js/position';
-import { idbStorage } from '../../shared/react/indexDB';
-import { sharedActionCreators, sharedActionTypes } from '../../shared/react/store/sharedActions';
+import { sharedActionCreators } from '../../shared/react/store/sharedActions';
 import sharedSelectors from '../../shared/react/store/sharedSelectors';
 import {
   createDataSelectors,
@@ -280,12 +279,6 @@ const customReducer = (state = {}, action) => {
   }
 };
 
-function* customSaga() {
-  yield takeLatest(sharedActionTypes.RESET, function* () {
-    yield call(idbStorage.clear);
-  });
-}
-
 export const pageActions = {
   fetchItemsRequested: actions.fetchItems.requested.action,
   fetchItemRequested: actions.fetchItem.requested.action,
@@ -317,4 +310,4 @@ export const pageReducer = mergeReducers([
   customReducer,
 ]);
 
-export const pageSagas = mergeSagas([saga, publicPageSaga, privatePageSaga, customSaga]);
+export const pageSagas = mergeSagas([saga, publicPageSaga, privatePageSaga]);
