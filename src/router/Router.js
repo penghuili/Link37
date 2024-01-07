@@ -22,10 +22,9 @@ import Pages from '../views/Pages';
 import PagesOrder from '../views/PagesOrder';
 import Pricing from '../views/Pricing';
 import Tickets from '../views/Tickets';
-import TryIt from '../views/TryIt'
 import Welcome from '../views/Welcome';
 
-function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, tried, isExpired }) {
+function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, isExpired }) {
   if (isCheckingRefreshToken || isLoadingSettings) {
     return (
       <HorizontalCenter justify="center" margin="3rem 0 0">
@@ -35,24 +34,10 @@ function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, tried, 
   }
 
   if (isLoggedIn) {
-    if (!tried) {
-      return <TryIt />;
-    }
-
-    if (isExpired) {
+    if (!isExpired) {
       return (
         <Switch>
-          <Route path="/account" component={Account} />
-          <Route path="/security" component={Security} />
-          <Route path="/security/2fa" component={Setup2FA} />
-          <Route path="/security/password" component={ChangePassword} />
-  
-          <Route path="/p/:pageId" component={PageDetails} />
-  
-          <Route path="/tickets" component={Tickets} />
-          <Route path="/pricing" component={Pricing} />
-  
-          <Route path="/" component={Pages} />
+          <Route path="/" component={Tickets} />
           <Route>{() => <Redirect to="/" />}</Route>
         </Switch>
       );

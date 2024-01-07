@@ -1,7 +1,6 @@
 import { Box, Heading, Menu, Text } from 'grommet';
 import { MoreVertical } from 'grommet-icons';
 import React from 'react';
-import ExpiredBanner from '../../components/ExpiredBanner';
 import { isMobile } from '../../lib/browser';
 import ContentWrapper from '../../shared/react-pure/ContentWrapper';
 import Divider from '../../shared/react-pure/Divider';
@@ -50,8 +49,6 @@ function PageDetails({
         hasBack
       />
       <ContentWrapper>
-        <ExpiredBanner />
-
         {!!fetchError && <Text size="large">{fetchError}</Text>}
 
         <HorizontalCenter margin="0 0 1rem">
