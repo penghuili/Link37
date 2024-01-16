@@ -4,7 +4,7 @@ import { asyncForAll } from '../../shared/js/asyncForAll';
 import {
   decryptMessage,
   decryptMessageSymmetric,
-  encryptMessage,
+  encryptMessageAsymmetric,
   encryptMessageSymmetric,
 } from '../../shared/js/encryption';
 import { generatePassword } from '../../shared/js/generatePassword';
@@ -89,7 +89,7 @@ export async function createPage({ title, note, showIndex, layout, showNote }) {
       { title, note },
       password
     );
-    const encryptedPassword = await encryptMessage(
+    const encryptedPassword = await encryptMessageAsymmetric(
       LocalStorage.get(sharedLocalStorageKeys.publicKey),
       password
     );
