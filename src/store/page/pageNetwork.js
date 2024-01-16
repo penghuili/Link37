@@ -2,7 +2,7 @@ import { LocalStorage, sharedLocalStorageKeys } from '../../shared/js/LocalStora
 import { apps } from '../../shared/js/apps';
 import { asyncForAll } from '../../shared/js/asyncForAll';
 import {
-  decryptMessage,
+  decryptMessageAsymmetric,
   decryptMessageSymmetric,
   encryptMessageAsymmetric,
   encryptMessageSymmetric,
@@ -194,7 +194,7 @@ async function decryptPageContent(page) {
   const { title, note, isPublic, password } = page;
 
   const privateKey = LocalStorage.get(sharedLocalStorageKeys.privateKey);
-  const decryptedPassword = isPublic ? password : await decryptMessage(privateKey, password);
+  const decryptedPassword = isPublic ? password : await decryptMessageAsymmetric(privateKey, password);
   const decryptedTitle = await decryptMessageSymmetric(decryptedPassword, title);
   const decryptedNote = note ? await decryptMessageSymmetric(decryptedPassword, note) : null;
 
