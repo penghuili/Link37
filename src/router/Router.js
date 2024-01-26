@@ -34,7 +34,7 @@ function Router({ isCheckingRefreshToken, isLoggedIn, isLoadingSettings, isExpir
   }
 
   if (isLoggedIn) {
-    if (!isExpired) {
+    if (isExpired) {
       return (
         <Switch>
           <Route path="/" component={Tickets} />
