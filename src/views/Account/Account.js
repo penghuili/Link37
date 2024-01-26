@@ -24,7 +24,7 @@ function Account({ account, isLoadingAccount }) {
             <Text margin="0 0 1rem">Username: {account.username}</Text>
             <Text margin="0 0 1rem">User ID: {account.userId}</Text>
             <Text margin="0 0 1rem">Created at: {formatDateTime(account.createdAt)}</Text>
-            <PaymentStatus app={apps.link37.name} showBuyButton />
+            <PaymentStatus app={apps.Link37.name} showBuyButton />
             <Divider />
             <Spacer />
             <ChangeTheme />
@@ -54,7 +54,7 @@ function Account({ account, isLoadingAccount }) {
             <Spacer />
             <Divider />
             <Spacer />
-            <OneAccountForAll app={apps.link37.name} />
+            <OneAccountForAll app={apps.Link37.name} />
             <Spacer />
             <AppVersion />
           </>

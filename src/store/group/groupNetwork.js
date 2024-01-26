@@ -6,7 +6,7 @@ export async function createGroup(decryptedPassword, pageId, { title }) {
   try {
     const { title: encryptedTitle } = await encryptGroupContent({ title }, decryptedPassword);
 
-    const group = await HTTP.post(apps.link37.name, `/v1/pages/${pageId}/groups`, {
+    const group = await HTTP.post(apps.Link37.name, `/v1/pages/${pageId}/groups`, {
       title: encryptedTitle,
     });
 
@@ -22,7 +22,7 @@ export async function updateGroup(decryptedPassword, pageId, groupId, { title, p
   try {
     const { title: encryptedTitle } = await encryptGroupContent({ title }, decryptedPassword);
 
-    const group = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/groups/${groupId}`, {
+    const group = await HTTP.put(apps.Link37.name, `/v1/pages/${pageId}/groups/${groupId}`, {
       title: encryptedTitle,
       position,
     });
@@ -38,7 +38,7 @@ export async function updateGroup(decryptedPassword, pageId, groupId, { title, p
 export async function deleteGroup(pageId, groupId, includeLinks) {
   try {
     const result = await HTTP.delete(
-      apps.link37.name,
+      apps.Link37.name,
       `/v1/pages/${pageId}/groups/${groupId}${includeLinks ? '?links=1' : ''}`
     );
 

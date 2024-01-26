@@ -17,7 +17,7 @@ export const pageCache = createItemsCache('link37-page');
 
 export async function fetchPages() {
   try {
-    const pages = await HTTP.get(apps.link37.name, `/v1/pages`);
+    const pages = await HTTP.get(apps.Link37.name, `/v1/pages`);
 
     const decryptedPages = await asyncForAll(pages, async page => {
       const decrypted = await decryptPageContent(page);
@@ -38,8 +38,8 @@ export async function fetchPage(pageId) {
       LocalStorage.get(sharedLocalStorageKeys.refreshToken) &&
       LocalStorage.get(sharedLocalStorageKeys.accessToken);
     const page = hasToken
-      ? await HTTP.get(apps.link37.name, `/v1/pages/${pageId}`)
-      : await HTTP.publicGet(apps.link37.name, `/v1/pages/${pageId}`);
+      ? await HTTP.get(apps.Link37.name, `/v1/pages/${pageId}`)
+      : await HTTP.publicGet(apps.Link37.name, `/v1/pages/${pageId}`);
 
     const decryptedPage = await decryptPageContent(page);
 
@@ -94,7 +94,7 @@ export async function createPage({ title, note, showIndex, layout, showNote }) {
       password
     );
 
-    const page = await HTTP.post(apps.link37.name, `/v1/pages`, {
+    const page = await HTTP.post(apps.Link37.name, `/v1/pages`, {
       password: encryptedPassword,
       title: encryptedTitle,
       note: encryptedNote,
@@ -122,7 +122,7 @@ export async function updatePage(
       decryptedPassword
     );
 
-    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}`, {
+    const page = await HTTP.put(apps.Link37.name, `/v1/pages/${pageId}`, {
       title: encryptedTitle,
       note: encryptedNote,
       showIndex,
@@ -141,7 +141,7 @@ export async function updatePage(
 
 export async function publicPage(pageId, { password }) {
   try {
-    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/public`, {
+    const page = await HTTP.put(apps.Link37.name, `/v1/pages/${pageId}/public`, {
       password,
     });
 
@@ -155,7 +155,7 @@ export async function publicPage(pageId, { password }) {
 
 export async function privatePage(pageId) {
   try {
-    const page = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/private`);
+    const page = await HTTP.put(apps.Link37.name, `/v1/pages/${pageId}/private`);
 
     const decrypted = await decryptPageContent(page);
 
@@ -167,7 +167,7 @@ export async function privatePage(pageId) {
 
 export async function deletePage(pageId) {
   try {
-    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}`);
+    const result = await HTTP.delete(apps.Link37.name, `/v1/pages/${pageId}`);
 
     await pageCache.deleteCachedItem(pageId);
 

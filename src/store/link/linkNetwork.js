@@ -16,7 +16,7 @@ export async function createLink(
       iconLink: encryptedIconLink,
     } = await encryptLinkContent({ title, url, note, iconLink }, decryptedPassword);
 
-    const link = await HTTP.post(apps.link37.name, `/v1/pages/${pageId}/links`, {
+    const link = await HTTP.post(apps.Link37.name, `/v1/pages/${pageId}/links`, {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
@@ -46,7 +46,7 @@ export async function updateLink(
       iconLink: encryptedIconLink,
     } = await encryptLinkContent({ title, url, note, iconLink }, decryptedPassword);
 
-    const link = await HTTP.put(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}`, {
+    const link = await HTTP.put(apps.Link37.name, `/v1/pages/${pageId}/links/${linkId}`, {
       title: encryptedTitle,
       url: encryptedUrl,
       note: encryptedNote,
@@ -65,7 +65,7 @@ export async function updateLink(
 
 export async function deleteLink(pageId, linkId) {
   try {
-    const result = await HTTP.delete(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}`);
+    const result = await HTTP.delete(apps.Link37.name, `/v1/pages/${pageId}/links/${linkId}`);
 
     return { data: result, error: null };
   } catch (error) {
@@ -75,7 +75,7 @@ export async function deleteLink(pageId, linkId) {
 
 export async function fetchLinkMeta(link) {
   try {
-    const meta = await HTTP.post(apps.link37.name, `/v1/link-meta`, {
+    const meta = await HTTP.post(apps.Link37.name, `/v1/link-meta`, {
       link,
     });
 
@@ -92,7 +92,7 @@ export async function increaseLinkTimes(decryptedPassword, pageId, linkId) {
       LocalStorage.get(sharedLocalStorageKeys.accessToken);
 
     const putMethod = hasToken ? HTTP.put : HTTP.publicPut;
-    const link = await putMethod(apps.link37.name, `/v1/pages/${pageId}/links/${linkId}/times`);
+    const link = await putMethod(apps.Link37.name, `/v1/pages/${pageId}/links/${linkId}/times`);
 
     const decrypted = await decryptLinkContent(decryptedPassword, link);
 
